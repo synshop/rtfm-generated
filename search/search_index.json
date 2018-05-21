@@ -1,0 +1,164 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "SYNShop Docs\n\n\nHere you'll find information how stuff is set up.  The goal\nis to educate some one who wants to help out or to\nremind the person who set up what the did when \nthey forget ;)\n\n\n\n\nMkDocs (this site)\n\n\nMotion Eye\n\n\nLXD/c220\n\n\nFlatine\n\n\nLXD \n Member Boxes\n\n\nPi-Hole \n Stubby\n\n\nUnifi\n\n\nPritunl VPN", 
+            "title": "SYNShop Docs"
+        }, 
+        {
+            "location": "/#synshop-docs", 
+            "text": "Here you'll find information how stuff is set up.  The goal\nis to educate some one who wants to help out or to\nremind the person who set up what the did when \nthey forget ;)   MkDocs (this site)  Motion Eye  LXD/c220  Flatine  LXD   Member Boxes  Pi-Hole   Stubby  Unifi  Pritunl VPN", 
+            "title": "SYNShop Docs"
+        }, 
+        {
+            "location": "/docs/c220/", 
+            "text": "c220 and LXD\n\n\nSee \nmrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/docs/c220/#c220-and-lxd", 
+            "text": "See  mrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/docs/docs/", 
+            "text": "TBD", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/docs/#tbd", 
+            "text": "", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/flatline/", 
+            "text": "TBD", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/flatline/#tbd", 
+            "text": "", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/motioneye/", 
+            "text": "Motion Eye\n\n\nDIY Security camera software\n\n\nSee \nmotioneye install for ubuntu\n for more info.\n\n\nInstall is on these two containers:\n\n\n\n\nmotioneye\n\n\nmotioneye 2\n\n\n\n\nOn c220\n\n\nCreate the container as \nprovisioner\n user on 10.0.40.50:\n\n\n./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default\n\n\n\n\nthen get a root shell\n\n\nlxc exec motioneye2 -- /bin/bash\n\n\n\n\nAnd edit the \n.ssh/authorized_keys\n file so chen and mrjones can SSH in:\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com\n\n\n\n\nInstall motioneye\n\n\nEnsure SSH works, you can get root and apt is up to date:\n\n\nssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade\n\n\n\n\nNow install motioneye:\n\n\napt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye\n\n\n\n\nUpdate web passwords in GUI and put them in \n/home/ubuntu/pass.txt\n\n\nConfigure motioneye with cameras\n\n\nCisco 7070 Dome camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.7\n.  The web gui is at \nhttps://10.0.40.7\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a \nPower over Ethernet\n (PoE) camera.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera1\n\n\ncamera device: \nrtsp://10.0.40.7:554/StreamingSetting?version=1.0\naction=getRTSPStream\nuserName=stream\npassword=xqFQqF6LnH\nChannelID=1\nChannelName=Channel1\n\n\ncamera type: \nNetwork Camera\n\n\nresolution: \ncustom\n\n\nwidth: \n1920\n\n\nheight: \n1920\n\n\nframe rate: \n15\n\n\n\n\nCisco 5010 PTZ camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.8\n.  The web gui is at \nhttps://10.0.40.8\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a PoE camera.\n\n\nNote\n: The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera2\n\n\ncamera device: \nrtsp://10.0.40.8/stream1\n\n\nresolution: \n1920 x 1080\n\n\nframe rate: \n15", 
+            "title": "Motion Eye"
+        }, 
+        {
+            "location": "/docs/motioneye/#motion-eye", 
+            "text": "", 
+            "title": "Motion Eye"
+        }, 
+        {
+            "location": "/docs/motioneye/#diy-security-camera-software", 
+            "text": "See  motioneye install for ubuntu  for more info.  Install is on these two containers:   motioneye  motioneye 2", 
+            "title": "DIY Security camera software"
+        }, 
+        {
+            "location": "/docs/motioneye/#on-c220", 
+            "text": "Create the container as  provisioner  user on 10.0.40.50:  ./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default  then get a root shell  lxc exec motioneye2 -- /bin/bash  And edit the  .ssh/authorized_keys  file so chen and mrjones can SSH in:  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com", 
+            "title": "On c220"
+        }, 
+        {
+            "location": "/docs/motioneye/#install-motioneye", 
+            "text": "Ensure SSH works, you can get root and apt is up to date:  ssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade  Now install motioneye:  apt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye  Update web passwords in GUI and put them in  /home/ubuntu/pass.txt", 
+            "title": "Install motioneye"
+        }, 
+        {
+            "location": "/docs/motioneye/#configure-motioneye-with-cameras", 
+            "text": "", 
+            "title": "Configure motioneye with cameras"
+        }, 
+        {
+            "location": "/docs/motioneye/#cisco-7070-dome-camera", 
+            "text": "This camera has a static IP of  10.0.40.7 .  The web gui is at  https://10.0.40.7 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a  Power over Ethernet  (PoE) camera.  To add the camera to motion eye, use the following settings:   name:  camera1  camera device:  rtsp://10.0.40.7:554/StreamingSetting?version=1.0 action=getRTSPStream userName=stream password=xqFQqF6LnH ChannelID=1 ChannelName=Channel1  camera type:  Network Camera  resolution:  custom  width:  1920  height:  1920  frame rate:  15", 
+            "title": "Cisco 7070 Dome camera"
+        }, 
+        {
+            "location": "/docs/motioneye/#cisco-5010-ptz-camera", 
+            "text": "This camera has a static IP of  10.0.40.8 .  The web gui is at  https://10.0.40.8 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a PoE camera.  Note : The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.  To add the camera to motion eye, use the following settings:   name:  camera2  camera device:  rtsp://10.0.40.8/stream1  resolution:  1920 x 1080  frame rate:  15", 
+            "title": "Cisco 5010 PTZ camera"
+        }, 
+        {
+            "location": "/docs/pi-hole-stubby/", 
+            "text": "c220 and LXD\n\n\nSee \nmrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/docs/pi-hole-stubby/#c220-and-lxd", 
+            "text": "See  mrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/docs/pritunl/", 
+            "text": "Pritunl VPN\n\n\nhttps://pritunl.com/", 
+            "title": "Pritunl VPN"
+        }, 
+        {
+            "location": "/docs/pritunl/#pritunl-vpn", 
+            "text": "https://pritunl.com/", 
+            "title": "Pritunl VPN"
+        }, 
+        {
+            "location": "/docs/unifi/", 
+            "text": "TBD", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/unifi/#tbd", 
+            "text": "", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/", 
+            "text": "Create a member container\n\n\nAll admins need to verify that applicants are paying members in good standing.  Members need to provide admins an SSH key.  \n\n\nSSH Key file\n\n\nPlease name the SSH key with a valid member name on synshop.org followed by \n-box\n, eg \nkrux-box\n.  Edit the comment of the key to be the current email of the member, eg:\n\n\nssh-ed25519 AAAAC3NzaC[SNIP]stbch8XfLn3rfR krux@synshop.org\n\n\n\n\nPrep for creation\n\n\nLog into the provisioner account on the c220 (\nprovisioner@10.0.40.50\n) and create a file in \n~/lxd/member.keys\n with the public SSH key.  Be sure to use the nomenclature denoted above (eg \nkrux-box\n).\n\n\nThen list all the containers with \nlxc list -c n,s,4,6\n.  Note the highest IP and pick the next free one.  In this case, it'd be \n10.0.40.60\n:\n\n\nprovisioner@c220-01:~/lxd$ lxc list -c n,s,4,6\n+------------+---------+--------------------------------+------+\n|    NAME    |  STATE  |              IPV4              | IPV6 |\n+------------+---------+--------------------------------+------+\n| chen-box   | RUNNING | 10.0.40.56 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| jed-box    | RUNNING | 10.0.40.58 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| nexus      | RUNNING | 10.0.40.52 (eth0)              |      |\n|            |         | 10.0.40.131 (eth0)             |      |\n+------------+---------+--------------------------------+------+\n| vic-box    | RUNNING | 10.0.40.59 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n\n\n\n\nCreate the container\n\n\nNow that you know the IP and have the SSH key file created, ensure you're in the \nlxd\n directory and run the create command:\n\n\nprovisioner@c220-01:~/lxd$ pwd\n/home/provisioner/lxd\n\n./create.member.box.sh krux-box 10.0.40.60 10.0.40.1 member.keys/krux-box\n\n\n\n\nThis signature breaks down to the following:\n\n\ncreate.member.box.sh $NAME $IP $GATEWAY $KEY_FILE\n\n\n\n\nNotify the user\n\n\nWhen the script is done it will give you some text to send the user:\n\n\nHave the owner of member.keys/krux-box try this from outside the shop:\n\n  ssh krux-box@nexus.synshop.org\n\nAnd inside the shop this:\n\n  ssh ubuntu@10.0.40.60\n\n\n\n\nCopy this from the terminal and send it to the user!", 
+            "title": "Create a member container"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/#create-a-member-container", 
+            "text": "All admins need to verify that applicants are paying members in good standing.  Members need to provide admins an SSH key.", 
+            "title": "Create a member container"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/#ssh-key-file", 
+            "text": "Please name the SSH key with a valid member name on synshop.org followed by  -box , eg  krux-box .  Edit the comment of the key to be the current email of the member, eg:  ssh-ed25519 AAAAC3NzaC[SNIP]stbch8XfLn3rfR krux@synshop.org", 
+            "title": "SSH Key file"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/#prep-for-creation", 
+            "text": "Log into the provisioner account on the c220 ( provisioner@10.0.40.50 ) and create a file in  ~/lxd/member.keys  with the public SSH key.  Be sure to use the nomenclature denoted above (eg  krux-box ).  Then list all the containers with  lxc list -c n,s,4,6 .  Note the highest IP and pick the next free one.  In this case, it'd be  10.0.40.60 :  provisioner@c220-01:~/lxd$ lxc list -c n,s,4,6\n+------------+---------+--------------------------------+------+\n|    NAME    |  STATE  |              IPV4              | IPV6 |\n+------------+---------+--------------------------------+------+\n| chen-box   | RUNNING | 10.0.40.56 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| jed-box    | RUNNING | 10.0.40.58 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| nexus      | RUNNING | 10.0.40.52 (eth0)              |      |\n|            |         | 10.0.40.131 (eth0)             |      |\n+------------+---------+--------------------------------+------+\n| vic-box    | RUNNING | 10.0.40.59 (eth0)              |      |\n+------------+---------+--------------------------------+------+", 
+            "title": "Prep for creation"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/#create-the-container", 
+            "text": "Now that you know the IP and have the SSH key file created, ensure you're in the  lxd  directory and run the create command:  provisioner@c220-01:~/lxd$ pwd\n/home/provisioner/lxd\n\n./create.member.box.sh krux-box 10.0.40.60 10.0.40.1 member.keys/krux-box  This signature breaks down to the following:  create.member.box.sh $NAME $IP $GATEWAY $KEY_FILE", 
+            "title": "Create the container"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/create-member-box/#notify-the-user", 
+            "text": "When the script is done it will give you some text to send the user:  Have the owner of member.keys/krux-box try this from outside the shop:\n\n  ssh krux-box@nexus.synshop.org\n\nAnd inside the shop this:\n\n  ssh ubuntu@10.0.40.60  Copy this from the terminal and send it to the user!", 
+            "title": "Notify the user"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/", 
+            "text": "LXD, Server set up and Member Boxes\n\n\nThere's a server set up for admins to use for\nrunning shop services and for each member to get a \ncontainer on, if they want.\n\n\n\n\nFAQ\n - This is for end users of containers at SYNShop\n\n\nCreate a member box\n - This is for admins who want to create a containers for a member at SYNShop", 
+            "title": "LXD, Server set up and Member Boxes"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/#lxd-server-set-up-and-member-boxes", 
+            "text": "There's a server set up for admins to use for\nrunning shop services and for each member to get a \ncontainer on, if they want.   FAQ  - This is for end users of containers at SYNShop  Create a member box  - This is for admins who want to create a containers for a member at SYNShop", 
+            "title": "LXD, Server set up and Member Boxes"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/member-boxes-faq/", 
+            "text": "Member Boxes FAQ\n\n\nThis document is for members who have chosen to get a container at the SYNShop.  \n\n\nWhat exactly are you offering?\n \n\n\nWe're offering a small virtual machine (VM) with 512MB RAM, 1 CPU, 10GB of disk and 1Mbit of network.  These will all be \nUbuntu 16.04\n instance.  \n\n\nWhy only Ubuntu?\n \n\n\nThe server is running the \nLXD hypervisor\n which uses the Linux Kernel for all guest VMs.  This means you can only run OSes that use the same kernel, like Ubuntu.  \n\n\nWait, I can have a FREE server with my membership!?\n  \n\n\nYes!  However, there are three main limitations:\n\n\n\n\nThese are for personal use only. If you want to do something commercial check out the other VM providers - \nthey start at about $5/mo\n.\n\n\nThis is not a production environment.  We'll try to keep the VMs up 100% of the time, but we don't have fancy hardware like battery back up and there'll likely be outages here and there. Otherwise, these are full VMs where you have root and can install any software that will fit on 1 CPU/512GB RAM and 10GB of disk.  Hack away, hacker!!\n\n\nThese machines are only accessible via SSH.  So, for example, you can not run a web server that is accessible on the internet (though it would be accessible at the shop!)\n\n\n\n\nSo if I can\u2019t run a publicly accessible service, like a web server, what can I do with it?\n\n\nSo, so many things!  The main thing we hope you\u2019ll do is learn about linux and the command line.  However, you could set up a web server which is accessible only at the shop.  You could have nagios server for monitoring your other services.  The world is your (internet not accessible) oyster!!\n\n\nI don't like the command line - do you have a web UI where I can easily do X (where X is install something etc.)?\n\n\nNo!  These are bare VMs that are ripe for the taking.  You need to either A) be versed in the command line to know what your doing or B) have a hankering to learn.  If you ask, we'll be happy to teach you how to set up a server!\n\n\nI'm really concerned about privacy - will my secrets be safe on my server?\n \n\n\nYes and no!\n\n\nYes - we'll ensure the VM can only be access via an SSH key.  We'll keep the host OS up to date.  Likely no one on the internet will gain access to your server.\n\n\nNo - the shop is where the host server is which is porous venue.  Theft is a possibility. Currently the drives of the server are un-encrypted and a motivated attacker could access your data. Caveat Emptor. Or, I guess, Caveat \"Emptor\" as it's free ;)\n\n\nOk, I'm in - how do I sign up?\n \n\n\nEmail \nmrjones@synshop.org\n and supply me with your username you use on synshop.org to pay your membership and your public SSH key.\n\n\nThat all sounds great, but I have more questions/don't know what an SSH key is/need help - what do I do?\n\n\nStill email mrjones@synshop.org!  We'll figure a time when we can help you in person.  We welcome everyone to this service and want to help folks get up and running. Watch out though - you'll be learning stuff ;)", 
+            "title": "Member Boxes FAQ"
+        }, 
+        {
+            "location": "/docs/lxd-member-boxes/member-boxes-faq/#member-boxes-faq", 
+            "text": "This document is for members who have chosen to get a container at the SYNShop.    What exactly are you offering?    We're offering a small virtual machine (VM) with 512MB RAM, 1 CPU, 10GB of disk and 1Mbit of network.  These will all be  Ubuntu 16.04  instance.    Why only Ubuntu?    The server is running the  LXD hypervisor  which uses the Linux Kernel for all guest VMs.  This means you can only run OSes that use the same kernel, like Ubuntu.    Wait, I can have a FREE server with my membership!?     Yes!  However, there are three main limitations:   These are for personal use only. If you want to do something commercial check out the other VM providers -  they start at about $5/mo .  This is not a production environment.  We'll try to keep the VMs up 100% of the time, but we don't have fancy hardware like battery back up and there'll likely be outages here and there. Otherwise, these are full VMs where you have root and can install any software that will fit on 1 CPU/512GB RAM and 10GB of disk.  Hack away, hacker!!  These machines are only accessible via SSH.  So, for example, you can not run a web server that is accessible on the internet (though it would be accessible at the shop!)   So if I can\u2019t run a publicly accessible service, like a web server, what can I do with it?  So, so many things!  The main thing we hope you\u2019ll do is learn about linux and the command line.  However, you could set up a web server which is accessible only at the shop.  You could have nagios server for monitoring your other services.  The world is your (internet not accessible) oyster!!  I don't like the command line - do you have a web UI where I can easily do X (where X is install something etc.)?  No!  These are bare VMs that are ripe for the taking.  You need to either A) be versed in the command line to know what your doing or B) have a hankering to learn.  If you ask, we'll be happy to teach you how to set up a server!  I'm really concerned about privacy - will my secrets be safe on my server?    Yes and no!  Yes - we'll ensure the VM can only be access via an SSH key.  We'll keep the host OS up to date.  Likely no one on the internet will gain access to your server.  No - the shop is where the host server is which is porous venue.  Theft is a possibility. Currently the drives of the server are un-encrypted and a motivated attacker could access your data. Caveat Emptor. Or, I guess, Caveat \"Emptor\" as it's free ;)  Ok, I'm in - how do I sign up?    Email  mrjones@synshop.org  and supply me with your username you use on synshop.org to pay your membership and your public SSH key.  That all sounds great, but I have more questions/don't know what an SSH key is/need help - what do I do?  Still email mrjones@synshop.org!  We'll figure a time when we can help you in person.  We welcome everyone to this service and want to help folks get up and running. Watch out though - you'll be learning stuff ;)", 
+            "title": "Member Boxes FAQ"
+        }
+    ]
+}
