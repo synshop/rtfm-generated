@@ -2,161 +2,336 @@
     "docs": [
         {
             "location": "/", 
-            "text": "SYNShop Docs\n\n\nHere you'll find information how stuff is set up.  The goal\nis to educate some one who wants to help out or to\nremind the person who set up what the did when \nthey forget ;)\n\n\n\n\nMkDocs (this site)\n\n\nMotion Eye\n\n\nLXD/c220\n\n\nFlatine\n\n\nLXD \n Member Boxes\n\n\nPi-Hole \n Stubby\n\n\nUnifi\n\n\nPritunl VPN", 
+            "text": "SYNShop Docs\n\n\nDocumentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.\n\n\n\n\nUsers\n:\n  - These docs are for folks using the tools and software at the the shop.\n\n\nAdmins\n:\n  - These docs are for shop members building and maintaining tools and software at the the shop.\n\n\n\n\nYou're welcome to read anything here, but note which section you're in!", 
             "title": "SYNShop Docs"
         }, 
         {
             "location": "/#synshop-docs", 
-            "text": "Here you'll find information how stuff is set up.  The goal\nis to educate some one who wants to help out or to\nremind the person who set up what the did when \nthey forget ;)   MkDocs (this site)  Motion Eye  LXD/c220  Flatine  LXD   Member Boxes  Pi-Hole   Stubby  Unifi  Pritunl VPN", 
+            "text": "Documentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.   Users :   - These docs are for folks using the tools and software at the the shop.  Admins :   - These docs are for shop members building and maintaining tools and software at the the shop.   You're welcome to read anything here, but note which section you're in!", 
             "title": "SYNShop Docs"
         }, 
         {
-            "location": "/docs/c220/", 
+            "location": "/admins/c220/", 
             "text": "c220 and LXD\n\n\nSee \nmrjones' blog post", 
             "title": "c220 and LXD"
         }, 
         {
-            "location": "/docs/c220/#c220-and-lxd", 
+            "location": "/admins/c220/#c220-and-lxd", 
             "text": "See  mrjones' blog post", 
             "title": "c220 and LXD"
         }, 
         {
-            "location": "/docs/docs/", 
-            "text": "TBD", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/docs/#tbd", 
-            "text": "", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/flatline/", 
-            "text": "TBD", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/flatline/#tbd", 
-            "text": "", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/motioneye/", 
-            "text": "Motion Eye\n\n\nDIY Security camera software\n\n\nSee \nmotioneye install for ubuntu\n for more info.\n\n\nInstall is on these two containers:\n\n\n\n\nmotioneye\n\n\nmotioneye 2\n\n\n\n\nOn c220\n\n\nCreate the container as \nprovisioner\n user on 10.0.40.50:\n\n\n./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default\n\n\n\n\nthen get a root shell\n\n\nlxc exec motioneye2 -- /bin/bash\n\n\n\n\nAnd edit the \n.ssh/authorized_keys\n file so chen and mrjones can SSH in:\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com\n\n\n\n\nInstall motioneye\n\n\nEnsure SSH works, you can get root and apt is up to date:\n\n\nssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade\n\n\n\n\nNow install motioneye:\n\n\napt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye\n\n\n\n\nUpdate web passwords in GUI and put them in \n/home/ubuntu/pass.txt\n\n\nConfigure motioneye with cameras\n\n\nCisco 7070 Dome camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.7\n.  The web gui is at \nhttps://10.0.40.7\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a \nPower over Ethernet\n (PoE) camera.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera1\n\n\ncamera device: \nrtsp://10.0.40.7:554/StreamingSetting?version=1.0\naction=getRTSPStream\nuserName=stream\npassword=xqFQqF6LnH\nChannelID=1\nChannelName=Channel1\n\n\ncamera type: \nNetwork Camera\n\n\nresolution: \ncustom\n\n\nwidth: \n1920\n\n\nheight: \n1920\n\n\nframe rate: \n15\n\n\n\n\nCisco 5010 PTZ camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.8\n.  The web gui is at \nhttps://10.0.40.8\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a PoE camera.\n\n\nNote\n: The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera2\n\n\ncamera device: \nrtsp://10.0.40.8/stream1\n\n\nresolution: \n1920 x 1080\n\n\nframe rate: \n15", 
-            "title": "Motion Eye"
-        }, 
-        {
-            "location": "/docs/motioneye/#motion-eye", 
-            "text": "", 
-            "title": "Motion Eye"
-        }, 
-        {
-            "location": "/docs/motioneye/#diy-security-camera-software", 
-            "text": "See  motioneye install for ubuntu  for more info.  Install is on these two containers:   motioneye  motioneye 2", 
-            "title": "DIY Security camera software"
-        }, 
-        {
-            "location": "/docs/motioneye/#on-c220", 
-            "text": "Create the container as  provisioner  user on 10.0.40.50:  ./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default  then get a root shell  lxc exec motioneye2 -- /bin/bash  And edit the  .ssh/authorized_keys  file so chen and mrjones can SSH in:  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com", 
-            "title": "On c220"
-        }, 
-        {
-            "location": "/docs/motioneye/#install-motioneye", 
-            "text": "Ensure SSH works, you can get root and apt is up to date:  ssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade  Now install motioneye:  apt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye  Update web passwords in GUI and put them in  /home/ubuntu/pass.txt", 
-            "title": "Install motioneye"
-        }, 
-        {
-            "location": "/docs/motioneye/#configure-motioneye-with-cameras", 
-            "text": "", 
-            "title": "Configure motioneye with cameras"
-        }, 
-        {
-            "location": "/docs/motioneye/#cisco-7070-dome-camera", 
-            "text": "This camera has a static IP of  10.0.40.7 .  The web gui is at  https://10.0.40.7 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a  Power over Ethernet  (PoE) camera.  To add the camera to motion eye, use the following settings:   name:  camera1  camera device:  rtsp://10.0.40.7:554/StreamingSetting?version=1.0 action=getRTSPStream userName=stream password=xqFQqF6LnH ChannelID=1 ChannelName=Channel1  camera type:  Network Camera  resolution:  custom  width:  1920  height:  1920  frame rate:  15", 
-            "title": "Cisco 7070 Dome camera"
-        }, 
-        {
-            "location": "/docs/motioneye/#cisco-5010-ptz-camera", 
-            "text": "This camera has a static IP of  10.0.40.8 .  The web gui is at  https://10.0.40.8 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a PoE camera.  Note : The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.  To add the camera to motion eye, use the following settings:   name:  camera2  camera device:  rtsp://10.0.40.8/stream1  resolution:  1920 x 1080  frame rate:  15", 
-            "title": "Cisco 5010 PTZ camera"
-        }, 
-        {
-            "location": "/docs/pi-hole-stubby/", 
-            "text": "c220 and LXD\n\n\nSee \nmrjones' blog post", 
-            "title": "c220 and LXD"
-        }, 
-        {
-            "location": "/docs/pi-hole-stubby/#c220-and-lxd", 
-            "text": "See  mrjones' blog post", 
-            "title": "c220 and LXD"
-        }, 
-        {
-            "location": "/docs/pritunl/", 
-            "text": "Pritunl VPN\n\n\nhttps://pritunl.com/", 
-            "title": "Pritunl VPN"
-        }, 
-        {
-            "location": "/docs/pritunl/#pritunl-vpn", 
-            "text": "https://pritunl.com/", 
-            "title": "Pritunl VPN"
-        }, 
-        {
-            "location": "/docs/unifi/", 
-            "text": "TBD", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/unifi/#tbd", 
-            "text": "", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/docs/lxd-member-boxes/create-member-box/", 
+            "location": "/admins/create-member-box/", 
             "text": "Create a member container\n\n\nAll admins need to verify that applicants are paying members in good standing.  Members need to provide admins an SSH key.  \n\n\nSSH Key file\n\n\nPlease name the SSH key with a valid member name on synshop.org followed by \n-box\n, eg \nkrux-box\n.  Edit the comment of the key to be the current email of the member, eg:\n\n\nssh-ed25519 AAAAC3NzaC[SNIP]stbch8XfLn3rfR krux@synshop.org\n\n\n\n\nPrep for creation\n\n\nLog into the provisioner account on the c220 (\nprovisioner@10.0.40.50\n) and create a file in \n~/lxd/member.keys\n with the public SSH key.  Be sure to use the nomenclature denoted above (eg \nkrux-box\n).\n\n\nThen list all the containers with \nlxc list -c n,s,4,6\n.  Note the highest IP and pick the next free one.  In this case, it'd be \n10.0.40.60\n:\n\n\nprovisioner@c220-01:~/lxd$ lxc list -c n,s,4,6\n+------------+---------+--------------------------------+------+\n|    NAME    |  STATE  |              IPV4              | IPV6 |\n+------------+---------+--------------------------------+------+\n| chen-box   | RUNNING | 10.0.40.56 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| jed-box    | RUNNING | 10.0.40.58 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| nexus      | RUNNING | 10.0.40.52 (eth0)              |      |\n|            |         | 10.0.40.131 (eth0)             |      |\n+------------+---------+--------------------------------+------+\n| vic-box    | RUNNING | 10.0.40.59 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n\n\n\n\nCreate the container\n\n\nNow that you know the IP and have the SSH key file created, ensure you're in the \nlxd\n directory and run the create command:\n\n\nprovisioner@c220-01:~/lxd$ pwd\n/home/provisioner/lxd\n\n./create.member.box.sh krux-box 10.0.40.60 10.0.40.1 member.keys/krux-box\n\n\n\n\nThis signature breaks down to the following:\n\n\ncreate.member.box.sh $NAME $IP $GATEWAY $KEY_FILE\n\n\n\n\nNotify the user\n\n\nWhen the script is done it will give you some text to send the user:\n\n\nHave the owner of member.keys/krux-box try this from outside the shop:\n\n  ssh krux-box@nexus.synshop.org\n\nAnd inside the shop this:\n\n  ssh ubuntu@10.0.40.60\n\n\n\n\nCopy this from the terminal and send it to the user!", 
             "title": "Create a member container"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/create-member-box/#create-a-member-container", 
+            "location": "/admins/create-member-box/#create-a-member-container", 
             "text": "All admins need to verify that applicants are paying members in good standing.  Members need to provide admins an SSH key.", 
             "title": "Create a member container"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/create-member-box/#ssh-key-file", 
+            "location": "/admins/create-member-box/#ssh-key-file", 
             "text": "Please name the SSH key with a valid member name on synshop.org followed by  -box , eg  krux-box .  Edit the comment of the key to be the current email of the member, eg:  ssh-ed25519 AAAAC3NzaC[SNIP]stbch8XfLn3rfR krux@synshop.org", 
             "title": "SSH Key file"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/create-member-box/#prep-for-creation", 
+            "location": "/admins/create-member-box/#prep-for-creation", 
             "text": "Log into the provisioner account on the c220 ( provisioner@10.0.40.50 ) and create a file in  ~/lxd/member.keys  with the public SSH key.  Be sure to use the nomenclature denoted above (eg  krux-box ).  Then list all the containers with  lxc list -c n,s,4,6 .  Note the highest IP and pick the next free one.  In this case, it'd be  10.0.40.60 :  provisioner@c220-01:~/lxd$ lxc list -c n,s,4,6\n+------------+---------+--------------------------------+------+\n|    NAME    |  STATE  |              IPV4              | IPV6 |\n+------------+---------+--------------------------------+------+\n| chen-box   | RUNNING | 10.0.40.56 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| jed-box    | RUNNING | 10.0.40.58 (eth0)              |      |\n+------------+---------+--------------------------------+------+\n| nexus      | RUNNING | 10.0.40.52 (eth0)              |      |\n|            |         | 10.0.40.131 (eth0)             |      |\n+------------+---------+--------------------------------+------+\n| vic-box    | RUNNING | 10.0.40.59 (eth0)              |      |\n+------------+---------+--------------------------------+------+", 
             "title": "Prep for creation"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/create-member-box/#create-the-container", 
+            "location": "/admins/create-member-box/#create-the-container", 
             "text": "Now that you know the IP and have the SSH key file created, ensure you're in the  lxd  directory and run the create command:  provisioner@c220-01:~/lxd$ pwd\n/home/provisioner/lxd\n\n./create.member.box.sh krux-box 10.0.40.60 10.0.40.1 member.keys/krux-box  This signature breaks down to the following:  create.member.box.sh $NAME $IP $GATEWAY $KEY_FILE", 
             "title": "Create the container"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/create-member-box/#notify-the-user", 
+            "location": "/admins/create-member-box/#notify-the-user", 
             "text": "When the script is done it will give you some text to send the user:  Have the owner of member.keys/krux-box try this from outside the shop:\n\n  ssh krux-box@nexus.synshop.org\n\nAnd inside the shop this:\n\n  ssh ubuntu@10.0.40.60  Copy this from the terminal and send it to the user!", 
             "title": "Notify the user"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/", 
-            "text": "LXD, Server set up and Member Boxes\n\n\nThere's a server set up for admins to use for\nrunning shop services and for each member to get a \ncontainer on, if they want.\n\n\n\n\nFAQ\n - This is for end users of containers at SYNShop\n\n\nCreate a member box\n - This is for admins who want to create a containers for a member at SYNShop", 
-            "title": "LXD, Server set up and Member Boxes"
+            "location": "/admins/docs/", 
+            "text": "TBD", 
+            "title": "TBD"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/#lxd-server-set-up-and-member-boxes", 
-            "text": "There's a server set up for admins to use for\nrunning shop services and for each member to get a \ncontainer on, if they want.   FAQ  - This is for end users of containers at SYNShop  Create a member box  - This is for admins who want to create a containers for a member at SYNShop", 
-            "title": "LXD, Server set up and Member Boxes"
+            "location": "/admins/docs/#tbd", 
+            "text": "", 
+            "title": "TBD"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/member-boxes-faq/", 
+            "location": "/admins/flatline/", 
+            "text": "TBD", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/admins/flatline/#tbd", 
+            "text": "", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/admins/", 
+            "text": "Admin home page\n\n\nThese docs are for shop members building and maintaining tools and software at the the shop.", 
+            "title": "Admin home page"
+        }, 
+        {
+            "location": "/admins/#admin-home-page", 
+            "text": "These docs are for shop members building and maintaining tools and software at the the shop.", 
+            "title": "Admin home page"
+        }, 
+        {
+            "location": "/admins/motioneye/", 
+            "text": "Motion Eye\n\n\nDIY Security camera software\n\n\nSee \nmotioneye install for ubuntu\n for more info.\n\n\nInstall is on these two containers:\n\n\n\n\nmotioneye\n\n\nmotioneye 2\n\n\n\n\nOn c220\n\n\nCreate the container as \nprovisioner\n user on 10.0.40.50:\n\n\n./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default\n\n\n\n\nthen get a root shell\n\n\nlxc exec motioneye2 -- /bin/bash\n\n\n\n\nAnd edit the \n.ssh/authorized_keys\n file so chen and mrjones can SSH in:\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com\n\n\n\n\nInstall motioneye\n\n\nEnsure SSH works, you can get root and apt is up to date:\n\n\nssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade\n\n\n\n\nNow install motioneye:\n\n\napt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye\n\n\n\n\nUpdate web passwords in GUI and put them in \n/home/ubuntu/pass.txt\n\n\nConfigure motioneye with cameras\n\n\nCisco 7070 Dome camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.7\n.  The web gui is at \nhttps://10.0.40.7\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a \nPower over Ethernet\n (PoE) camera.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera1\n\n\ncamera device: \nrtsp://10.0.40.7:554/StreamingSetting?version=1.0\naction=getRTSPStream\nuserName=stream\npassword=xqFQqF6LnH\nChannelID=1\nChannelName=Channel1\n\n\ncamera type: \nNetwork Camera\n\n\nresolution: \ncustom\n\n\nwidth: \n1920\n\n\nheight: \n1920\n\n\nframe rate: \n15\n\n\n\n\nCisco 5010 PTZ camera\n\n\n\n\nThis camera has a static IP of \n10.0.40.8\n.  The web gui is at \nhttps://10.0.40.8\n.  You'll have to accept the invalid SSL cert. Username is \nadmin\n and the password is in the keepass vault.\n\n\nThis is a PoE camera.\n\n\nNote\n: The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.\n\n\nTo add the camera to motion eye, use the following settings:\n\n\n\n\nname: \ncamera2\n\n\ncamera device: \nrtsp://10.0.40.8/stream1\n\n\nresolution: \n1920 x 1080\n\n\nframe rate: \n15", 
+            "title": "Motion Eye"
+        }, 
+        {
+            "location": "/admins/motioneye/#motion-eye", 
+            "text": "", 
+            "title": "Motion Eye"
+        }, 
+        {
+            "location": "/admins/motioneye/#diy-security-camera-software", 
+            "text": "See  motioneye install for ubuntu  for more info.  Install is on these two containers:   motioneye  motioneye 2", 
+            "title": "DIY Security camera software"
+        }, 
+        {
+            "location": "/admins/motioneye/#on-c220", 
+            "text": "Create the container as  provisioner  user on 10.0.40.50:  ./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default  then get a root shell  lxc exec motioneye2 -- /bin/bash  And edit the  .ssh/authorized_keys  file so chen and mrjones can SSH in:  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGl8DxabTME8c540/26Z9Imr5/YfO07b9EE2bo9rLRqJdXl0mHZVPJzDXVKeJ8htoqXpEXWpbBO8dhP2yGe4Hwrfhpq+ynk7kLLcaYpXCYSRgIs1fSFjKQTr1UTC1eopjE0ubC+GxzlvM9uBtVEpIXQK7sNjgAtIBHOcGh4SDI8Ar2w9KLQ7Pl/7PoMkLPVXgByvY5WfengL5jL2WzRwSkomgYi9CtwLy32erm8xUvs+mB53hxE/dQ0vmgq+Ez+aW+i4QzZh+EB77MWMUctWzSEnRSXmeZyLt23Np9u0PaGoqFDuy7hvsGJVO6Wr3fxzSx7M+VN/IQ+QN5oEvRdrCTKT9pwZIt0ZiymUrpQdq/bS6IZBqb2gIiRtU57aU30DHhfSCEv/eJlIpiz6dXuiaT2nARb02k4NLxBxIQj4ZOMO1mlsWKsKiIdCBAmx/0ge2Ak726MIKZKGQv0yNPdW9HO1hjxlIaXskt8sFCY9YFyFgay82L1PR3wTnHevRgApBx0i4d1Vop9Kd/cYH98DKYM1ior/iu6++TpctAeBikOVgBzkTxf5miNA5Lvx70iGf+P8ABEyA9suTXhy+ZEzE647fI0aV61k9XyxwmLNqZOsGp2HmA9DCVG2876UZB5cLlw/PpJcSycuxBE07SCEfFDXsD4XSkYHyLtq/iyb7ZWw== chen@chenisa.ninja\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com", 
+            "title": "On c220"
+        }, 
+        {
+            "location": "/admins/motioneye/#install-motioneye", 
+            "text": "Ensure SSH works, you can get root and apt is up to date:  ssh ubuntu@10.0.40.22\nsudo su -\napt-get update\napt-get upgrade  Now install motioneye:  apt-get install motion ffmpeg v4l-utils\napt-get install python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev\npip install motioneye\nmkdir -p /etc/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf\nmkdir -p /var/lib/motioneye\ncp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service\nsystemctl daemon-reload\nsystemctl enable motioneye\nsystemctl start motioneye  Update web passwords in GUI and put them in  /home/ubuntu/pass.txt", 
+            "title": "Install motioneye"
+        }, 
+        {
+            "location": "/admins/motioneye/#configure-motioneye-with-cameras", 
+            "text": "", 
+            "title": "Configure motioneye with cameras"
+        }, 
+        {
+            "location": "/admins/motioneye/#cisco-7070-dome-camera", 
+            "text": "This camera has a static IP of  10.0.40.7 .  The web gui is at  https://10.0.40.7 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a  Power over Ethernet  (PoE) camera.  To add the camera to motion eye, use the following settings:   name:  camera1  camera device:  rtsp://10.0.40.7:554/StreamingSetting?version=1.0 action=getRTSPStream userName=stream password=xqFQqF6LnH ChannelID=1 ChannelName=Channel1  camera type:  Network Camera  resolution:  custom  width:  1920  height:  1920  frame rate:  15", 
+            "title": "Cisco 7070 Dome camera"
+        }, 
+        {
+            "location": "/admins/motioneye/#cisco-5010-ptz-camera", 
+            "text": "This camera has a static IP of  10.0.40.8 .  The web gui is at  https://10.0.40.8 .  You'll have to accept the invalid SSL cert. Username is  admin  and the password is in the keepass vault.  This is a PoE camera.  Note : The PTZ functionality doesn't seem to work. Manually position the camera so that it points to where you want it.  To add the camera to motion eye, use the following settings:   name:  camera2  camera device:  rtsp://10.0.40.8/stream1  resolution:  1920 x 1080  frame rate:  15", 
+            "title": "Cisco 5010 PTZ camera"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/", 
+            "text": "c220 and LXD\n\n\nSee \nmrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#c220-and-lxd", 
+            "text": "See  mrjones' blog post", 
+            "title": "c220 and LXD"
+        }, 
+        {
+            "location": "/admins/pritunl/", 
+            "text": "Pritunl VPN\n\n\nhttps://pritunl.com/", 
+            "title": "Pritunl VPN"
+        }, 
+        {
+            "location": "/admins/pritunl/#pritunl-vpn", 
+            "text": "https://pritunl.com/", 
+            "title": "Pritunl VPN"
+        }, 
+        {
+            "location": "/admins/unifi/", 
+            "text": "TBD", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/admins/unifi/#tbd", 
+            "text": "", 
+            "title": "TBD"
+        }, 
+        {
+            "location": "/users/Local Resources/", 
+            "text": "Local Resources\n\n\nThe following are local Las Vegas vendors which are good resources for finding things locally:\n\n\nPlastics:\n\n\nSabic Polymershapes\n\n\n6435 South Valley View Blvd., Suite A\n\nLas Vegas, NV 89118\n\nTel: 702-732-8866\n\n\nPiper Plastics\n\n\n6435 South Valley View Blvd., Suite A \n\nLas Vegas, NV 89118\n\nTel: 702-269-8076\n\nLocated at the NE corner of Dean Martin and Warm Springs\n\n\"They will sell scrap pieces for small projects or order full sheets. Very knowledgeable.\"\n\n\nElectronics:\n\n\nPololu Robotics and Electronics\n\n\n3095 E. Patrick Ln. #12\n\nLas Vegas, NV 89120\n\nTel: 877-776-5658\n\nNo Retail Store but Same-Day Local Pick-Up available!  \n\n\nCircuit Monkey\n\n\nLas Vegas, NV\n\nNo Retail Store. Pick-up by appointment only.  \n\n\nFry's Electronics\n\n\n6845 South Las Vegas Blvd   \n\nLas Vegas, NV 89119\n  \n\nLocated at I-215 and Las Vegas Blvd.  \n\n\nKiesub Electronics\n\n\n3185 S. Highland Drive, Suite 10  \n\nLas Vegas, Nevada 89109\n\nNear Fashion Show Mall  \n\n\nHardware\n\n\nMcFadden-Dale Industrial Hardware\n\n\n5580 South Decatur Blvd # 114 \n\nLas Vegas, NV\n\nS. Decatur just North of Russell\n\nRicher variety of hardware than you would find at Home Depot or Lowes.  \n\n\nCommercial Hardware/Nevada Casters/Aztec Bearing\n\n\n3725 West Russell Road \nLas Vegas, NV 89118\n\nSE Corner of Russell and Valley View\n\nAnother option to McFadden-Dale. Fastener section is much better organized, bearings, general hardware plus a bazillion wheels and casters. Open M-F only.\n\n\nGrainger Industrial Supply\n\n\n2401 Western Ave.\n\nLas Vegas, NV 89102\n\nOn Western Ave (Highland turns into Western) just North of the Sahara overpass on the East side of the street\n\nExtensive inventory with local pickup. Free catalog in store or order online. Open M-F only.", 
+            "title": "Local Resources"
+        }, 
+        {
+            "location": "/users/Local Resources/#local-resources", 
+            "text": "The following are local Las Vegas vendors which are good resources for finding things locally:", 
+            "title": "Local Resources"
+        }, 
+        {
+            "location": "/users/Local Resources/#plastics", 
+            "text": "", 
+            "title": "Plastics:"
+        }, 
+        {
+            "location": "/users/Local Resources/#sabic-polymershapes", 
+            "text": "6435 South Valley View Blvd., Suite A \nLas Vegas, NV 89118 \nTel: 702-732-8866", 
+            "title": "Sabic Polymershapes"
+        }, 
+        {
+            "location": "/users/Local Resources/#piper-plastics", 
+            "text": "6435 South Valley View Blvd., Suite A  \nLas Vegas, NV 89118 \nTel: 702-269-8076 \nLocated at the NE corner of Dean Martin and Warm Springs \n\"They will sell scrap pieces for small projects or order full sheets. Very knowledgeable.\"", 
+            "title": "Piper Plastics"
+        }, 
+        {
+            "location": "/users/Local Resources/#electronics", 
+            "text": "", 
+            "title": "Electronics:"
+        }, 
+        {
+            "location": "/users/Local Resources/#pololu-robotics-and-electronics", 
+            "text": "3095 E. Patrick Ln. #12 \nLas Vegas, NV 89120 \nTel: 877-776-5658 \nNo Retail Store but Same-Day Local Pick-Up available!", 
+            "title": "Pololu Robotics and Electronics"
+        }, 
+        {
+            "location": "/users/Local Resources/#circuit-monkey", 
+            "text": "Las Vegas, NV \nNo Retail Store. Pick-up by appointment only.", 
+            "title": "Circuit Monkey"
+        }, 
+        {
+            "location": "/users/Local Resources/#frys-electronics", 
+            "text": "6845 South Las Vegas Blvd    \nLas Vegas, NV 89119    \nLocated at I-215 and Las Vegas Blvd.", 
+            "title": "Fry's Electronics"
+        }, 
+        {
+            "location": "/users/Local Resources/#kiesub-electronics", 
+            "text": "3185 S. Highland Drive, Suite 10   \nLas Vegas, Nevada 89109 \nNear Fashion Show Mall", 
+            "title": "Kiesub Electronics"
+        }, 
+        {
+            "location": "/users/Local Resources/#hardware", 
+            "text": "", 
+            "title": "Hardware"
+        }, 
+        {
+            "location": "/users/Local Resources/#mcfadden-dale-industrial-hardware", 
+            "text": "5580 South Decatur Blvd # 114  \nLas Vegas, NV \nS. Decatur just North of Russell \nRicher variety of hardware than you would find at Home Depot or Lowes.", 
+            "title": "McFadden-Dale Industrial Hardware"
+        }, 
+        {
+            "location": "/users/Local Resources/#commercial-hardwarenevada-castersaztec-bearing", 
+            "text": "3725 West Russell Road \nLas Vegas, NV 89118 \nSE Corner of Russell and Valley View \nAnother option to McFadden-Dale. Fastener section is much better organized, bearings, general hardware plus a bazillion wheels and casters. Open M-F only.", 
+            "title": "Commercial Hardware/Nevada Casters/Aztec Bearing"
+        }, 
+        {
+            "location": "/users/Local Resources/#grainger-industrial-supply", 
+            "text": "2401 Western Ave. \nLas Vegas, NV 89102 \nOn Western Ave (Highland turns into Western) just North of the Sahara overpass on the East side of the street \nExtensive inventory with local pickup. Free catalog in store or order online. Open M-F only.", 
+            "title": "Grainger Industrial Supply"
+        }, 
+        {
+            "location": "/users/Mailing Lists/", 
+            "text": "Mailing Lists\n\n\nHello and welcome, we are glad you are interested in keeping in touch as we define and build out the space.\n\n\nIf you\u2019d be so kind, please take a moment to fill out this quick survey. it help give us a better idea about the direction people would like to take the hackerspace.\n\n\nhttp://goo.gl/OjRty\n\n\nJust a little heads up about the mailing lists. The announcement list is a very low traffic, moderated list so communications will be pretty one sided.\n\n\nhttp://groups.google.com/group/synshop-announce\n\n\nIf you\u2019d like to join the more active mailing list, please feel free to join the SYN Shop regular mailing list:\n\n\nhttp://groups.google.com/group/synshop\n\n\nFeel free to email the either list if you have any questions.", 
+            "title": "Mailing Lists"
+        }, 
+        {
+            "location": "/users/Mailing Lists/#mailing-lists", 
+            "text": "Hello and welcome, we are glad you are interested in keeping in touch as we define and build out the space.  If you\u2019d be so kind, please take a moment to fill out this quick survey. it help give us a better idea about the direction people would like to take the hackerspace.  http://goo.gl/OjRty  Just a little heads up about the mailing lists. The announcement list is a very low traffic, moderated list so communications will be pretty one sided.  http://groups.google.com/group/synshop-announce  If you\u2019d like to join the more active mailing list, please feel free to join the SYN Shop regular mailing list:  http://groups.google.com/group/synshop  Feel free to email the either list if you have any questions.", 
+            "title": "Mailing Lists"
+        }, 
+        {
+            "location": "/users/SYN Shop Tool List/", 
+            "text": "SYN Shop Tool List\n\n\n\n\n\n\n\n\nFree Standing Power Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\n\n\n\n\nTable Saw\n\n\nCraftsman\n\n\nLoan\n\n\n\n\n\n\nBand Saw\n\n\nLoan\n\n\n\n\n\n\n\n\nJointer\n\n\nLoan\n\n\n\n\n\n\n\n\nSurface Planer\n\n\nHitachi\n\n\nLoan\n\n\n\n\n\n\nDrill Press\n\n\nCraftsman Professional 3/4 hp 17'' Drill Press\n\n\nLoan\n\n\n\n\n\n\nDust Collector\n\n\nDelta with booster fan. Not set up. In n8's possession\n\n\nOwn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBench Top Power Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\nCompound Miter Saw\n\n\nLoan\n\n\n\n\n\n\n\n\nDisk/Belt Sander\n\n\nLoan\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPortable Power Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\nAir Compressor\n\n\nLoan\n\n\n\n\n\n\n\n\nMIG Welder\n\n\nChicago Electric, 110 Amp MIG/Flux Wire Welder\n\n\nLoan\n\n\n\n\n\n\nCircular Saw\n\n\nMilwaukee\n\n\nLoan\n\n\n\n\n\n\nCordless Circular Saw\n\n\nRyobi\n\n\nLoan\n\n\n\n\n\n\nJig Saw\n\n\nLoan\n\n\n\n\n\n\n\n\n6\" Power Sander\n\n\nDewalt\n\n\nLoan\n\n\n\n\n\n\nBiscuit Jointer\n\n\nPorter Cable\n\n\nLoan\n\n\n\n\n\n\nDrill\n\n\nDewalt\n\n\nLoan\n\n\n\n\n\n\nCordless Drill\n\n\nRyobi\n\n\nLoan\n\n\n\n\n\n\nDremel Tool\n\n\nLoan\n\n\n\n\n\n\n\n\nAngle Grinder\n\n\nDewalt\n\n\nLoan\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\nMany\n\n\nLoan\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nElectronics Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\nOscilloscope\n\n\nTektronix 2225 50Mhz 2ch\n\n\nOwn\n\n\n\n\n\n\nUSB Oscilloscope\n\n\nLoan\n\n\n\n\n\n\n\n\nBench Top Power Supply\n\n\nRaytheon\n\n\nOwn\n\n\n\n\n\n\nBus Pirate\n\n\nLoan\n\n\n\n\n\n\n\n\nDigital Multi Meter\n\n\nLoan\n\n\n\n\n\n\n\n\nDigital Multi Meter\n\n\nLoan\n\n\n\n\n\n\n\n\nSMD Hotair rework station\n\n\nLoan\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOther Tools\n\n\nDetails\n\n\nOwnership\n\n\n\n\n\n\nRepRap Mendel 3D printer\n\n\nLoan\n\n\n\n\n\n\n\n\nMakerbot 3D Printer\n\n\nMK6 extruder. Heated build platform. In Brian's possession.\n\n\nOwn\n\n\n\n\n\n\nLaser Cutter\n\n\n40W Hobby laser from Full Spectrum Engineering\n\n\nLoan\n\n\n\n\n\n\nKiln\n\n\nfor meting stuff\n\n\nOwn\n\n\n\n\n\n\n\n\nSYN Shop V 1.0 tool list on \nGoogle Docs\n.", 
+            "title": "SYN Shop Tool List"
+        }, 
+        {
+            "location": "/users/SYN Shop Tool List/#syn-shop-tool-list", 
+            "text": "Free Standing Power Tools  Details  Ownership      Table Saw  Craftsman  Loan    Band Saw  Loan     Jointer  Loan     Surface Planer  Hitachi  Loan    Drill Press  Craftsman Professional 3/4 hp 17'' Drill Press  Loan    Dust Collector  Delta with booster fan. Not set up. In n8's possession  Own         Bench Top Power Tools  Details  Ownership    Compound Miter Saw  Loan     Disk/Belt Sander  Loan          Portable Power Tools  Details  Ownership    Air Compressor  Loan     MIG Welder  Chicago Electric, 110 Amp MIG/Flux Wire Welder  Loan    Circular Saw  Milwaukee  Loan    Cordless Circular Saw  Ryobi  Loan    Jig Saw  Loan     6\" Power Sander  Dewalt  Loan    Biscuit Jointer  Porter Cable  Loan    Drill  Dewalt  Loan    Cordless Drill  Ryobi  Loan    Dremel Tool  Loan     Angle Grinder  Dewalt  Loan         Hand Tools  Details  Ownership    Many  Loan          Electronics Tools  Details  Ownership    Oscilloscope  Tektronix 2225 50Mhz 2ch  Own    USB Oscilloscope  Loan     Bench Top Power Supply  Raytheon  Own    Bus Pirate  Loan     Digital Multi Meter  Loan     Digital Multi Meter  Loan     SMD Hotair rework station  Loan          Other Tools  Details  Ownership    RepRap Mendel 3D printer  Loan     Makerbot 3D Printer  MK6 extruder. Heated build platform. In Brian's possession.  Own    Laser Cutter  40W Hobby laser from Full Spectrum Engineering  Loan    Kiln  for meting stuff  Own     SYN Shop V 1.0 tool list on  Google Docs .", 
+            "title": "SYN Shop Tool List"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/", 
+            "text": "SYN Shop Vision\n\n\nSYN Shop is a \nhackerspace\n located in Las Vegas, Nevada. It is a space for sharing, creation, collaboration, research, development, mentoring, and of course, learning. Our motto is: \"Let's make stuff awesome!''\n\n\nHistory\n\n\nSYN Shop was started back in 2008, when a bunch of DIY enthusiasts decided that instead of hiding in our garages, workshops and offices, we should instead come together and start a community around the things we are passionate about.\n\n\nWho We Are\n\n\nWe are hackers, makers, artists, innovators, inventors, people of knowledge, and people who want to learn. We are people who take things apart to see how they work. We design the new because it has not been done before, and we reinvent what has already been done for the challenge of doing it ourselves. We're here to discover the unknown. To teach others, and to put our mark on the world by helping others. We're here to form a community of people who come together to share resources and knowledge to build and make things.\n\n\nWhat We Are Not\n\n\nWe may be hackers, but we are hackers in the same sense that Steve Wozniak or Dean Kamen are hackers. We're not here to break into your ex's cell phone/computer/automobile, etc.. We're not the people who attack and deface web sites, steal people's credit card information, or even identities. In fact many of us work in industries which protect against such people.\n\n\nHow To Get Involved\n\n\nIf you are in the Las Vegas valley area and are interested in the hackerspace idea, sign up to one of our \nMailing Lists\n, or show up to a \nSYN Shop event\n.\n\n\nThe Name\n\n\nWhat does the name \"SYN Shop\" mean, and why do we call ourselves by that name? When computers need to talk to one another over the network, SYN is the first packet sent out during the TCP three-way handshake. Since Hacker Spaces are about communication, we felt this was a good way of symbolizing what we do. You can also say that Syn, could stand for \"Synergy\". Synergy is defined as two or more things functioning together to produce a result not independently obtainable, which also fits well with the Hacker Space ideals. And lastly since we live in Las Vegas, SYN is a fun play on words and the city's often heard nick name \"Sin City.\"", 
+            "title": "SYN Shop Vision"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#syn-shop-vision", 
+            "text": "SYN Shop is a  hackerspace  located in Las Vegas, Nevada. It is a space for sharing, creation, collaboration, research, development, mentoring, and of course, learning. Our motto is: \"Let's make stuff awesome!''", 
+            "title": "SYN Shop Vision"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#history", 
+            "text": "SYN Shop was started back in 2008, when a bunch of DIY enthusiasts decided that instead of hiding in our garages, workshops and offices, we should instead come together and start a community around the things we are passionate about.", 
+            "title": "History"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#who-we-are", 
+            "text": "We are hackers, makers, artists, innovators, inventors, people of knowledge, and people who want to learn. We are people who take things apart to see how they work. We design the new because it has not been done before, and we reinvent what has already been done for the challenge of doing it ourselves. We're here to discover the unknown. To teach others, and to put our mark on the world by helping others. We're here to form a community of people who come together to share resources and knowledge to build and make things.", 
+            "title": "Who We Are"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#what-we-are-not", 
+            "text": "We may be hackers, but we are hackers in the same sense that Steve Wozniak or Dean Kamen are hackers. We're not here to break into your ex's cell phone/computer/automobile, etc.. We're not the people who attack and deface web sites, steal people's credit card information, or even identities. In fact many of us work in industries which protect against such people.", 
+            "title": "What We Are Not"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#how-to-get-involved", 
+            "text": "If you are in the Las Vegas valley area and are interested in the hackerspace idea, sign up to one of our  Mailing Lists , or show up to a  SYN Shop event .", 
+            "title": "How To Get Involved"
+        }, 
+        {
+            "location": "/users/SYN Shop Vision/#the-name", 
+            "text": "What does the name \"SYN Shop\" mean, and why do we call ourselves by that name? When computers need to talk to one another over the network, SYN is the first packet sent out during the TCP three-way handshake. Since Hacker Spaces are about communication, we felt this was a good way of symbolizing what we do. You can also say that Syn, could stand for \"Synergy\". Synergy is defined as two or more things functioning together to produce a result not independently obtainable, which also fits well with the Hacker Space ideals. And lastly since we live in Las Vegas, SYN is a fun play on words and the city's often heard nick name \"Sin City.\"", 
+            "title": "The Name"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/", 
+            "text": "SYN Shop v1.0\n\n\nProposed Location:\n\n\n\n\nFile\n\n\n\n\nExisting Floorplan:\n\n\n\n\nFile\n\n\n\n\nProposed Floorplan:\n\n\n\n\nProposed floorplan modifications\n\n\nAnnotations for floorplan modifications\n\n\n\n\nVideo / Photos from walk-thru on 2011-10-14:\n\n\n\n\nhttp://goo.gl/x7UB7\n\n\nhttp://goo.gl/7SXkS\n\n\nhttp://goo.gl/UoYzl\n \n\n\n\n\nList of Comments / Questions about the proposed space:\n\n\nThis is a google doc for no real good reason, but that is where it started and I'm too lazy to port it to wikitext. You can edit the document as much as you'd like, but standard convention is to add a header with your name and then enter your comments / questions below that.\n\n\n\n\nhttp://goo.gl/HiXnE\n \n\n\n\n\nVisio Drawing\n\n\n\n\nFloorplan.vsd (Visio 2003)\n\n\nFloorplan.vsd (Visio 2002)\n\n\nFloorplan_w_woodshop.png\n\n\n\n\nHere is a Visio drawing with the floorplan from PDF in raster format. The file isn't too big with the raster in there, but feel free to try to bring a vector version in.\n\n\nThere is a classroom setup with 2' x 6' tables in the lobby. Feel free to move it around. There is a reconfigured setup of the classroom furniture to the lower left of the building.\n\n\nOne of the rooms is drawn up as a woodworking shop. I think everything important is in there. It all fits together reasonably well. It's easy to move things around in Visio, though.", 
+            "title": "SYN Shop v1.0"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#syn-shop-v10", 
+            "text": "", 
+            "title": "SYN Shop v1.0"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#proposed-location", 
+            "text": "File", 
+            "title": "Proposed Location:"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#existing-floorplan", 
+            "text": "File", 
+            "title": "Existing Floorplan:"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#proposed-floorplan", 
+            "text": "Proposed floorplan modifications  Annotations for floorplan modifications", 
+            "title": "Proposed Floorplan:"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#video-photos-from-walk-thru-on-2011-10-14", 
+            "text": "http://goo.gl/x7UB7  http://goo.gl/7SXkS  http://goo.gl/UoYzl", 
+            "title": "Video / Photos from walk-thru on 2011-10-14:"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#list-of-comments-questions-about-the-proposed-space", 
+            "text": "This is a google doc for no real good reason, but that is where it started and I'm too lazy to port it to wikitext. You can edit the document as much as you'd like, but standard convention is to add a header with your name and then enter your comments / questions below that.   http://goo.gl/HiXnE", 
+            "title": "List of Comments / Questions about the proposed space:"
+        }, 
+        {
+            "location": "/users/SYN Shop v1.0/#visio-drawing", 
+            "text": "Floorplan.vsd (Visio 2003)  Floorplan.vsd (Visio 2002)  Floorplan_w_woodshop.png   Here is a Visio drawing with the floorplan from PDF in raster format. The file isn't too big with the raster in there, but feel free to try to bring a vector version in.  There is a classroom setup with 2' x 6' tables in the lobby. Feel free to move it around. There is a reconfigured setup of the classroom furniture to the lower left of the building.  One of the rooms is drawn up as a woodworking shop. I think everything important is in there. It all fits together reasonably well. It's easy to move things around in Visio, though.", 
+            "title": "Visio Drawing"
+        }, 
+        {
+            "location": "/users/", 
+            "text": "Users Docs\n\n\nThese docs are for folks using the tools and software at the the shop.", 
+            "title": "Users Docs"
+        }, 
+        {
+            "location": "/users/#users-docs", 
+            "text": "These docs are for folks using the tools and software at the the shop.", 
+            "title": "Users Docs"
+        }, 
+        {
+            "location": "/users/member-boxes-faq/", 
             "text": "Member Boxes FAQ\n\n\nThis document is for members who have chosen to get a container at the SYNShop.  \n\n\nWhat exactly are you offering?\n \n\n\nWe're offering a small virtual machine (VM) with 512MB RAM, 1 CPU, 10GB of disk and 1Mbit of network.  These will all be \nUbuntu 16.04\n instance.  \n\n\nWhy only Ubuntu?\n \n\n\nThe server is running the \nLXD hypervisor\n which uses the Linux Kernel for all guest VMs.  This means you can only run OSes that use the same kernel, like Ubuntu.  \n\n\nWait, I can have a FREE server with my membership!?\n  \n\n\nYes!  However, there are three main limitations:\n\n\n\n\nThese are for personal use only. If you want to do something commercial check out the other VM providers - \nthey start at about $5/mo\n.\n\n\nThis is not a production environment.  We'll try to keep the VMs up 100% of the time, but we don't have fancy hardware like battery back up and there'll likely be outages here and there. Otherwise, these are full VMs where you have root and can install any software that will fit on 1 CPU/512GB RAM and 10GB of disk.  Hack away, hacker!!\n\n\nThese machines are only accessible via SSH.  So, for example, you can not run a web server that is accessible on the internet (though it would be accessible at the shop!)\n\n\n\n\nSo if I can\u2019t run a publicly accessible service, like a web server, what can I do with it?\n\n\nSo, so many things!  The main thing we hope you\u2019ll do is learn about linux and the command line.  However, you could set up a web server which is accessible only at the shop.  You could have nagios server for monitoring your other services.  The world is your (internet not accessible) oyster!!\n\n\nI don't like the command line - do you have a web UI where I can easily do X (where X is install something etc.)?\n\n\nNo!  These are bare VMs that are ripe for the taking.  You need to either A) be versed in the command line to know what your doing or B) have a hankering to learn.  If you ask, we'll be happy to teach you how to set up a server!\n\n\nI'm really concerned about privacy - will my secrets be safe on my server?\n \n\n\nYes and no!\n\n\nYes - we'll ensure the VM can only be access via an SSH key.  We'll keep the host OS up to date.  Likely no one on the internet will gain access to your server.\n\n\nNo - the shop is where the host server is which is porous venue.  Theft is a possibility. Currently the drives of the server are un-encrypted and a motivated attacker could access your data. Caveat Emptor. Or, I guess, Caveat \"Emptor\" as it's free ;)\n\n\nOk, I'm in - how do I sign up?\n \n\n\nEmail \nmrjones@synshop.org\n and supply me with your username you use on synshop.org to pay your membership and your public SSH key.\n\n\nThat all sounds great, but I have more questions/don't know what an SSH key is/need help - what do I do?\n\n\nStill email mrjones@synshop.org!  We'll figure a time when we can help you in person.  We welcome everyone to this service and want to help folks get up and running. Watch out though - you'll be learning stuff ;)", 
             "title": "Member Boxes FAQ"
         }, 
         {
-            "location": "/docs/lxd-member-boxes/member-boxes-faq/#member-boxes-faq", 
+            "location": "/users/member-boxes-faq/#member-boxes-faq", 
             "text": "This document is for members who have chosen to get a container at the SYNShop.    What exactly are you offering?    We're offering a small virtual machine (VM) with 512MB RAM, 1 CPU, 10GB of disk and 1Mbit of network.  These will all be  Ubuntu 16.04  instance.    Why only Ubuntu?    The server is running the  LXD hypervisor  which uses the Linux Kernel for all guest VMs.  This means you can only run OSes that use the same kernel, like Ubuntu.    Wait, I can have a FREE server with my membership!?     Yes!  However, there are three main limitations:   These are for personal use only. If you want to do something commercial check out the other VM providers -  they start at about $5/mo .  This is not a production environment.  We'll try to keep the VMs up 100% of the time, but we don't have fancy hardware like battery back up and there'll likely be outages here and there. Otherwise, these are full VMs where you have root and can install any software that will fit on 1 CPU/512GB RAM and 10GB of disk.  Hack away, hacker!!  These machines are only accessible via SSH.  So, for example, you can not run a web server that is accessible on the internet (though it would be accessible at the shop!)   So if I can\u2019t run a publicly accessible service, like a web server, what can I do with it?  So, so many things!  The main thing we hope you\u2019ll do is learn about linux and the command line.  However, you could set up a web server which is accessible only at the shop.  You could have nagios server for monitoring your other services.  The world is your (internet not accessible) oyster!!  I don't like the command line - do you have a web UI where I can easily do X (where X is install something etc.)?  No!  These are bare VMs that are ripe for the taking.  You need to either A) be versed in the command line to know what your doing or B) have a hankering to learn.  If you ask, we'll be happy to teach you how to set up a server!  I'm really concerned about privacy - will my secrets be safe on my server?    Yes and no!  Yes - we'll ensure the VM can only be access via an SSH key.  We'll keep the host OS up to date.  Likely no one on the internet will gain access to your server.  No - the shop is where the host server is which is porous venue.  Theft is a possibility. Currently the drives of the server are un-encrypted and a motivated attacker could access your data. Caveat Emptor. Or, I guess, Caveat \"Emptor\" as it's free ;)  Ok, I'm in - how do I sign up?    Email  mrjones@synshop.org  and supply me with your username you use on synshop.org to pay your membership and your public SSH key.  That all sounds great, but I have more questions/don't know what an SSH key is/need help - what do I do?  Still email mrjones@synshop.org!  We'll figure a time when we can help you in person.  We welcome everyone to this service and want to help folks get up and running. Watch out though - you'll be learning stuff ;)", 
             "title": "Member Boxes FAQ"
         }

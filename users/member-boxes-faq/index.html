@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>TBD - RTFM</title>
+        <title>Member Boxes FAQ - RTFM</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -48,55 +48,78 @@
                     <li >
                         <a href="../..">SYNShop Docs</a>
                     </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admins <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
-    <a href="../c220/">c220 and LXD</a>
+    <a href="../../admins/c220/">c220 and LXD</a>
+</li>
+                            
+<li >
+    <a href="../../admins/create-member-box/">Create a member container</a>
+</li>
+                            
+<li >
+    <a href="../../admins/docs/">TBD</a>
+</li>
+                            
+<li >
+    <a href="../../admins/flatline/">TBD</a>
+</li>
+                            
+<li >
+    <a href="../../admins/">Admin home page</a>
+</li>
+                            
+<li >
+    <a href="../../admins/motioneye/">Motion Eye</a>
+</li>
+                            
+<li >
+    <a href="../../admins/pi-hole-stubby/">c220 and LXD</a>
+</li>
+                            
+<li >
+    <a href="../../admins/pritunl/">Pritunl VPN</a>
+</li>
+                            
+<li >
+    <a href="../../admins/unifi/">TBD</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../Local Resources/">Local Resources</a>
+</li>
+                            
+<li >
+    <a href="../Mailing Lists/">Mailing Lists</a>
+</li>
+                            
+<li >
+    <a href="../SYN Shop Tool List/">SYN Shop Tool List</a>
+</li>
+                            
+<li >
+    <a href="../SYN Shop Vision/">SYN Shop Vision</a>
+</li>
+                            
+<li >
+    <a href="../SYN Shop v1.0/">SYN Shop v1.0</a>
+</li>
+                            
+<li >
+    <a href="../">Users Docs</a>
 </li>
                             
 <li class="active">
-    <a href="./">TBD</a>
+    <a href="./">Member Boxes FAQ</a>
 </li>
-                            
-<li >
-    <a href="../flatline/">Flatline</a>
-</li>
-                            
-<li >
-    <a href="../motioneye/">Motioneye</a>
-</li>
-                            
-<li >
-    <a href="../pi-hole-stubby/">Pi hole stubby</a>
-</li>
-                            
-<li >
-    <a href="../pritunl/">Pritunl</a>
-</li>
-                            
-<li >
-    <a href="../unifi/">Unifi</a>
-</li>
-                            
-  <li class="dropdown-submenu">
-    <a href="#">Lxd member boxes</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../lxd-member-boxes/create-member-box/">Create member box</a>
-</li>
-            
-<li >
-    <a href="../lxd-member-boxes/">Home</a>
-</li>
-            
-<li >
-    <a href="../lxd-member-boxes/member-boxes-faq/">Member boxes faq</a>
-</li>
-    </ul>
-  </li>
                         </ul>
                     </li>
                 </ul>
@@ -108,12 +131,12 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../c220/">
+                        <a rel="next" href="../">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li >
-                        <a rel="prev" href="../flatline/">
+                    <li class="disabled">
+                        <a rel="prev" >
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -125,12 +148,36 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tbd">TBD</a></li>
+        <li class="main active"><a href="#member-boxes-faq">Member Boxes FAQ</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="tbd">TBD</h1></div>
+<h1 id="member-boxes-faq">Member Boxes FAQ</h1>
+<p>This document is for members who have chosen to get a container at the SYNShop.  </p>
+<p><strong>What exactly are you offering?</strong> </p>
+<p>We're offering a small virtual machine (VM) with 512MB RAM, 1 CPU, 10GB of disk and 1Mbit of network.  These will all be <a href="https://fridge.ubuntu.com/2017/02/17/ubuntu-16-04-2-lts-released/">Ubuntu 16.04</a> instance.  </p>
+<p><strong>Why only Ubuntu?</strong> </p>
+<p>The server is running the <a href="https://linuxcontainers.org/lxd/">LXD hypervisor</a> which uses the Linux Kernel for all guest VMs.  This means you can only run OSes that use the same kernel, like Ubuntu.  </p>
+<p><strong>Wait, I can have a FREE server with my membership!?</strong>  </p>
+<p>Yes!  However, there are three main limitations:</p>
+<ol>
+<li>These are for personal use only. If you want to do something commercial check out the other VM providers - <a href="https://www.digitalocean.com/pricing/">they start at about $5/mo</a>.</li>
+<li>This is not a production environment.  We'll try to keep the VMs up 100% of the time, but we don't have fancy hardware like battery back up and there'll likely be outages here and there. Otherwise, these are full VMs where you have root and can install any software that will fit on 1 CPU/512GB RAM and 10GB of disk.  Hack away, hacker!!</li>
+<li>These machines are only accessible via SSH.  So, for example, you can not run a web server that is accessible on the internet (though it would be accessible at the shop!)</li>
+</ol>
+<p><strong>So if I can’t run a publicly accessible service, like a web server, what can I do with it?</strong></p>
+<p>So, so many things!  The main thing we hope you’ll do is learn about linux and the command line.  However, you could set up a web server which is accessible only at the shop.  You could have nagios server for monitoring your other services.  The world is your (internet not accessible) oyster!!</p>
+<p><strong>I don't like the command line - do you have a web UI where I can easily do X (where X is install something etc.)?</strong></p>
+<p>No!  These are bare VMs that are ripe for the taking.  You need to either A) be versed in the command line to know what your doing or B) have a hankering to learn.  If you ask, we'll be happy to teach you how to set up a server!</p>
+<p><strong>I'm really concerned about privacy - will my secrets be safe on my server?</strong> </p>
+<p>Yes and no!</p>
+<p>Yes - we'll ensure the VM can only be access via an SSH key.  We'll keep the host OS up to date.  Likely no one on the internet will gain access to your server.</p>
+<p>No - the shop is where the host server is which is porous venue.  Theft is a possibility. Currently the drives of the server are un-encrypted and a motivated attacker could access your data. Caveat Emptor. Or, I guess, Caveat "Emptor" as it's free ;)</p>
+<p><strong>Ok, I'm in - how do I sign up?</strong> </p>
+<p>Email <a href="mailto:mrjones@synshop.org">mrjones@synshop.org</a> and supply me with your username you use on synshop.org to pay your membership and your public SSH key.</p>
+<p><strong>That all sounds great, but I have more questions/don't know what an SSH key is/need help - what do I do?</strong></p>
+<p>Still email mrjones@synshop.org!  We'll figure a time when we can help you in person.  We welcome everyone to this service and want to help folks get up and running. Watch out though - you'll be learning stuff ;)</p></div>
         </div>
 
         <footer class="col-md-12">
