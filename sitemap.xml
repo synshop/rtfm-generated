@@ -26,11 +26,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>/admins/</loc>
-     <lastmod>2018-06-22</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>/admins/motioneye/</loc>
      <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
@@ -61,6 +56,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>/users/Logos/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>/users/Mailing Lists/</loc>
      <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
@@ -82,11 +82,6 @@
     </url>
     <url>
      <loc>/users/Waivers/</loc>
-     <lastmod>2018-06-22</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>/users/</loc>
      <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>

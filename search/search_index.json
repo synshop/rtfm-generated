@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "SYNShop Docs\n\n\nDocumentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.\n\n\n\n\nUsers\n:\n  - These docs are for folks using the tools and software at the the shop.\n\n\nAdmins\n:\n  - These docs are for shop members building and maintaining tools and software at the the shop.\n\n\n\n\nYou're welcome to read anything here, but note which section you're in!", 
+            "text": "SYNShop Docs\n\n\nDocumentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.\n\n\n\n\nUsers:\n  - These docs are for folks using the tools and software at the the shop.\n\n\nAdmins:\n  - These docs are for shop members building and maintaining tools and software at the the shop.\n\n\n\n\nTo read the docs, choose an option from the menu above.\n\n\nYou're welcome to read anything here, but note which section you're in! \n\n\nTo read more about the shop, check out our \nhomepage\n!", 
             "title": "SYNShop Docs"
         }, 
         {
             "location": "/#synshop-docs", 
-            "text": "Documentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.   Users :   - These docs are for folks using the tools and software at the the shop.  Admins :   - These docs are for shop members building and maintaining tools and software at the the shop.   You're welcome to read anything here, but note which section you're in!", 
+            "text": "Documentation about everything and anything at the SYN Shop.  These documents are broken into two main parts: Users and Admins.   Users:   - These docs are for folks using the tools and software at the the shop.  Admins:   - These docs are for shop members building and maintaining tools and software at the the shop.   To read the docs, choose an option from the menu above.  You're welcome to read anything here, but note which section you're in!   To read more about the shop, check out our  homepage !", 
             "title": "SYNShop Docs"
         }, 
         {
@@ -62,23 +62,13 @@
         }, 
         {
             "location": "/admins/flatline/", 
-            "text": "TBD", 
-            "title": "TBD"
+            "text": "Flatline\n\n\nthe firewall and switch point to flatline for auth over the \nTACACS protocol\n. kind of like radius, but doesn't suck. that's configured to allow you to authenticate, and uses PAM for where it gets that auth. PAM is set to use the local user database on the box", 
+            "title": "Flatline"
         }, 
         {
-            "location": "/admins/flatline/#tbd", 
-            "text": "", 
-            "title": "TBD"
-        }, 
-        {
-            "location": "/admins/", 
-            "text": "Admin home page\n\n\nThese docs are for shop members building and maintaining tools and software at the the shop.", 
-            "title": "Admin home page"
-        }, 
-        {
-            "location": "/admins/#admin-home-page", 
-            "text": "These docs are for shop members building and maintaining tools and software at the the shop.", 
-            "title": "Admin home page"
+            "location": "/admins/flatline/#flatline", 
+            "text": "the firewall and switch point to flatline for auth over the  TACACS protocol . kind of like radius, but doesn't suck. that's configured to allow you to authenticate, and uses PAM for where it gets that auth. PAM is set to use the local user database on the box", 
+            "title": "Flatline"
         }, 
         {
             "location": "/admins/motioneye/", 
@@ -152,7 +142,7 @@
         }, 
         {
             "location": "/users/FAQ/", 
-            "text": "FAQ\n\n\nWhat is SYN Shop?\n\n\nSYN Shop is a \"hackerspace(external link)\" located in Las Vegas, Nevada. It is a space for sharing, creation, collaboration, research, development, mentoring, and of course, learning. Our motto is: \"Let's make stuff awesome!\"\n\n\nThe group tends to be focused on electronics. However, many members do metal working, programming, wood working, crafting, and a variety of other things. Synshop provides a fertile environment and community that is passionate about learning, helping others, and growing the community of hackers/makers/tinkerers/geeks in Las Vegas. We also like to meet people from other hackerspaces, and have seen people visit SYN Shop from hackerspaces world wide.\n\n\nSee SYN \nShop Vision\n\n\nWhat is the best time to visit SYN Shop?\n\n\nSYN Shop is currently located at: 117 N 4th St, Las Vegas, NV 89101\nOur open hours are:\n\n\n\n\nMonday: 6pm - 10pm - Theme: \"DIY Robot Domination\"\n\n\nTuesday: - CLOSED -\n\n\nWednesday: 6pm - 10pm - Theme: \"Craft Night\"\n\n\nThursday 6pm - 10pm\n\n\nFriday 6pm - 10pm\n\n\nSaturday: 3pm - 10pm\n\n\nSunday: - CLOSED - \n\n\n\n\nMondays and Wednesdays are themed after interest groups. If you come to work, your project does not have to match the theme. However these nights tend to attract members of the community that are interested in that theme. DIY Robot Domination attracts robotics enthusiasts. Craft Night attracts \"Team Low Tech\" and all others who are interested in a variety of general crafts. Think of a knitting circle where one person knits, one person builds models, and another sews a quilt.\n\n\nYou do not need to be a member to come spend time and acclimate yourself. You do need to be a member to use our equipment.\n\n\nWhat are the dues?\n\n\nBeing part of the community is free. Join our \nMessage Boards\n or come down to the shop and acclimate yourself. Meet our people, and join in the conversation!\n\n\nAccessing the equipment requires you to be a paying member. The dues are set at $ 40 per month. For this price, you gain access to all of our equipment during open hours. If you eventually become a Vetted Member in good standing, you will have access to the shop and its equipment 24 hours a day 7 days a week.\n\n\nHow to I get involved?\n\n\nThe best way to get involved with the group is to show up to one of the open nights, join the mailing list/google group, and just participate in\nthings. People at SYN Shop have all been very open to hearing what other people are working on, answering questions, and offering help. It's a great group of folks, and is looking to only get better in the future.", 
+            "text": "FAQ\n\n\nWhat is SYN Shop?\n\n\nSYN Shop is a \"hackerspace(external link)\" located in Las Vegas, Nevada. It is a space for sharing, creation, collaboration, research, development, mentoring, and of course, learning. Our motto is: \"Let's make stuff awesome!\"\n\n\nThe group tends to be focused on electronics. However, many members do metal working, programming, wood working, crafting, and a variety of other things. Synshop provides a fertile environment and community that is passionate about learning, helping others, and growing the community of hackers/makers/tinkerers/geeks in Las Vegas. We also like to meet people from other hackerspaces, and have seen people visit SYN Shop from hackerspaces world wide.\n\n\nSee SYN \nShop Vision\n \n\n\nWhat is the best time to visit SYN Shop?\n\n\nSYN Shop is currently located at: 117 N 4th St, Las Vegas, NV 89101\nOur open hours are:\n\n\n\n\nMonday: 6pm - 10pm - Theme: \"DIY Robot Domination\"\n\n\nTuesday: - CLOSED -\n\n\nWednesday: 6pm - 10pm - Theme: \"Craft Night\"\n\n\nThursday 6pm - 10pm\n\n\nFriday 6pm - 10pm\n\n\nSaturday: 3pm - 10pm\n\n\nSunday: - CLOSED - \n\n\n\n\nMondays and Wednesdays are themed after interest groups. If you come to work, your project does not have to match the theme. However these nights tend to attract members of the community that are interested in that theme. DIY Robot Domination attracts robotics enthusiasts. Craft Night attracts \"Team Low Tech\" and all others who are interested in a variety of general crafts. Think of a knitting circle where one person knits, one person builds models, and another sews a quilt.\n\n\nYou do not need to be a member to come spend time and acclimate yourself. You do need to be a member to use our equipment.\n\n\nWhat are the dues?\n\n\nBeing part of the community is free. Join our \nMessage Boards\n or come down to the shop and acclimate yourself. Meet our people, and join in the conversation!\n\n\nAccessing the equipment requires you to be a paying member. The dues are set at $ 40 per month. For this price, you gain access to all of our equipment during open hours. If you eventually become a Vetted Member in good standing, you will have access to the shop and its equipment 24 hours a day 7 days a week.\n\n\nHow to I get involved?\n\n\nThe best way to get involved with the group is to show up to one of the open nights, join the mailing list/google group, and just participate in\nthings. People at SYN Shop have all been very open to hearing what other people are working on, answering questions, and offering help. It's a great group of folks, and is looking to only get better in the future.", 
             "title": "FAQ"
         }, 
         {
@@ -249,6 +239,26 @@
             "location": "/users/Local Resources/#grainger-industrial-supply", 
             "text": "2401 Western Ave. \nLas Vegas, NV 89102 \nOn Western Ave (Highland turns into Western) just North of the Sahara overpass on the East side of the street \nExtensive inventory with local pickup. Free catalog in store or order online. Open M-F only.", 
             "title": "Grainger Industrial Supply"
+        }, 
+        {
+            "location": "/users/Logos/", 
+            "text": "Logos\n\n\nv3.0\n\n\n\n\n\n\nLogo Horizontal Small.ai\n\n\nLogo Horizontal Small_Reversed.ai\n\n\nLogo Poker Chip.ai\n\n\nLogo Poker Chip_Reversed.ai\n\n\nLogo Stacked Small.ai\n\n\nLogo Stacked Small_Reversed.ai\n\n\n\n\nv2.0\n\n\n\n\n\n\nsynshop v2 logo.ai\n\n\nsynshop v2 logo.dwg\n\n\nsynshop v2 logo.dxf\n\n\nsynshop v2 logo.eps\n\n\nsynshop v2 logo.png\n\n\nsynshop v2 logo.ps\n\n\nsynshop v2 logo.vsd\n\n\nsynshop v2 logo.xps", 
+            "title": "Logos"
+        }, 
+        {
+            "location": "/users/Logos/#logos", 
+            "text": "", 
+            "title": "Logos"
+        }, 
+        {
+            "location": "/users/Logos/#v30", 
+            "text": "Logo Horizontal Small.ai  Logo Horizontal Small_Reversed.ai  Logo Poker Chip.ai  Logo Poker Chip_Reversed.ai  Logo Stacked Small.ai  Logo Stacked Small_Reversed.ai", 
+            "title": "v3.0"
+        }, 
+        {
+            "location": "/users/Logos/#v20", 
+            "text": "synshop v2 logo.ai  synshop v2 logo.dwg  synshop v2 logo.dxf  synshop v2 logo.eps  synshop v2 logo.png  synshop v2 logo.ps  synshop v2 logo.vsd  synshop v2 logo.xps", 
+            "title": "v2.0"
         }, 
         {
             "location": "/users/Mailing Lists/", 
@@ -364,16 +374,6 @@
             "location": "/users/Waivers/#syn-shop-events-and-classes-liability-waiver", 
             "text": "Required to be signed by all event and class participants for each event/class being taken.  Liability Waiver - Events and Classes", 
             "title": "SYN Shop Events and Classes Liability Waiver"
-        }, 
-        {
-            "location": "/users/", 
-            "text": "Users Docs\n\n\nThese docs are for folks using the tools and software at the the shop.", 
-            "title": "Users Docs"
-        }, 
-        {
-            "location": "/users/#users-docs", 
-            "text": "These docs are for folks using the tools and software at the the shop.", 
-            "title": "Users Docs"
         }, 
         {
             "location": "/users/member-boxes-faq/", 
