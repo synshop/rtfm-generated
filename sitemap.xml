@@ -16,11 +16,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>/admins/docs/</loc>
-     <lastmod>2018-06-22</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>/admins/flatline/</loc>
      <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
@@ -37,6 +32,11 @@
     </url>
     <url>
      <loc>/admins/pritunl/</loc>
+     <lastmod>2018-06-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/admins/rtfm/</loc>
      <lastmod>2018-06-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
