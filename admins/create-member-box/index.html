@@ -221,14 +221,14 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="create-a-member-container">Create a member container</h1>
+<h1 id="create-a-member-container">Create a member container<a class="headerlink" href="#create-a-member-container" title="Permanent link"></a></h1>
 <p>All admins need to verify that applicants are paying members in good standing.  Members need to provide admins an SSH key.  </p>
-<h2 id="ssh-key-file">SSH Key file</h2>
+<h2 id="ssh-key-file">SSH Key file<a class="headerlink" href="#ssh-key-file" title="Permanent link"></a></h2>
 <p>Please name the SSH key with a valid member name on synshop.org followed by <code>-box</code>, eg <code>krux-box</code>.  Edit the comment of the key to be the current email of the member, eg:</p>
 <pre><code>ssh-ed25519 AAAAC3NzaC[SNIP]stbch8XfLn3rfR krux@synshop.org
 </code></pre>
 
-<h2 id="prep-for-creation">Prep for creation</h2>
+<h2 id="prep-for-creation">Prep for creation<a class="headerlink" href="#prep-for-creation" title="Permanent link"></a></h2>
 <p>Log into the provisioner account on the c220 (<code>provisioner@10.0.40.50</code>) and create a file in <code>~/lxd/member.keys</code> with the public SSH key.  Be sure to use the nomenclature denoted above (eg <code>krux-box</code>).</p>
 <p>Then list all the containers with <code>lxc list -c n,s,4,6</code>.  Note the highest IP and pick the next free one.  In this case, it'd be <code>10.0.40.60</code>:</p>
 <pre><code>provisioner@c220-01:~/lxd$ lxc list -c n,s,4,6
@@ -246,7 +246,7 @@
 +------------+---------+--------------------------------+------+
 </code></pre>
 
-<h2 id="create-the-container">Create the container</h2>
+<h2 id="create-the-container">Create the container<a class="headerlink" href="#create-the-container" title="Permanent link"></a></h2>
 <p>Now that you know the IP and have the SSH key file created, ensure you're in the <code>lxd</code> directory and run the create command:</p>
 <pre><code>provisioner@c220-01:~/lxd$ pwd
 /home/provisioner/lxd
@@ -258,7 +258,7 @@
 <pre><code>create.member.box.sh $NAME $IP $GATEWAY $KEY_FILE
 </code></pre>
 
-<h2 id="notify-the-user">Notify the user</h2>
+<h2 id="notify-the-user">Notify the user<a class="headerlink" href="#notify-the-user" title="Permanent link"></a></h2>
 <p>When the script is done it will give you some text to send the user:</p>
 <pre><code>Have the owner of member.keys/krux-box try this from outside the shop:
 
@@ -270,7 +270,7 @@ And inside the shop this:
 </code></pre>
 
 <p>Copy this from the terminal and send it to the user!</p>
-<h2 id="list-of-boxes">List of boxes</h2>
+<h2 id="list-of-boxes">List of boxes<a class="headerlink" href="#list-of-boxes" title="Permanent link"></a></h2>
 <p>here's a list as of Jun 2018:</p>
 <pre><code>mrjones@c220-01:~$ lxc list -c n4 --format table
 +-------------+--------------------------------+

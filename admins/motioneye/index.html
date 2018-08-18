@@ -220,15 +220,15 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="motion-eye">Motion Eye</h1>
-<h2 id="diy-security-camera-software">DIY Security camera software</h2>
+<h1 id="motion-eye">Motion Eye<a class="headerlink" href="#motion-eye" title="Permanent link"></a></h1>
+<h2 id="diy-security-camera-software">DIY Security camera software<a class="headerlink" href="#diy-security-camera-software" title="Permanent link"></a></h2>
 <p>See <a href="https://github.com/ccrisan/motioneye/wiki/Install-On-Ubuntu">motioneye install for ubuntu</a> for more info.</p>
 <p>Install is on these two containers:</p>
 <ul>
 <li><a href="http://10.0.40.21:8765">motioneye</a></li>
 <li><a href="http://10.0.40.22:8765">motioneye 2</a></li>
 </ul>
-<h2 id="on-c220">On c220</h2>
+<h2 id="on-c220">On c220<a class="headerlink" href="#on-c220" title="Permanent link"></a></h2>
 <p>Create the container as <code>provisioner</code> user on 10.0.40.50:</p>
 <pre><code>./create.new.lxd.container.sh motioneye2 10.0.40.22 10.0.40.1 default
 </code></pre>
@@ -242,7 +242,7 @@
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGCnfjkyMl4ZaZbfJXjKtBXoggGlosHP8IT8wgnzSYz8 mrjones+synshop@plip.com
 </code></pre>
 
-<h2 id="install-motioneye">Install motioneye</h2>
+<h2 id="install-motioneye">Install motioneye<a class="headerlink" href="#install-motioneye" title="Permanent link"></a></h2>
 <p>Ensure SSH works, you can get root and apt is up to date:</p>
 <pre><code>ssh ubuntu@10.0.40.22
 sudo su -
@@ -264,8 +264,8 @@ systemctl start motioneye
 </code></pre>
 
 <p>Update web passwords in GUI and put them in <code>/home/ubuntu/pass.txt</code></p>
-<h2 id="configure-motioneye-with-cameras">Configure motioneye with cameras</h2>
-<h3 id="cisco-7070-dome-camera">Cisco 7070 Dome camera</h3>
+<h2 id="configure-motioneye-with-cameras">Configure motioneye with cameras<a class="headerlink" href="#configure-motioneye-with-cameras" title="Permanent link"></a></h2>
+<h3 id="cisco-7070-dome-camera">Cisco 7070 Dome camera<a class="headerlink" href="#cisco-7070-dome-camera" title="Permanent link"></a></h3>
 <p><img alt="Cisco 7070" src="../images/cisco.dome.camera.7070.jpg" /></p>
 <p>This camera has a static IP of <code>10.0.40.7</code>.  The web gui is at <a href="https://10.0.40.7">https://10.0.40.7</a>.  You'll have to accept the invalid SSL cert. Username is <code>admin</code> and the password is in the keepass vault.</p>
 <p>This is a <a href="https://en.wikipedia.org/wiki/Power_over_Ethernet">Power over Ethernet</a> (PoE) camera.</p>
@@ -279,7 +279,7 @@ systemctl start motioneye
 <li>height: <code>1920</code></li>
 <li>frame rate: <code>15</code></li>
 </ul>
-<h3 id="cisco-5010-ptz-camera">Cisco 5010 PTZ camera</h3>
+<h3 id="cisco-5010-ptz-camera">Cisco 5010 PTZ camera<a class="headerlink" href="#cisco-5010-ptz-camera" title="Permanent link"></a></h3>
 <p><img alt="Cisco 5010" src="../images/cisco.5010.camera.jpg" /></p>
 <p>This camera has a static IP of <code>10.0.40.8</code>.  The web gui is at <a href="https://10.0.40.8">https://10.0.40.8</a>.  You'll have to accept the invalid SSL cert. Username is <code>admin</code> and the password is in the keepass vault.</p>
 <p>This is a PoE camera.</p>
