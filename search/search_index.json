@@ -107,13 +107,38 @@
         }, 
         {
             "location": "/admins/pi-hole-stubby/", 
-            "text": "c220 and LXD\n\uf0c1\n\n\nSee \nmrjones' blog post", 
-            "title": "c220 and LXD"
+            "text": "Pi-Hole and Stubby\n\uf0c1\n\n\nSYN Shop runs it's own instances of \nPi-Hole\n and \nStubby\n so that our DNS is both encrypted on the wire and ad free.  They're largely set up like \nmrjones' blog post\n.  Pi-Hole is a local DNS resolver that blacklist domains that serve ads. Stubby is a local DNS proxy that accepts unencupted DNS requests and relays them to an upstream resolver via DNS over TLS (DoT).  We currently use \nQuad 9\n for upstream DNS service as they don't log and IPs or queries.\n\n\nAll VMs are hosted on the c220 running LXD.\n\n\nStubby\n\uf0c1\n\n\n16.04\n\uf0c1\n\n\nFor Ubuntu 16.04, follow mrjones' blog post link above for compiling from source. \n\n\n18.04\n\uf0c1\n\n\nFor Ubuntu 18.04, just run \napt-get install stubby\n.  You'll have to comment out \nDynamicUser=true\n in \n/lib/systemd/system/stubby.service\n and then run \nsystemctl daemon-reload\n \n\n\nShared\n\uf0c1\n\n\nBoth 16.04 and 18.04 have the same config after you've installed it per the steps above.  Edit \n/etc/stubby/stubby.yml\n so that it's only listening on \n127.1.1.1\n (no IPv6) and is only relaying to Quad9.  For synshop-unfiltered network/wifi, use 9.9.9.10.  For synshop wifi, use 9.9.9.9.\n\n\nBe sure to have it enabled and started:\n\n\nsystemctl enable stubby\nsystemctl start stubby \n\n\n\n\nPi-Hole\n\uf0c1\n\n\nTo set up the Pi-Hole, do the generic install via \ncurl -sSL https://install.pi-hole.net | bash\n. On the Settings -\n System page, flush logs and disable query logging.  On Settings -\n DNS page, set \"Custom 1 (IPv4)\" to \n127.1.1.1\n and \nListen on all interfaces, permit all origins\n.  On Settings -\n Privacy, set it to \nParanoia mode\n. This way no logs will be stored of any DNS lookups.", 
+            "title": "Pi-Hole and Stubby"
         }, 
         {
-            "location": "/admins/pi-hole-stubby/#c220-and-lxd", 
-            "text": "See  mrjones' blog post", 
-            "title": "c220 and LXD"
+            "location": "/admins/pi-hole-stubby/#pi-hole-and-stubby", 
+            "text": "SYN Shop runs it's own instances of  Pi-Hole  and  Stubby  so that our DNS is both encrypted on the wire and ad free.  They're largely set up like  mrjones' blog post .  Pi-Hole is a local DNS resolver that blacklist domains that serve ads. Stubby is a local DNS proxy that accepts unencupted DNS requests and relays them to an upstream resolver via DNS over TLS (DoT).  We currently use  Quad 9  for upstream DNS service as they don't log and IPs or queries.  All VMs are hosted on the c220 running LXD.", 
+            "title": "Pi-Hole and Stubby"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#stubby", 
+            "text": "", 
+            "title": "Stubby"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#1604", 
+            "text": "For Ubuntu 16.04, follow mrjones' blog post link above for compiling from source.", 
+            "title": "16.04"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#1804", 
+            "text": "For Ubuntu 18.04, just run  apt-get install stubby .  You'll have to comment out  DynamicUser=true  in  /lib/systemd/system/stubby.service  and then run  systemctl daemon-reload", 
+            "title": "18.04"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#shared", 
+            "text": "Both 16.04 and 18.04 have the same config after you've installed it per the steps above.  Edit  /etc/stubby/stubby.yml  so that it's only listening on  127.1.1.1  (no IPv6) and is only relaying to Quad9.  For synshop-unfiltered network/wifi, use 9.9.9.10.  For synshop wifi, use 9.9.9.9.  Be sure to have it enabled and started:  systemctl enable stubby\nsystemctl start stubby", 
+            "title": "Shared"
+        }, 
+        {
+            "location": "/admins/pi-hole-stubby/#pi-hole", 
+            "text": "To set up the Pi-Hole, do the generic install via  curl -sSL https://install.pi-hole.net | bash . On the Settings -  System page, flush logs and disable query logging.  On Settings -  DNS page, set \"Custom 1 (IPv4)\" to  127.1.1.1  and  Listen on all interfaces, permit all origins .  On Settings -  Privacy, set it to  Paranoia mode . This way no logs will be stored of any DNS lookups.", 
+            "title": "Pi-Hole"
         }, 
         {
             "location": "/admins/pritunl/", 
