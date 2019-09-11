@@ -214,9 +214,7 @@
             <li><a href="#project-goal">Project Goal</a></li>
             <li><a href="#purchasing">Purchasing</a></li>
             <li><a href="#adding-cards">Adding Cards</a></li>
-        <li class="main "><a href="#id-access-badge-name_no_spaces-drupal_name-email_address-last-verified">ID Access Badge Name_No_Spaces Drupal_name Email_address                                       Last Verified</a></li>
             <li><a href="#revoking-cards">Revoking Cards</a></li>
-        <li class="main "><a href="#99-254-a1b2c3d4-firstname_lastname-namedomaincom-disabled-20191009-canceled-account">99 254 A1B2C3D4  Firstname_Lastname             "name@domain.com"                         Disabled 2019/10/09 - Canceled account</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -230,89 +228,85 @@
 <p><a href="https://docs.google.com/spreadsheet/ccc?key=0As-Fbiasxp7CdC1ZWXZZVzRoRzdycnZjV19ZVW5WMFE#gid=2">Access Control System BOM</a></p>
 <h2 id="adding-cards">Adding Cards<a class="headerlink" href="#adding-cards" title="Permanent link"></a></h2>
 <p>SSH into the Electric Badger at 10.0.40.10, and connect to the screen session</p>
-<blockquote>
-<p>$ ssh 10.0.40.10
+<pre><code>$ ssh 10.0.40.10
 krux@10.0.40.10's password:
-Linux electric-badger 4.1.13+ #826 PREEMPT Fri Nov 13 20:13:22 GMT 2015 armv6l</p>
-<p>The programs included with the Debian GNU/Linux system are free software;
+Linux electric-badger 4.1.13+ #826 PREEMPT Fri Nov 13 20:13:22 GMT 2015 armv6l
+
+The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.</p>
-<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.</p>
-<p>To connect to the Electric Badger</p>
-<p>screen -x access/access</p>
-<p>Last login: Tue Sep 10 21:01:21 2019 from raven.local
-krux@electric-badger:~$ screen -x access/access</p>
-</blockquote>
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+
+To connect to the Electric Badger
+
+ screen -x access/access
+
+Last login: Tue Sep 10 21:01:21 2019 from raven.local
+krux@electric-badger:~$ screen -x access/access
+</code></pre>
 <p>The screen session has a tab for a minicom session which interfaces to the serial interface of the badging system,
 an access mailer tab, which handles sending out notices, and an optional working bash session.</p>
 <p>Once connected to the screen session, press the key combination CTRL+a, and then " to select the minicom session.</p>
-<blockquote>
-<p>Num Name                                                                                                                        Flags</p>
-<p>0 minicom                                                                                                                         $
+<pre><code>Num Name                                                                                                                        Flags
+
+   0 minicom                                                                                                                         $
    1 access mailer                                                                                                                   $
-   2 bash                                                                                                                            $</p>
-</blockquote>
+   2 bash                                                                                                                            $
+</code></pre>
 <p>The '?' key and enter gives you a list of commands</p>
-<blockquote>
-<p>Valid commands are:
-(d)ate, (s)show user, (m)odify user <num>  <usermask> <tagnumber>
-(a)ll user dump,(r)emove_user <num>,(o)open door <num>
+<pre><code>Valid commands are:
+(d)ate, (s)show user, (m)odify user &lt;num&gt;  &lt;usermask&gt; &lt;tagnumber&gt;
+(a)ll user dump,(r)emove_user &lt;num&gt;,(o)open door &lt;num&gt;
 (u)nlock all doors,(l)lock all doors
 (1)disarm_alarm, (2)arm_alarm,(3)train_alarm (9)show_status
-(t)ime set <sec 0..59> <min 0..59> <hour 0..23> <day of week 1..7>
-           <day 0..31> <mon 0..12> <year 0.99>
-(e)nable <password> - enable or disable priveleged mode
-(h)ardware test - Test the hardware</p>
-</blockquote>
+(t)ime set &lt;sec 0..59&gt; &lt;min 0..59&gt; &lt;hour 0..23&gt; &lt;day of week 1..7&gt;
+           &lt;day 0..31&gt; &lt;mon 0..12&gt; &lt;year 0.99&gt;
+(e)nable &lt;password&gt; - enable or disable priveleged mode
+(h)ardware test - Test the hardware
+</code></pre>
 <p>Enter into enable mode</p>
-<blockquote>
-<p>e [enable_password]
-18:56:22  9/10/19 TUE Priveleged mode enabled.</p>
-</blockquote>
+<pre><code>e [enable_password]
+18:56:22  9/10/19 TUE Priveleged mode enabled.
+</code></pre>
 <p>Swipe the tag to be programmed on the badge reader</p>
-<blockquote>
-<p>18:56:22  9/10/19 TUE Priveleged mode enabled.
+<pre><code>18:56:22  9/10/19 TUE Priveleged mode enabled.
 18:57:23  9/10/19 TUE User A1B2C3D4 presented tag at reader 1
 18:57:23  9/10/19 TUE User not found
-18:57:24  9/10/19 TUE User  denied access at reader 1</p>
-</blockquote>
+18:57:24  9/10/19 TUE User  denied access at reader 1
+</code></pre>
 <p>Switch to the base session, or if it's not listed, create a new one by pressing CTRL+a, then c</p>
 <p>In the scripts directory there is a file called users.txt.  This is a whitespace delimited text file
 that contains the user ID, access level, badge number, name, email, and last verified date.</p>
 <p>Find an open ID, set the access level to 254 for all access, and paste in the badge number that showed
 in the logs when the badge was swiped.  Fill out the remaining fields and save the file</p>
-<blockquote>
-<h1 id="id-access-badge-name_no_spaces-drupal_name-email_address-last-verified">ID Access Badge Name_No_Spaces Drupal_name Email_address                                       Last Verified<a class="headerlink" href="#id-access-badge-name_no_spaces-drupal_name-email_address-last-verified" title="Permanent link"></a></h1>
-<p>99 254 A1B2C3D4  Firstname_Lastname      "name@domain.com"                                       2019/10/09</p>
-</blockquote>
+<pre><code>#ID Access Badge Name_No_Spaces Drupal_name Email_address                                       Last Verified
+99 254 A1B2C3D4  Firstname_Lastname      "name@domain.com"                                       2019/10/09
+</code></pre>
 <p>Select and copy the first three fields, switch back to the minicom session, and add the user
 to the badging controller by using the 'm' command followed by the user ID, access level, and
 badge number.</p>
-<blockquote>
-<p>m 99 254 A1B2C3D4
+<pre><code>m 99 254 A1B2C3D4
 19:10:21  9/10/19 TUE User 7 successfully modified
-99      254     A1B2C3D4</p>
-</blockquote>
+99      254     A1B2C3D4
+</code></pre>
 <p>Once that's done, test that the badge works.</p>
 <h2 id="revoking-cards">Revoking Cards<a class="headerlink" href="#revoking-cards" title="Permanent link"></a></h2>
 <p>Switch to the bash session, and edit users.txt and find the badge to be deactivated.</p>
 <p>Copy the line to the end of the file, and remark out the line, and add why it's being
 deactivated and the current date, then save the file.</p>
-<blockquote>
-<h1 id="99-254-a1b2c3d4-firstname_lastname-namedomaincom-disabled-20191009-canceled-account">99 254 A1B2C3D4  Firstname_Lastname             "name@domain.com"                         Disabled 2019/10/09 - Canceled account<a class="headerlink" href="#99-254-a1b2c3d4-firstname_lastname-namedomaincom-disabled-20191009-canceled-account" title="Permanent link"></a></h1>
-</blockquote>
+<pre><code>#99 254 A1B2C3D4  Firstname_Lastname             "name@domain.com"                         Disabled 2019/10/09 - Canceled account
+</code></pre>
 <p>Switch to the minicom terminal and switch to enable mode.</p>
-<blockquote>
-<p>e [enable_password]
-18:56:22  9/10/19 TUE Priveleged mode enabled.</p>
-</blockquote>
+<pre><code>e [enable_password]
+18:56:22  9/10/19 TUE Priveleged mode enabled.
+</code></pre>
 <p>Remove the user with the 'r' command followed by the user ID</p>
-<blockquote>
-<p>r 99
+<pre><code>r 99
 99 99     255     FFFFFFFF
-19:17:41  9/10/19 TUE User deleted at position 99</p>
-</blockquote></div>
+19:17:41  9/10/19 TUE User deleted at position 99
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
