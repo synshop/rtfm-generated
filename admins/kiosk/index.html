@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>c220 and LXD - RTFM</title>
+        <title>Front Kiosk Display - RTFM</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -58,8 +58,8 @@
     <a href="../Access Control System/">Access Control System</a>
 </li>
                                     
-<li class="active">
-    <a href="./">c220 and LXD</a>
+<li >
+    <a href="../c220/">c220 and LXD</a>
 </li>
                                     
 <li >
@@ -70,8 +70,8 @@
     <a href="../flatline/">Flatline</a>
 </li>
                                     
-<li >
-    <a href="../kiosk/">Front Kiosk Display</a>
+<li class="active">
+    <a href="./">Front Kiosk Display</a>
 </li>
                                     
 <li >
@@ -201,12 +201,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../Access Control System/">
+                                <a rel="next" href="../flatline/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../create-member-box/">
+                                <a rel="prev" href="../media/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -218,13 +218,57 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#c220-and-lxd">c220 and LXD</a></li>
+        <li class="main active"><a href="#front-kiosk-display">Front Kiosk Display</a></li>
+            <li><a href="#bill-of-materials">Bill of Materials</a></li>
+            <li><a href="#hardware-build-out">Hardware build out</a></li>
+            <li><a href="#software-set-up">Software set up</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="c220-and-lxd">c220 and LXD<a class="headerlink" href="#c220-and-lxd" title="Permanent link"></a></h1>
-<p>See <a href="https://blog.plip.com/2017/09/24/from-zero-to-lxd-installing-a-private-compute-cloud-on-a-cisco-c220-m4sff/">mrjones' blog post</a></p></div>
+<h1 id="front-kiosk-display">Front Kiosk Display<a class="headerlink" href="#front-kiosk-display" title="Permanent link"></a></h1>
+<p>How to build this:</p>
+<p><img alt="" src="../../images/front.kiosk3.jpg" /></p>
+<p><img style="width: 50%;" src="../../images/kiosk.rasbperry.pi.jpeg"></p>
+<h2 id="bill-of-materials">Bill of Materials<a class="headerlink" href="#bill-of-materials" title="Permanent link"></a></h2>
+<ul>
+<li>Big ass wall mounted TV with HDMI in</li>
+<li><a href="https://amzn.to/33o36mT">Raspberry Pi</a> with WiFi HDMI out and I2C pins</li>
+<li><a href="https://amzn.to/33otoFK">BME280 I2C temp sensor</a></li>
+<li><a href="https://amzn.to/2rm4vMV">0.96" I2C OLED Display with SSD1306 driver</a></li>
+<li><a href="https://amzn.to/2ClLPit">Jumper Cables</a></li>
+</ul>
+<h2 id="hardware-build-out">Hardware build out<a class="headerlink" href="#hardware-build-out" title="Permanent link"></a></h2>
+<ol>
+<li>Make <a href="../images/harness.jpeg">a harness</a> to connect the OLED display and the BME280 at the same time. 
+    Connect the OLED and sensor to the right pins on the Pi</li>
+<li>Connect the HDMI cable to the large monitor</li>
+<li>Fabricate a case for the Pi, OLED and sensor like shown above - but up to you how this looks ;)</li>
+<li>Fabricate a sign with the info and QR code</li>
+<li>Mount the monitor and Pi set up to the wall</li>
+</ol>
+<h2 id="software-set-up">Software set up<a class="headerlink" href="#software-set-up" title="Permanent link"></a></h2>
+<ol>
+<li>Install <a href="https://www.raspberrypi.org/downloads/">latest Rasbpian</a> on and SD card. Insert it into the Pi. After
+     first boot, configure WiFi to be on the shop's LAN, run <code>sudo apt update;sudo apt dist-upgrade</code></li>
+<li>Give the Pi a static IP by following 
+    <a href="https://thepihut.com/blogs/raspberry-pi-tutorials/how-to-give-your-raspberry-pi-a-static-ip-address-update">these steps</a>.</li>
+<li>Change the <code>pi</code> user password to something random, add administrators SSH keys to <code>pi</code> user
+    and harden SSH by editing <code>/etc/ssh/sshd_conf</code> and changing it to not allow passwords via 
+    <code>PasswordAuthentication no</code>. Restart ssh with <code>systemctl restart sshd</code></li>
+<li>Install and configure <a href="https://github.com/Ths2-9Y-LqJt6/YANPIWS">YANPIWS</a> per the sites instructions</li>
+<li>Enable the OLED to show the real time temps for the BME280 via 
+    <a href="https://github.com/Ths2-9Y-LqJt6/YANPIWS/tree/master/I2C.bme280.oled#quick-start">these instructions</a></li>
+<li>Create <code>/var/www/html/dashboard/</code> and put a copy of <code>MeetupEvents.php</code> in it from 
+    <a href="https://gist.github.com/Ths2-9Y-LqJt6/b588352f29b46af639c09891eaee13d2">this gist</a></li>
+<li>Grab a copy of the files on <a href="https://gist.github.com/Ths2-9Y-LqJt6/e563f95f9b4e4bae8d0a20e87515b056">this gist</a>
+      and put them in <code>/var/www/html/dashboard/</code></li>
+<li>save a copy of <code>synshop.logo.v4.svg</code> from our 
+    <a href="https://rtfm.synshop.org/images/logos/synshop.logo.v4.svg">logo page</a> into <code>/var/www/html/dashboard/</code> </li>
+<li>Have the Pi use a full screen browser service pointing to <code>http://127.0.0.1/dashboard/</code> per 
+    <a href="https://pimylifeup.com/raspberry-pi-kiosk/">these steps</a>.</li>
+<li>enjoy!</li>
+</ol></div>
         </div>
 
         <footer class="col-md-12">
