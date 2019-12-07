@@ -79,10 +79,6 @@
 </li>
                                     
 <li >
-    <a href="../motioneye/">Motion Eye</a>
-</li>
-                                    
-<li >
     <a href="../pi-hole-stubby/">Pi-Hole and Stubby</a>
 </li>
                                     
@@ -260,11 +256,14 @@
 <li>Enable the OLED to show the real time temps for the BME280 via 
     <a href="https://github.com/Ths2-9Y-LqJt6/YANPIWS/tree/master/I2C.bme280.oled#quick-start">these instructions</a></li>
 <li>Create <code>/var/www/html/dashboard/</code> and put a copy of <code>MeetupEvents.php</code> in it from 
-    <a href="https://gist.github.com/Ths2-9Y-LqJt6/b588352f29b46af639c09891eaee13d2">this gist</a></li>
-<li>Grab a copy of the files on <a href="https://gist.github.com/Ths2-9Y-LqJt6/e563f95f9b4e4bae8d0a20e87515b056">this gist</a>
+    <a href="https://github.com/Ths2-9Y-LqJt6/MeetupScraper">this repo</a></li>
+<li>Grab a copy of the <code>index.php</code> and <code>events.php</code> files
+    on <a href="https://gist.github.com/Ths2-9Y-LqJt6/e563f95f9b4e4bae8d0a20e87515b056">this gist</a>
       and put them in <code>/var/www/html/dashboard/</code></li>
-<li>save a copy of <code>synshop.logo.v4.svg</code> from our 
-    <a href="https://rtfm.synshop.org/images/logos/synshop.logo.v4.svg">logo page</a> into <code>/var/www/html/dashboard/</code> </li>
+<li>Create a folder called <code>member_fobbing</code> in <code>/var/www/html/</code> and install the<br />
+<a href="https://github.com/Ths2-9Y-LqJt6/fobber">fobber repo</a> into it.  Be sure to copy <code>config.dist.php</code> to
+    <code>config.php</code>. As well, ensure badger is doing a webhook call every time some one fobs in to the
+    kiosk at <code>https://KIOSK_IP_HERE/member_fobbing</code>.</li>
 <li>Have the Pi use a full screen browser service pointing to <code>http://127.0.0.1/dashboard/</code> per 
     <a href="https://pimylifeup.com/raspberry-pi-kiosk/">these steps</a>.</li>
 <li>enjoy!  </li>
