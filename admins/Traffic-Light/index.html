@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Unifi VM - RTFM</title>
+        <title>Traffic Light Admin Guide - RTFM</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -58,8 +58,8 @@
     <a href="../Access Control System/">Access Control System</a>
 </li>
                                     
-<li >
-    <a href="../Traffic-Light/">Traffic Light Admin Guide</a>
+<li class="active">
+    <a href="./">Traffic Light Admin Guide</a>
 </li>
                                     
 <li >
@@ -94,8 +94,8 @@
     <a href="../rtfm/">rtfm</a>
 </li>
                                     
-<li class="active">
-    <a href="./">Unifi VM</a>
+<li >
+    <a href="../unifi/">Unifi VM</a>
 </li>
                                 </ul>
                             </li>
@@ -205,12 +205,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../rtfm/">
+                                <a rel="next" href="../Access Control System/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../../users/FAQ/">
+                                <a rel="prev" href="../c220/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -222,14 +222,208 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#unifi-vm">Unifi VM</a></li>
+        <li class="main active"><a href="#traffic-light-admin-guide">Traffic Light Admin Guide</a></li>
+            <li><a href="#acquiring">Acquiring</a></li>
+            <li><a href="#lights">Lights</a></li>
+            <li><a href="#controller-box">Controller Box</a></li>
+            <li><a href="#public-web-site">Public Web site</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="unifi-vm">Unifi VM<a class="headerlink" href="#unifi-vm" title="Permanent link"></a></h1>
-<p>We have a container running on the c220 with an install of  the UniFi software per <a href="https://help.ubnt.com/hc/en-us/articles/220066768-UniFi-How-to-Install-Update-via-APT-on-Debian-or-Ubuntu">their install steps</a>.  This allows us to controll the UniFi APs we have in the shop.</p>
-<p>The container is located at <a href="https://10.0.40.55:8443">https://10.0.40.55:8443</a>. You'll need to be on the shop LAN to access it.</p></div>
+<h1 id="traffic-light-admin-guide">Traffic Light Admin Guide<a class="headerlink" href="#traffic-light-admin-guide" title="Permanent link"></a></h1>
+<p>For general end user info, see <a href="/users/Projects/Traffic-Light/">users guide</a>. Otherwise, for nitty gritty technical info, read on!</p>
+<h2 id="acquiring">Acquiring<a class="headerlink" href="#acquiring" title="Permanent link"></a></h2>
+<p>Where did we get this? How do we get another if ours explodes? Exercise left to reader.</p>
+<h2 id="lights">Lights<a class="headerlink" href="#lights" title="Permanent link"></a></h2>
+<p>Lights are Lights are A19 LED 14w (100w equivalent).  You can swing the front of the fixture open to replace them when they go out.</p>
+<h2 id="controller-box">Controller Box<a class="headerlink" href="#controller-box" title="Permanent link"></a></h2>
+<p>Krux to fill in info here, but</p>
+<ul>
+<li>ESP32</li>
+<li>Screen</li>
+<li>Buttons</li>
+<li>Relay</li>
+</ul>
+<h3 id="case">Case<a class="headerlink" href="#case" title="Permanent link"></a></h3>
+<p>Krux to fill in info here, but 3d printed yay</p>
+<h3 id="bom">BOM<a class="headerlink" href="#bom" title="Permanent link"></a></h3>
+<p>Krux to fill in info here</p>
+<h3 id="software">Software<a class="headerlink" href="#software" title="Permanent link"></a></h3>
+<p>Krux to fill in, but ESP32 software listening on 10.0.40.120 with DNS of time-circuit.synshop.org, has web interface, serves up JSON, talks to screen and power relays.</p>
+<h2 id="public-web-site">Public Web site<a class="headerlink" href="#public-web-site" title="Permanent link"></a></h2>
+<p>The site currently shows an image with a tool tip showing the live light status and a tool tip showing how long the shop will be open:</p>
+<p><img alt="Web Site Header" src="../images/site.header.with.traffic.light.png" />  </p>
+<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link"></a></h3>
+<p>JSON is published at <a href="http://10.0.40.120/status">http://10.0.40.120/status</a>.  There is then a root cron job which copies it from time-circuit.synshop.org to nexus.  There is then a root cron job on lagos.synshop.org that copies it to <a href="https://synshop.org/traffic-light/status.json">https://synshop.org/traffic-light/status.json</a></p>
+<p>Sample:</p>
+<pre><code class="json">{
+    &quot;status&quot;: &quot;red&quot;,
+    &quot;destination_time&quot;: 1582096081
+}
+</code></pre>
+
+<h3 id="static-images">Static Images<a class="headerlink" href="#static-images" title="Permanent link"></a></h3>
+<p>There are 4 images we use on the web site:</p>
+<ul>
+<li><a href="https://synshop.org/traffic-light/traffic-light-green.jpg">https://synshop.org/traffic-light/traffic-light-green.jpg</a></li>
+<li><a href="https://synshop.org/traffic-light/traffic-light-red.jpg">https://synshop.org/traffic-light/traffic-light-red.jpg</a></li>
+<li><a href="https://synshop.org/traffic-light/traffic-light-yellow.jpg">https://synshop.org/traffic-light/traffic-light-yellow.jpg</a></li>
+<li><a href="https://synshop.org/traffic-light/traffic-light-error.jpg">https://synshop.org/traffic-light/traffic-light-error.jpg</a></li>
+</ul>
+<h3 id="dynamic-images">Dynamic Images<a class="headerlink" href="#dynamic-images" title="Permanent link"></a></h3>
+<p>If you go to:</p>
+<ul>
+<li><a href="https://synshop.org/traffic-light/status.php">https://synshop.org/traffic-light/status.php</a></li>
+</ul>
+<p>You'll see a live image of the traffic light.  It uses this code to generate it:</p>
+<pre><code class="php">&lt;?php
+$string = file_get_contents(__DIR__ . &quot;/status.json&quot;);
+$light_json = json_decode($string, true);
+$valid_colors = array('red','green','yellow');
+if(isset($light_json['status']) &amp;&amp; in_array($light_json['status'], $valid_colors)){
+    $img = 'traffic-light-' . $light_json['status'] . '.jpg';
+} else {
+    $img = 'traffic-light-error.jpg';
+}
+header(&quot;Content-Type: image/jpeg&quot;);
+echo file_get_contents(__DIR__ . &quot;/$img&quot;);
+</code></pre>
+
+<h3 id="header-image-on-web-site">Header image on web site<a class="headerlink" href="#header-image-on-web-site" title="Permanent link"></a></h3>
+<p>We use this HTML which is in <code>page.tpl.php</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. It just creates an empty place holder for the image and tool tip:</p>
+<pre><code class="php">&lt;?php if ($site_slogan): ?&gt;
+  &lt;div id=&quot;site-slogan&quot;&gt;
+      &lt;div id=&quot;address-text&quot;&gt;
+            &lt;?php print $site_slogan; ?&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;traffic-light&quot;&gt;
+            &lt;img id=&quot;traffic-light-img&quot; src=&quot;&quot; alt=&quot;&quot; title=&quot;&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+
+<p>We use this css which is in <code>base.css</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. This floats the traffic light DIV in the right spot and makes it a fixed 24px so text doesn't move around when the light image shows up:</p>
+<pre><code class="css">#traffic-light img {
+  height: 70px;
+}
+#traffic-light  {
+  float: right;
+  padding-left: 10px;
+  margin-top: -17px;
+  width:24px;
+}
+#address-text  {
+  float: left;
+}
+</code></pre>
+
+<p>It uses this Javascript which was added to <code>koi.js</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. It downloads the JSON and checks the status and shows the correct image and updates the tool tip of the image.  It is updated when the page is first loaded and then using AJAX every 60 seconds while the page is open:</p>
+<pre><code class="js">// keep status and destination time (shop close time) in global vars
+let traffic_light_status = '';
+let destination_epoch_utc = '';
+
+/**
+ * helper method to get JSON, populate two vars, and update image
+ */
+function checkTrafficLightStatus(){
+    // fetch json with cache bust concated on via guidGenerator()
+    fetch('/traffic-light/status.json?' + guidGenerator(), {
+        method: 'GET'
+    })
+        .then(function(response) { return response.json(); })
+        .then(function(json) {
+            // if we have a valid color, update the image
+            if (json.status == 'red' || json.status == 'yellow' || json.status == 'green'){
+                if(traffic_light_status != json.status) {
+                    document.getElementById('traffic-light-img').src = '/traffic-light/traffic-light-' + json.status + '.jpg';
+                    traffic_light_status = json.status;
+                }
+            } else {
+                // if we got an invalid color, show an error
+                document.getElementById('traffic-light-img').src = '/traffic-light/traffic-light-error.jpg';
+                traffic_light_status = json.status;
+            }
+            // coerce PST epoch string from json into UTC Date object
+            let destination_time_pst = new Date(json.destination_time * 1000).toLocaleString(&quot;en-US&quot;, {timeZone: &quot;America/Los_Angeles&quot;});
+            destination_epoch_utc = new Date(destination_time_pst).getTime();
+            updateTimeDisplay();
+        });
+
+}
+
+/**
+ * Helper Method to update tool tip on traffic light.
+ */
+function updateTimeDisplay(){
+    let now_epoch_utc = new Date().getTime();
+    if (traffic_light_status == 'yellow' || traffic_light_status == 'green' || traffic_light_status == 'red') {
+        if (destination_epoch_utc &gt; now_epoch_utc) {
+            let remaining = destination_epoch_utc - now_epoch_utc;
+            document.getElementById('traffic-light-img').alt = &quot;The shop will close\nin &quot; + millisecondsToStr(remaining);
+            document.getElementById('traffic-light-img').title = &quot;The shop will close\nin &quot; + millisecondsToStr(remaining);
+        } else if (now_epoch_utc &gt;= destination_epoch_utc) {
+            document.getElementById('traffic-light-img').alt = 'The shop is closed';
+            document.getElementById('traffic-light-img').title = 'The shop is closed';
+        }
+    } else {
+        document.getElementById('traffic-light-img').title = 'The shop is in an unknown state';
+    }
+}
+
+// initialize traffic light and set interval to call it every 1min
+checkTrafficLightStatus();
+window.setInterval(function(){
+    checkTrafficLightStatus();
+}, 60000);
+
+// thanks https://stackoverflow.com/a/6860916
+function guidGenerator() {
+    var S4 = function() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+S4()+S4());
+}
+
+// thanks https://stackoverflow.com/a/8212878
+function millisecondsToStr (milliseconds) {
+    // TIP: to find current time in milliseconds, use:
+    // var  current_time_milliseconds = new Date().getTime();
+
+    function numberEnding (number) {
+        return (number &gt; 1) ? 's' : '';
+    }
+
+    let temp = Math.floor(milliseconds / 1000);
+    let years = Math.floor(temp / 31536000);
+    if (years) {
+        return years + ' year' + numberEnding(years);
+    }
+    //TODO: Months! Maybe weeks?
+    let days = Math.floor((temp %= 31536000) / 86400);
+    if (days) {
+        return days + ' day' + numberEnding(days);
+    }
+    let hours = Math.floor((temp %= 86400) / 3600);
+    if (hours) {
+        return hours + ' hour' + numberEnding(hours);
+    }
+    let minutes = Math.floor((temp %= 3600) / 60);
+    if (minutes) {
+        return minutes + ' minute' + numberEnding(minutes);
+    }
+    let seconds = temp % 60;
+    if (seconds) {
+        return seconds + ' second' + numberEnding(seconds);
+    }
+    return 'less than a second'; //'just now' //or other string you like;
+}
+</code></pre>
+
+<p>This JS file was injected by editing <code>koi.info</code> and adding this line:</p>
+<pre><code>scripts[] = koi.js
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
