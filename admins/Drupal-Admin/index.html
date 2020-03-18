@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>rtfm - RTFM</title>
+        <title>Drupal Admin Info - RTFM</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -58,8 +58,8 @@
     <a href="../Access Control System/">Access Control System</a>
 </li>
                                     
-<li >
-    <a href="../Drupal-Admin/">Drupal Admin Info</a>
+<li class="active">
+    <a href="./">Drupal Admin Info</a>
 </li>
                                     
 <li >
@@ -94,8 +94,8 @@
     <a href="../pritunl/">Pritunl VPN</a>
 </li>
                                     
-<li class="active">
-    <a href="./">rtfm</a>
+<li >
+    <a href="../rtfm/">rtfm</a>
 </li>
                                     
 <li >
@@ -209,12 +209,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../pritunl/">
+                                <a rel="next" href="../Access Control System/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../unifi/">
+                                <a rel="prev" href="../Traffic-Light/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -226,23 +226,143 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#rtfm">rtfm</a></li>
+        <li class="main active"><a href="#drupal-admin-info">Drupal Admin Info</a></li>
+            <li><a href="#hoursaddress-in-header">Hours/Address in header</a></li>
+            <li><a href="#traffic-light-in-header">Traffic light in header</a></li>
+            <li><a href="#homepage">Homepage</a></li>
+            <li><a href="#homepage-meetup-events">Homepage Meetup Events</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="rtfm">rtfm<a class="headerlink" href="#rtfm" title="Permanent link"></a></h1>
-<p>rtfm site is built with <a href="https://www.mkdocs.org/">MkDocs</a>.  To update them:</p>
-<ul>
-<li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/synshop/rtfm">rtfm</a> repo to your user on github</li>
-<li>Go to your copy of the repo (eg https://github/USERNAME/rtfm) and clone it</li>
-<li>if you haven't already, install <a href="https://www.mkdocs.org/#installation">mkdocs</a> on your local machine.</li>
-<li>create a branch, make your edits</li>
-<li>run "mkdocs build" and verify that the changes look good locally.</li>
-<li>commit your changes them and push the branch up to your github rtfm repo</li>
-<li>create a <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">pull request</a> for your branch against master on the main <a href="https://github.com/synshop/rtfm">rtfm</a> repo</li>
-</ul>
-<p>A SYN Shop member will review and merge your request if it all looks good!</p></div>
+<h1 id="drupal-admin-info">Drupal Admin Info<a class="headerlink" href="#drupal-admin-info" title="Permanent link"></a></h1>
+<h2 id="hoursaddress-in-header">Hours/Address in header<a class="headerlink" href="#hoursaddress-in-header" title="Permanent link"></a></h2>
+<p>If you need to change the address or hours in the header,  go to the 
+<a href="https://synshop.org/admin/config/system/site-information">Site Info page</a> and change the 
+"slogan" to the text you want.  Normally it says:</p>
+<pre><code>1075 American Pacific, Suite C, Henderson, NV 89074
+Monday - Friday 6pm - 10pm | Saturday 3pm - 10pm
+</code></pre>
+
+<h2 id="traffic-light-in-header">Traffic light in header<a class="headerlink" href="#traffic-light-in-header" title="Permanent link"></a></h2>
+<p>See <a href="https://rtfm.synshop.org/admins/Traffic-Light/">stand alone page</a></p>
+<h2 id="homepage">Homepage<a class="headerlink" href="#homepage" title="Permanent link"></a></h2>
+<p>If you need to change the home page to point to a new page for any reason,  go to the 
+<a href="https://synshop.org/admin/config/system/site-information">Site Info page</a> and change the 
+"Default Home Page" to a new or existing page.  </p>
+<h2 id="homepage-meetup-events">Homepage Meetup Events<a class="headerlink" href="#homepage-meetup-events" title="Permanent link"></a></h2>
+<p>Currently the homepage uses a page that has not-Drupal normal PHP inline on the page.  It uses
+<a href="https://github.com/Ths2-9Y-LqJt6/MeetupScraper">MeetupEvents</a> to show cached
+Meetup Events.  </p>
+<p>A cron job is run by root every minute to ensure users don't fire the caching:</p>
+<pre><code># every minute hit the home page so the cache for this is fresh and users aren't refreshing them
+* *     *   *  *        /usr/bin/curl --silent -o /dev/null https://synshop.org/Past-Events
+* *     *   *  *        /usr/bin/curl --silent -o /dev/null https://synshop.org/
+</code></pre>
+
+<p>And the page's PHP/CSS/HTML looks like this:</p>
+<pre><code>&lt;style&gt;
+    #address-text a {background-color:red; color:white; text-decoration: none;
+font-size: 25px;}
+    #breadcrumb {
+        display: none;
+    }
+    /* DANGER!! This CSS assumes the first node-article will be the wrapper &quot;future events&quot; and should be hidden.
+    It might hide a real event if you're not careful! */
+    /* Thanks  https://stackoverflow.com/a/8539107 */
+    .node-header, .comment_forbidden {
+        display: none;
+    }
+    .meetup-date  {
+        display: block !important;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;node-header clearfix&quot;&gt;
+
+    &lt;div class=&quot;date&quot;&gt;
+        &lt;span class=&quot;day&quot;&gt;23&lt;/span&gt;
+        &lt;span class=&quot;month&quot;&gt;Jan&lt;/span&gt;
+        &lt;span class=&quot;year&quot;&gt;2020&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;title-and-meta&quot;&gt;
+        &lt;h1 class=&quot;node-title&quot;&gt;&lt;a href=&quot;/2020-01-23/future-events&quot;&gt;future events&lt;/a&gt;&lt;/h1&gt;
+        &lt;span property=&quot;dc:title&quot; content=&quot;future events&quot; class=&quot;rdf-meta element-hidden&quot;&gt;&lt;/span&gt;&lt;span property=&quot;sioc:num_replies&quot; content=&quot;0&quot; datatype=&quot;xsd:integer&quot; class=&quot;rdf-meta element-hidden&quot;&gt;&lt;/span&gt;
+        &lt;div class=&quot;meta&quot;&gt;
+                      &lt;span class=&quot;submitted&quot;&gt;
+              By &lt;span rel=&quot;sioc:has_creator&quot;&gt;&lt;a href=&quot;/user/admin&quot; title=&quot;View user profile.&quot; class=&quot;username&quot; xml:lang=&quot;&quot; about=&quot;/user/admin&quot; typeof=&quot;sioc:UserAccount&quot; property=&quot;foaf:name&quot; datatype=&quot;&quot;&gt;Administrator&lt;/a&gt;&lt;/span&gt;            &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt; &lt;!-- /.title-and-menta --&gt;
+
+&lt;/div&gt;
+&lt;?php
+
+// HACKY SOLUTION! - be sure to update past events which uses identical code except get_past_meetup_events() instead
+
+$path = '/srv/http/synshop';
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+
+require_once('MeetupEvents.php');
+$meetup = new MeetupEvents();
+
+$eventHtml = '
+&lt;div class=&quot;node meetup-event node-feed-item node-promoted node-teaser clearfix&quot; typeof=&quot;sioc:Item foaf:Document&quot;&gt;
+    &lt;div class=&quot;node-header meetup-date clearfix&quot;&gt;
+        &lt;div class=&quot;date&quot;&gt;
+            &lt;span class=&quot;day&quot;&gt;%s&lt;!--day--&gt;&lt;/span&gt;
+            &lt;span class=&quot;month&quot;&gt;%s&lt;!--month--&gt;&lt;/span&gt;
+            &lt;span class=&quot;year&quot;&gt;%s&lt;!--year--&gt;&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;title-and-meta&quot;&gt;
+            &lt;h2 class=&quot;node-title&quot;&gt;&lt;a href=&quot;%s&quot;&gt;&lt;!--link--&gt;%s&lt;!--title--&gt;&lt;/a&gt;&lt;/h2&gt;
+            &lt;div class=&quot;meta&quot;&gt;
+                &lt;span class=&quot;submitted&quot;&gt;
+                    By &lt;span rel=&quot;sioc:has_creator&quot;&gt;&lt;a href=&quot;https://github.com/Ths2-9Y-LqJt6/MeetupScraper&quot;
+                         title=&quot;View github project.&quot; class=&quot;username&quot;
+                         xml:lang=&quot;&quot;
+                         property=&quot;foaf:name&quot; datatype=&quot;&quot;&gt;MeetupScraper&lt;/a&gt;&lt;/span&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt; &lt;!-- /.title-and-menta --&gt;
+
+    &lt;/div&gt; &lt;!-- /.node-header --&gt;
+
+    &lt;div class=&quot;content&quot;&gt;
+        &lt;div class=&quot;field field-name-field-feed-item-description field-type-text-with-summary field-label-hidden&quot;&gt;
+            &lt;div class=&quot;field-items&quot;&gt;
+                &lt;div class=&quot;field-item even&quot;&gt;&lt;h4&gt;%s&lt;!--long date--&gt;&lt;/h4&gt;
+                    &lt;p&gt;&lt;/p&gt;
+                    &lt;p&gt;%s&lt;!--description--&gt;&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+ ';
+
+
+$events = $meetup-&gt;get_future_meetup_events('synshop');
+$count = 1;
+$eventsHtml = '';
+foreach ( $events as $event){
+    $epoch = substr($event['epoch'], 0, -3);
+    $month = date('M',$epoch);
+    $day = date('d',$epoch);
+    $year = date('Y',$epoch);
+    $description = nl2br($event['description']);
+    $eventsHtml .= sprintf($eventHtml, $day, $month, $year, $event['link'], $event['title'], $event['human_date'], $description);
+    $count++;
+    if ($count &gt; 6) break;
+}
+
+
+print $eventsHtml;
+
+
+?&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.meetup.com/synshop/events&quot;&gt;See More Upcoming Events&lt;/a&gt;&lt;/p&gt;
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
