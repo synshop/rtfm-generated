@@ -230,6 +230,7 @@
             <li><a href="#hoursaddress-in-header">Hours/Address in header</a></li>
             <li><a href="#traffic-light-in-header">Traffic light in header</a></li>
             <li><a href="#homepage">Homepage</a></li>
+            <li><a href="#past-events-page">Past Events Page</a></li>
             <li><a href="#homepage-meetup-events">Homepage Meetup Events</a></li>
     </ul>
 </div></div>
@@ -250,6 +251,8 @@ Monday - Friday 6pm - 10pm | Saturday 3pm - 10pm
 <p>If you need to change the home page to point to a new page for any reason,  go to the 
 <a href="https://synshop.org/admin/config/system/site-information">Site Info page</a> and change the 
 "Default Home Page" to a new or existing page.  </p>
+<h2 id="past-events-page">Past Events Page<a class="headerlink" href="#past-events-page" title="Permanent link"></a></h2>
+<p>On <a href="https://synshop.org/Past-Events">this page</a> we show the past events.  This uses identical code to the homepage (see below), except it has a call to <code>$meetup-&gt;get_past_meetup_events('synshop')</code> instead of <code>$meetup-&gt;get_future_meetup_events('synshop')</code></p>
 <h2 id="homepage-meetup-events">Homepage Meetup Events<a class="headerlink" href="#homepage-meetup-events" title="Permanent link"></a></h2>
 <p>Currently the homepage uses a page that has not-Drupal normal PHP inline on the page.  It uses
 <a href="https://github.com/Ths2-9Y-LqJt6/MeetupScraper">MeetupEvents</a> to show cached
