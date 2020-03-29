@@ -279,6 +279,9 @@ font-size: 25px;}
     .meetup-date  {
         display: block !important;
     }
+    .node .cancelled  {
+        text-decoration: line-through
+    }
 &lt;/style&gt;
 &lt;div class=&quot;node-header clearfix&quot;&gt;
 
@@ -318,7 +321,7 @@ $eventHtml = '
         &lt;/div&gt;
 
         &lt;div class=&quot;title-and-meta&quot;&gt;
-            &lt;h2 class=&quot;node-title&quot;&gt;&lt;a href=&quot;%s&quot;&gt;&lt;!--link--&gt;%s&lt;!--title--&gt;&lt;/a&gt;&lt;/h2&gt;
+            &lt;h2 class=&quot;node-title %s&quot;&gt;&lt;a href=&quot;%s&quot;&gt;&lt;!--link--&gt;%s&lt;!--title--&gt;&lt;/a&gt;&lt;/h2&gt;
             &lt;div class=&quot;meta&quot;&gt;
                 &lt;span class=&quot;submitted&quot;&gt;
                     By &lt;span rel=&quot;sioc:has_creator&quot;&gt;&lt;a href=&quot;https://github.com/Ths2-9Y-LqJt6/MeetupScraper&quot;
@@ -354,7 +357,12 @@ foreach ( $events as $event){
     $day = date('d',$epoch);
     $year = date('Y',$epoch);
     $description = nl2br($event['description']);
-    $eventsHtml .= sprintf($eventHtml, $day, $month, $year, $event['link'], $event['title'], $event['human_date'], $description);
+    if ($event['status'] == 'cancelled'){
+        $longDate = &quot;CANCELLED &quot; .$event['human_date'];
+    } else {
+        $longDate = $event['human_date'];
+    }
+    $eventsHtml .= sprintf($eventHtml, $day, $month, $year, $event['status'], $event['link'], $event['title'], $longDate, $description);
     $count++;
     if ($count &gt; 6) break;
 }
