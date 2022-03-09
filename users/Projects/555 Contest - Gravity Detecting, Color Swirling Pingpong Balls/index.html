@@ -9,206 +9,193 @@
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>555 Contest - Gravity Detecting, Color Swirling Pingpong Balls - RTFM</title>
-        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
         <link href="../../../css/rtfm.css" rel="stylesheet">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
         <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../../..">RTFM</a>
-                </div>
+                <a class="navbar-brand" href="../../..">RTFM</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li >
-                                <a href="../../..">SYN Shop Docs</a>
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">SYN Shop Docs</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admins <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admins <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
-<li >
-    <a href="../../../admins/Access Control System/">Access Control System</a>
+<li>
+    <a href="../../../admins/Access%20Control%20System/" class="dropdown-item">Access Control System</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/Drupal-Admin/">Drupal Admin Info</a>
+<li>
+    <a href="../../../admins/Drupal-Admin/" class="dropdown-item">Drupal Admin Info</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/Traffic-Light/">Traffic Light Admin Guide</a>
+<li>
+    <a href="../../../admins/Traffic-Light/" class="dropdown-item">Traffic Light Admin Guide</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/c220/">c220 and LXD</a>
+<li>
+    <a href="../../../admins/c220/" class="dropdown-item">c220 and LXD</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/create-member-box/">Create a member container</a>
+<li>
+    <a href="../../../admins/create-member-box/" class="dropdown-item">Create a member container</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/flatline/">Flatline</a>
+<li>
+    <a href="../../../admins/flatline/" class="dropdown-item">Flatline</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/kiosk/">Front Kiosk Display</a>
+<li>
+    <a href="../../../admins/kiosk/" class="dropdown-item">Front Kiosk Display</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/media/">media</a>
+<li>
+    <a href="../../../admins/media/" class="dropdown-item">media</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/pi-hole-stubby/">Pi-Hole and Stubby</a>
+<li>
+    <a href="../../../admins/pi-hole-stubby/" class="dropdown-item">Pi-Hole and Stubby</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/pritunl/">Pritunl VPN</a>
+<li>
+    <a href="../../../admins/pritunl/" class="dropdown-item">Pritunl VPN</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/rtfm/">rtfm</a>
+<li>
+    <a href="../../../admins/rtfm/" class="dropdown-item">rtfm</a>
 </li>
                                     
-<li >
-    <a href="../../../admins/unifi/">Unifi VM</a>
+<li>
+    <a href="../../../admins/unifi/" class="dropdown-item">Unifi VM</a>
 </li>
                                 </ul>
                             </li>
                             <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
-<li >
-    <a href="../../FAQ/">FAQ</a>
+<li>
+    <a href="../../FAQ/" class="dropdown-item">FAQ</a>
 </li>
                                     
-<li >
-    <a href="../../Local Resources/">Local Resources</a>
+<li>
+    <a href="../../Local%20Resources/" class="dropdown-item">Local Resources</a>
 </li>
                                     
-<li >
-    <a href="../../Logos/">Logos</a>
+<li>
+    <a href="../../Logos/" class="dropdown-item">Logos</a>
 </li>
                                     
-<li >
-    <a href="../../Mailing Lists/">Mailing Lists</a>
+<li>
+    <a href="../../Mailing%20Lists/" class="dropdown-item">Mailing Lists</a>
 </li>
                                     
-<li >
-    <a href="../../Online Resources/">Online Resources</a>
+<li>
+    <a href="../../Online%20Resources/" class="dropdown-item">Online Resources</a>
 </li>
                                     
-<li >
-    <a href="../../SYN Shop Tool List/">SYN Shop Tool & Equipment List</a>
+<li>
+    <a href="../../SYN%20Shop%20Tool%20List/" class="dropdown-item">SYN Shop Tool & Equipment List</a>
 </li>
                                     
-<li >
-    <a href="../../SYN Shop Vision/">SYN Shop Vision</a>
+<li>
+    <a href="../../SYN%20Shop%20Vision/" class="dropdown-item">SYN Shop Vision</a>
 </li>
                                     
-<li >
-    <a href="../../SYN Shop v1.0/">SYN Shop v1.0</a>
+<li>
+    <a href="../../SYN%20Shop%20v1.0/" class="dropdown-item">SYN Shop v1.0</a>
 </li>
                                     
-<li >
-    <a href="../../Waivers/">Waivers</a>
+<li>
+    <a href="../../Waivers/" class="dropdown-item">Waivers</a>
 </li>
                                     
-<li >
-    <a href="../../kiosk/">Front Kiosk Display</a>
+<li>
+    <a href="../../kiosk/" class="dropdown-item">Front Kiosk Display</a>
 </li>
                                     
-<li >
-    <a href="../../media/">Media</a>
+<li>
+    <a href="../../media/" class="dropdown-item">Media</a>
 </li>
                                     
-<li >
-    <a href="../../member-boxes-faq/">Member Boxes FAQ</a>
+<li>
+    <a href="../../member-boxes-faq/" class="dropdown-item">Member Boxes FAQ</a>
 </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#">Equipment</a>
+    <a href="#" class="dropdown-item">Equipment</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../../Equipment/Consew 230 Industrial Sewing Machine/">Consew 230 Industrial Sewing Machine</a>
+<li>
+    <a href="../../Equipment/Consew%20230%20Industrial%20Sewing%20Machine/" class="dropdown-item">Consew 230 Industrial Sewing Machine</a>
 </li>
             
-<li >
-    <a href="../../Equipment/Freestanding Laser Cutter/">Freestanding Laser Cutter</a>
+<li>
+    <a href="../../Equipment/Freestanding%20Laser%20Cutter/" class="dropdown-item">Freestanding Laser Cutter</a>
 </li>
             
-<li >
-    <a href="../../Equipment/Muse Laser Cutter/">Muse Laser Cutter</a>
+<li>
+    <a href="../../Equipment/Muse%20Laser%20Cutter/" class="dropdown-item">Muse Laser Cutter</a>
 </li>
             
-<li >
-    <a href="../../Equipment/Silhoutte Cameo/">Silhoutte Cameo</a>
+<li>
+    <a href="../../Equipment/Silhoutte%20Cameo/" class="dropdown-item">Silhoutte Cameo</a>
 </li>
     </ul>
   </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#">Projects</a>
+    <a href="#" class="dropdown-item">Projects</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls</a>
+<li>
+    <a href="./" class="dropdown-item active">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls</a>
 </li>
             
-<li >
-    <a href="../Do-nato/">Do-nato</a>
+<li>
+    <a href="../Do-nato/" class="dropdown-item">Do-nato</a>
 </li>
             
-<li >
-    <a href="../Shapeoko PCB Milling/">Shapeoko PCB Milling</a>
+<li>
+    <a href="../Shapeoko%20PCB%20Milling/" class="dropdown-item">Shapeoko PCB Milling</a>
 </li>
             
-<li >
-    <a href="../Traffic-Light/">Traffic Light</a>
+<li>
+    <a href="../Traffic-Light/" class="dropdown-item">Traffic Light</a>
 </li>
     </ul>
   </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#">SYNShop3.0</a>
+    <a href="#" class="dropdown-item">SYNShop3.0</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../../SYNShop3.0/">SYN Shop v3.0</a>
+<li>
+    <a href="../../SYNShop3.0/" class="dropdown-item">SYN Shop v3.0</a>
 </li>
             
-<li >
-    <a href="../../SYNShop3.0/FAQ/">We're officially moving!</a>
+<li>
+    <a href="../../SYNShop3.0/FAQ/" class="dropdown-item">We're officially moving!</a>
 </li>
     </ul>
   </li>
@@ -216,19 +203,19 @@
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li >
-                                <a rel="next" href="../../Equipment/Silhoutte Cameo/">
+                            <li class="nav-item">
+                                <a rel="prev" href="../../Equipment/Silhoutte%20Cameo/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li >
-                                <a rel="prev" href="../Do-nato/">
+                            <li class="nav-item">
+                                <a rel="next" href="../Do-nato/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -238,16 +225,42 @@
         </div>
 
         <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#555-contest-gravity-detecting-color-swirling-pingpong-balls">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls</a></li>
-            <li><a href="#parts-list">Parts List</a></li>
-            <li><a href="#prototype">Prototype</a></li>
-            <li><a href="#board">Board</a></li>
-            <li><a href="#downloads">Downloads</a></li>
-    </ul>
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#555-contest-gravity-detecting-color-swirling-pingpong-balls" class="nav-link">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#parts-list" class="nav-link">Parts List</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#prototype" class="nav-link">Prototype</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#board" class="nav-link">Board</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#downloads" class="nav-link">Downloads</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
 </div></div>
-                <div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h1 id="555-contest-gravity-detecting-color-swirling-pingpong-balls">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls<a class="headerlink" href="#555-contest-gravity-detecting-color-swirling-pingpong-balls" title="Permanent link"></a></h1>
 <p>After hearing about the 555 Timer Contest(external link) being run by Chris Gammell(external link) and Jeri Ellsworth(external link) krux and I decided that we must enter it.</p>
@@ -255,9 +268,7 @@
 <p>Our end result was a circuit that uses 3 independent 555 timer circuits to drive a pair of RGB LEDs. A 3-axis accelerometer hooked to the control pins of each 555 vary the intensity of each color as the orientation of the device changes. The whole device is powered by a 3v coin cell battery and if the appropriate packages are used the whole thing will fit inside a pingpong ball.</p>
 <p>Here are a couple of videos of both the prototype and the real thing in action to prove that the circuit does in fact work!</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7Wl7MXmlyWg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F93twuQmz0g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2QenNlfDv9g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <p>Just to show you it is all self contained.</p>
@@ -367,42 +378,43 @@
 </table>
 <p>Note: All resistor values were determined by experimentation using parts we already had lying around the shop.</p>
 <p>Circuit</p>
-<p><img alt="" src="../images/dl1&amp;display.png" /></p>
+<p><img alt="" src="../images/dl1%26display.png" /></p>
 <p>There are 3 identical 555 timer circuits, one for each axis of the accelerometer, wired up as astable oscillators. The outputs from the accelerometer axis are hooked directly into the control voltage.</p>
 <p>As the accelerometer is moved the output voltage varies between ~.5 and ~2.5 volts representing -1 to +1g on each axis. This causes the duty cycle of the 555 timers to vary between ~40% and ~95%. Since the 555 is being used as a sink for the LEDs, higher duty cycle = dimmer led.</p>
 <p>Everything is run off 2 3v coin cell batteries wired in parallel. 5v power cannot be applied to this circuit without blowing the accelerometer.</p>
 <h2 id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link"></a></h2>
 <p>Like most hackers we generally prototype on a solderless breadboard. This presented a bit of a problem for this build as we did not have any of the major components in a breadboard-compatible DIP version.</p>
 <p>Krux quickly whipped up breakout boards for the surface mount 555 and 556, but the tiny accelerometer gave us a bit more trouble. Not wanting to etch a breakout board, we flipped it over and krux soldered leads directly onto the pads, creating a dead bug breakout.</p>
-<p><img alt="" src="../images/dl2&amp;display.jpeg" />
-<img alt="" src="../images/dl3&amp;display.jpeg" /></p>
+<p><img alt="" src="../images/dl2%26display.jpeg" />
+<img alt="" src="../images/dl3%26display.jpeg" /></p>
 <p>The dead bug was then mounted on a piece of perfboard and headers were added to make a
 breadboard compatible package.</p>
 <p>Most of the rest of the afternoon was filled with cursing as we tried to figure out how to make the 555 do what we were trying to do. The result was this:</p>
-<p><img alt="" src="../images/dl4&amp;display.jpeg" /></p>
+<p><img alt="" src="../images/dl4%26display.jpeg" /></p>
 <p>The smaller breadboard holds just the accelerometer so we could test it without having to move the whole circuit around. Although the small board is an microcontroller dev board, only the solderless breadboard piece is being used. This advancement only came after an hour of frustration caused by wires and other parts flying off the main board as we tried to test.</p>
-<p><img alt="" src="../images/dl12&amp;display.jpeg" /></p>
+<p><img alt="" src="../images/dl12%26display.jpeg" /></p>
 <p>And here is a still of it in action.</p>
 <h2 id="board">Board<a class="headerlink" href="#board" title="Permanent link"></a></h2>
 <p>Once the prototype was working we went about designing a board that would fit inside a pingpong ball. We knew this would be a daunting task as it would need to be a double sided board with components on both sides in order to fit inside.</p>
 <p>We were concerned that we would not be able to etch the board ourselves, specifically the tiny, closely spaced pads needed by the tiny accelerometer.</p>
 <p>We ended up printing transparencies and using the photoresist etch method to etch one side of the board, drill alignment holes, and then expose and etch the other side. Krux said it was --the
 best board he had ever made-- a pretty good board despite the microscopic flaw in one of the traces which caused a significant amount of cursing and debugging.</p>
-<p><img alt="" src="../images/dl5&amp;display.jpeg" />
-<img alt="" src="../images/dl6&amp;display.jpeg" /></p>
+<p><img alt="" src="../images/dl5%26display.jpeg" />
+<img alt="" src="../images/dl6%26display.jpeg" /></p>
 <p>A note on soldering the accelerometer. Our original plan was to use solder paste and reflow the accelerometer side of the board using an electric skillet. However, due to not being able to obtain decent solder paste locally krux instead placed a bit of solder on each pad, then used a hot air rework station to reflow just the one area. This worked like a charm and you can see the results in the picture above.</p>
-<p><img alt="" src="../images/dl13&amp;display.jpeg" /></p>
+<p><img alt="" src="../images/dl13%26display.jpeg" /></p>
 <p>The board mounted inside the pingpong ball. It finally works in the 11th hour, less than 24 hrs before the contest ends. Special thanks to PG who stayed up way past her bedtime to cheer us on and had the idea of putting tape onto the batteries where they overlapped the vias. She was also the control rod to prevent us from collapsing in a fit of rage and cursing.</p>
 <p>We had a variety of issues building the actual board. Since the board is hand etched we had to wire the vias. This created issues as our battery holders were right over the top of a few of them. Liberally applied tape kept everything from shorting out. We also had a tiny gap in one of the traces which was causing one of the 555 timers to not get the correct amount of power. This took a lot of time to track down. Both of these can be avoided if we have the boards made for us by a PCB manufacturer.</p>
 <p>Though this build had a lot of tricky stuff, most of it was related to cramming it into a tiny space. This is a really fun circuit to play with and can be easily built on a breadboard using dip components and a breakout board for the accelerometer.</p>
 <h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link"></a></h2>
 <ul>
-<li><a href="../images/555 ping pong balls - alt.sch">Schematic (Eagle)</a>  | Full schematic for use with eagle</li>
+<li><a href="../images/555%20ping%20pong%20balls%20-%20alt.sch">Schematic (Eagle)</a>  | Full schematic for use with eagle</li>
 <li><a href="../images/555pingpongballs-sch.pdf">Schematic (PDF)</a>  | Same schematic, but in pdf form</li>
-<li><a href="../images/555 ping pong balls - alt.brd">Board (Eagle)</a>  | Board layout file for eagle</li>
+<li><a href="../images/555%20ping%20pong%20balls%20-%20alt.brd">Board (Eagle)</a>  | Board layout file for eagle</li>
 <li><a href="../images/555pingpongballs-top.pdf">Board Top (PDF)</a>  | Board top in pdf format. Printed side goes onto the board, can be used with the toner transfer method</li>
 <li><a href="../images/555pingpongballs-bot.pdf">Board Bottom (PDF)</a>  | Board bottom in pdf format. Printed side goes onto the board, can be used with the toner transfer method</li>
 </ul></div>
+            </div>
         </div>
 
         <footer class="col-md-12">
@@ -411,41 +423,38 @@ best board he had ever made-- a pretty good board despite the microscopic flaw i
         </footer>
         <script>
             var base_url = "../../..",
-                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../../../js/base.js" defer></script>
         <script src="../../../js/rtfm.js" defer></script>
         <script src="../../../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
         </div>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
             </div>
             <div class="modal-body">
               <table class="table">
