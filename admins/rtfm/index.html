@@ -78,15 +78,15 @@
 </li>
                                     
 <li>
-    <a href="../pritunl/" class="dropdown-item">Pritunl VPN</a>
-</li>
-                                    
-<li>
     <a href="./" class="dropdown-item active">rtfm</a>
 </li>
                                     
 <li>
     <a href="../unifi/" class="dropdown-item">Unifi VM</a>
+</li>
+                                    
+<li>
+    <a href="../vpn/" class="dropdown-item">VPN</a>
 </li>
                                 </ul>
                             </li>
@@ -210,7 +210,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../pritunl/" class="nav-link">
+                                <a rel="prev" href="../pi-hole-stubby/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -239,6 +239,14 @@
             
             <li class="nav-item" data-level="1"><a href="#rtfm" class="nav-link">rtfm</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#content-changes" class="nav-link">Content changes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#how-content-is-pushed-live" class="nav-link">How content is pushed live</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -247,7 +255,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="rtfm">rtfm<a class="headerlink" href="#rtfm" title="Permanent link"></a></h1>
-<p>rtfm site is built with <a href="https://www.mkdocs.org/">MkDocs</a>.  To update them:</p>
+<p>rtfm site is built with <a href="https://www.mkdocs.org/">MkDocs</a>.  </p>
+<h2 id="content-changes">Content changes<a class="headerlink" href="#content-changes" title="Permanent link"></a></h2>
 <ul>
 <li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/synshop/rtfm">rtfm</a> repo to your user on github</li>
 <li>Go to your copy of the repo (eg https://github/USERNAME/rtfm) and clone it</li>
@@ -257,7 +266,16 @@
 <li>commit your changes them and push the branch up to your github rtfm repo</li>
 <li>create a <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">pull request</a> for your branch against master on the main <a href="https://github.com/synshop/rtfm">rtfm</a> repo</li>
 </ul>
-<p>A SYN Shop member will review and merge your request if it all looks good!</p></div>
+<p>A SYN Shop member will review and merge your request if it all looks good!</p>
+<h2 id="how-content-is-pushed-live">How content is pushed live<a class="headerlink" href="#how-content-is-pushed-live" title="Permanent link"></a></h2>
+<p>There are two repos to house content.  One repo, <a href="https://github.com/synshop/rtfm">rtfm</a> houses the raw, unprocessed markdown files. Another repo <a href="https://github.com/synshop/rtfm-generated">rtfm-generated</a> hosts the processed files that mkdocs generates.  Every time a commit is merged to the <code>master</code> branch in <code>rtfm</code> the following happens:</p>
+<ol>
+<li>A <a href="https://github.com/features/actions">GitHub Action</a> is fired based off of <a href="https://github.com/synshop/rtfm/blob/master/.github/workflows/ci.yml">the ci.yml file</a>. All actions are executed in VMs called runners.  GitHub gives a certain amount of runner hours for free to non-profits.</li>
+<li>Following the <code>ci.yml</code> file, the runner  checks out <code>master branch</code>, installs <code>mkdocs</code> and generates the HTML for the site in the runner's VM. The site is checked out using a robot account (<code>monitoring-synshop-bot</code>) that only has access to push to <code>rtfm-generated</code></li>
+<li>The runner then pushes the site from <code>rtfm</code> repo to the <code>rtfm-generated</code> repo. This is destructive, so any pages not on <code>rtfm</code> will be deleted. </li>
+<li>The <a href="https://pages.github.com/">GitHub Pages</a> for <code>rtfm-generated</code> are configured so that the contents of the repo are served up under <code>rtfm.synshop.org</code></li>
+<li><code>rtfm.synshop.org</code> is a CNAME for <code>synshop.github.io</code> which is set at an org level to show the contents of <code>rtfm-generated</code></li>
+</ol></div>
             </div>
         </div>
 
