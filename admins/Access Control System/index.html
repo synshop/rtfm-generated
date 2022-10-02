@@ -312,13 +312,15 @@ access@electric-badger-1:~ $ screen -r minicom
 <pre><code>e [enable_password]
 18:56:22  9/10/19 TUE Priveleged mode enabled.
 </code></pre>
-<p>In <code>/home/access/logs_and_users/users.txt</code>.  This is a CSV  file
-that contains all the users.</p>
-<p>Find an open <code>ID</code>, set the access level to <code>254</code> for all access, and paste in the badge decimal and hexadecimal that showed
+<p>Open <code>/home/access/logs_and_users/users.txt</code> with your favorite editor.  It is a CSV  file
+that contains all the users.  Find an open <code>ID</code>, set the access level to <code>254</code> for all access, 
+and paste in the badge decimal and hexadecimal that showed
 in the email when the badge was swiped.  Fill out the remaining fields and save the file</p>
+<p>Here's the headers with a sample row:</p>
 <pre><code>"ID","level","badge","name","handle","color","email","Last_Verified","Last_Badged","decimal"
 "3","253","A1B2C3D4","new_user","New User McGee","#ff7070,#000000","new@user.com","2020-01-04","2022-09-17","1811700"
 </code></pre>
+<p>Save the file and exit the editor.</p>
 <p>Using <code>screen -r minicom</code>, and add the user
 to the badging controller by using the <code>m</code> command followed by the user ID, access level, and
 badge number.</p>
