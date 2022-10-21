@@ -275,7 +275,7 @@
 <p><a href="https://caddyserver.com/docs/install">Caddy</a> provides a reverse proxy with TLS termination for all internal services at the shop.<br />
 You must be on the shop LAN or on the shop VPN to access it. Working with <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E"><code>certbot</code></a>,
 we can get wildcard certs for all services.</p>
-<p>Caddy runs as a container on the <a href="/admins/c220/">c220</a> on container named <code>caddy</code> with IP </p>
+<p>Caddy runs as a container on the <a href="/admins/c220/">c220</a> on container named <code>caddy</code> with IP <code>10.0.40.29</code></p>
 <h2 id="install-caddy">Install Caddy<a class="headerlink" href="#install-caddy" title="Permanent link"></a></h2>
 <p>Assuming Ubuntu 22, following their install docs:</p>
 <pre><code class="language-bash">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -323,7 +323,8 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>ssh into caddy box </li>
 <li><code>vim /etc/caddy/Caddyfile</code></li>
 <li>add new host entry:
-   <code>test.synshop.net {
+   <code>yml
+   test.synshop.net {
       tls //etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
       reverse_proxy 10.0.40.201
    }</code></li>
