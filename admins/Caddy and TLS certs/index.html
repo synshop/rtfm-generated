@@ -335,7 +335,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <p>restart caddy:  <code>systemctl restart caddy</code></p>
 </li>
 </ol>
-<p>Note: if you need to point to a system that has a self signed cert, you need to both ignor the cert error, and add more info to the config, like this:</p>
+<p>Note: if you need to point to a system that has a self signed cert, you need to both ignore the cert error, and add more info to the config, like this:</p>
 <pre><code class="language-yaml">test.synshop.net {
    tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/priv
 key.pem
