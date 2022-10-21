@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Front Kiosk Display - RTFM</title>
+        <title>Caddy and TLS certs - RTFM</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -46,7 +46,7 @@
 </li>
                                     
 <li>
-    <a href="../Caddy%20and%20TLS%20certs/" class="dropdown-item">Caddy and TLS certs</a>
+    <a href="./" class="dropdown-item active">Caddy and TLS certs</a>
 </li>
                                     
 <li>
@@ -70,7 +70,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Front Kiosk Display</a>
+    <a href="../kiosk/" class="dropdown-item">Front Kiosk Display</a>
 </li>
                                     
 <li>
@@ -214,12 +214,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../flatline/" class="nav-link">
+                                <a rel="prev" href="../Access%20Control%20System/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../media/" class="nav-link">
+                                <a rel="next" href="../Drupal-Admin/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -241,17 +241,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#front-kiosk-display" class="nav-link">Front Kiosk Display</a>
+            <li class="nav-item" data-level="1"><a href="#caddy-and-tls-certs" class="nav-link">Caddy and TLS certs</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#bill-of-materials" class="nav-link">Bill of Materials</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#hardware-build-out" class="nav-link">Hardware build out</a>
+            <li class="nav-item" data-level="2"><a href="#intro" class="nav-link">Intro</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#software-set-up" class="nav-link">Software set up</a>
+            <li class="nav-item" data-level="2"><a href="#install-caddy" class="nav-link">Install Caddy</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#install-certbot" class="nav-link">Install certbot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#first-time-cert-generation-w-dns-update" class="nav-link">First time cert generation w/ DNS update</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#adding-service" class="nav-link">Adding service</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -262,52 +270,69 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="front-kiosk-display">Front Kiosk Display<a class="headerlink" href="#front-kiosk-display" title="Permanent link"></a></h1>
-<p>How to build this:</p>
-<p><img alt="" src="../../images/front.kiosk3.jpg" /></p>
-<p><img style="width: 50%;" src="../../images/kiosk.rasbperry.pi.jpeg"></p>
-<h2 id="bill-of-materials">Bill of Materials<a class="headerlink" href="#bill-of-materials" title="Permanent link"></a></h2>
-<ul>
-<li>Big ass wall mounted TV with HDMI input</li>
-<li><a href="https://amzn.to/33o36mT">Raspberry Pi</a> with WiFi, HDMI out and I2C pins</li>
-<li><a href="https://amzn.to/33otoFK">BME280 I2C temp sensor</a></li>
-<li><a href="https://amzn.to/2rm4vMV">0.96" I2C OLED Display with SSD1306 driver</a></li>
-<li><a href="https://amzn.to/2ClLPit">Jumper Cables</a></li>
-</ul>
-<h2 id="hardware-build-out">Hardware build out<a class="headerlink" href="#hardware-build-out" title="Permanent link"></a></h2>
+<h1 id="caddy-and-tls-certs">Caddy and TLS certs<a class="headerlink" href="#caddy-and-tls-certs" title="Permanent link"></a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
+<p><a href="https://caddyserver.com/docs/install">Caddy</a> provides a reverse proxy with TLS termination for all internal services at the shop.<br />
+You must be on the shop LAN or on the shop VPN to access it. Working with <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E"><code>certbot</code></a>,
+we can get wildcard certs for all services.</p>
+<p>Caddy runs as a container on the <a href="/admins/c220/">c220</a> on container named <code>caddy</code> with IP </p>
+<h2 id="install-caddy">Install Caddy<a class="headerlink" href="#install-caddy" title="Permanent link"></a></h2>
+<p>Assuming Ubuntu 22, following their install docs:</p>
+<pre><code class="language-bash">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy
+
+systemctl enable caddy
+systemctl start caddy
+</code></pre>
+<h2 id="install-certbot">Install certbot<a class="headerlink" href="#install-certbot" title="Permanent link"></a></h2>
+<pre><code class="language-bash">sudo snap install core; sudo snap refresh core
+</code></pre>
+<p>Verify that <code>list-timers</code> will run the renew:</p>
+<pre><code class="language-bash">systemctl list-timers|grep certbot
+</code></pre>
+<p>Get the python script and make it executable:</p>
+<pre><code>mkdir -p /etc/letsencrypt/
+curl -o /etc/letsencrypt/acme-dns-auth.py https://raw.githubusercontent.com/joohoi/acme-dns-certbot-joohoi/master/acme-dns-auth.py
+chmod +x /etc/letsencrypt/acme-dns-auth.py
+apt install python3
+ln -s /usr/bin/python3 /usr/bin/python
+</code></pre>
+<h2 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h2>
+<p>You only have to do this ONCE!</p>
+<pre><code class="language-bash">sudo certbot certonly --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --preferred-challenges dns --debug-challenges -d \*.synshop.net -d synshop.net
+</code></pre>
+<p>You'll then be prompted to create a DNS entry, something like:</p>
+<pre><code>_acme-challenge.synshop.net.    CNAME   87e00274-4d33-43fa-acc9-10839cee980a.auth.acme-dns.io.
+</code></pre>
+<p>Create this by:
+1. SSH to <code>new-lagos.synshop.org</code>
+1. <code>sudo su -</code>
+1. <code>vim /etc/bind/master/synshop.net</code>
+1. edit serial number at top to be today's date
+1. add new line for above DNS entry</p>
+<p>Credentials are now stored in JSON in <code>/etc/letsencrypt/acmedns.json</code>. These are backed up in keepass just in case. 
+Though you could go through above steps again if they're lost.</p>
+<p>Back on the certbot box, hit return to continue the validation process. Certs should 
+be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
+<h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
+<p>Assuming you had a new service at <code>10.0.40.201</code> called <code>test.synshop.net</code>, you would:</p>
 <ol>
-<li>Make <a href="../images/harness.jpeg">a harness</a> to connect the OLED display and the BME280 at the same time. 
-    Connect the OLED and sensor to the right pins on the Pi</li>
-<li>Connect the HDMI cable to the large monitor</li>
-<li>Fabricate a case for the Pi, OLED and sensor like shown above - but up to you how this looks ;)</li>
-<li>Fabricate a sign with the info and QR code</li>
-<li>Mount the Big ass TV and Sign, and Pi set up to a wall</li>
+<li>ssh into caddy box </li>
+<li><code>vim /etc/caddy/Caddyfile</code></li>
+<li>add new host entry:
+   <code>test.synshop.net {
+      tls //etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
+      reverse_proxy 10.0.40.201
+   }</code></li>
+<li>restart caddy:  <code>systemctl restart caddy</code></li>
 </ol>
-<h2 id="software-set-up">Software set up<a class="headerlink" href="#software-set-up" title="Permanent link"></a></h2>
-<ol>
-<li>Install <a href="https://www.raspberrypi.org/downloads/">latest Rasbpian</a> on and SD card. Insert it into the Pi. After
-     first boot, configure WiFi to be on the shop's LAN, run <code>sudo apt update;sudo apt dist-upgrade</code></li>
-<li>Give the Pi a static IP by following 
-    <a href="https://thepihut.com/blogs/raspberry-pi-tutorials/how-to-give-your-raspberry-pi-a-static-ip-address-update">these steps</a>.</li>
-<li>Change the <code>pi</code> user password to something random, add administrators SSH keys to <code>pi</code> user
-    and harden SSH by editing <code>/etc/ssh/sshd_conf</code> and changing it to not allow passwords via 
-    <code>PasswordAuthentication no</code>. Restart ssh with <code>systemctl restart sshd</code></li>
-<li>Install and configure <a href="https://github.com/Ths2-9Y-LqJt6/YANPIWS">YANPIWS</a> per the sites instructions</li>
-<li>Enable the OLED to show the real time temps for the BME280 via 
-    <a href="https://github.com/Ths2-9Y-LqJt6/YANPIWS/tree/master/I2C.bme280.oled#quick-start">these instructions</a></li>
-<li>Create <code>/var/www/html/dashboard/</code> and put a copy of <code>MeetupEvents.php</code> in it from 
-    <a href="https://github.com/Ths2-9Y-LqJt6/MeetupScraper">this repo</a></li>
-<li>Grab a copy of the <code>index.php</code> and <code>events.php</code> files
-    on <a href="https://gist.github.com/mrjones-plip/e563f95f9b4e4bae8d0a20e87515b056">this gist</a>
-      and put them in <code>/var/www/html/dashboard/</code></li>
-<li>Create a folder called <code>member_fobbing</code> in <code>/var/www/html/</code> and install the<br />
-<a href="https://github.com/Ths2-9Y-LqJt6/fobber">fobber repo</a> into it.  Be sure to copy <code>config.dist.php</code> to
-    <code>config.php</code>. As well, ensure badger is doing a webhook call every time some one fobs in to the
-    kiosk at <code>https://KIOSK_IP_HERE/member_fobbing</code>.</li>
-<li>Have the Pi use a full screen browser service pointing to <code>http://127.0.0.1/dashboard/</code> per 
-    <a href="https://pimylifeup.com/raspberry-pi-kiosk/">these steps</a>.</li>
-<li>enjoy!  </li>
-</ol></div>
+<p>Set up new DNS entry
+1. log into <a href="https://10.0.40.66/admin/">pihole</a>
+2. go to   <a href="https://10.0.40.66/admin/dns_records.php">custom DNS</a>
+4. add new DNS entry for <code>10.0.40.201</code> to resolve to  <code>test.synshop.net</code></p></div>
             </div>
         </div>
 
