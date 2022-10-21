@@ -323,10 +323,10 @@ in the email when the badge was swiped.  Fill out the remaining fields and save 
 <p>Save the file and exit the editor.</p>
 <p>Using <code>screen -r minicom</code>, and add the user
 to the badging controller by using the <code>m</code> command followed by the user ID, access level, and
-badge number.</p>
-<pre><code>m 3 254 A1B2C3D4
+decimal badge number.</p>
+<pre><code>m 3 254 1811700
 19:10:21  9/10/19 TUE User 7 successfully modified
-3      254     A1B2C3D4
+3      254     1811700
 </code></pre>
 <p>When you're done with <code>screen</code> type <code>ctrl + a</code> then <code>d</code> to detach from screen.</p>
 <p>Once that's done, test that the badge works.</p>
@@ -334,7 +334,7 @@ badge number.</p>
 <p>Switch to the bash session, and edit users.txt and find the badge to be deactivated.</p>
 <p>Copy the line to <code>disabled.users.txt</code> remove the line from <code>users.txt</code>. Add why it's being
 deactivated and the current date, then save the file.</p>
-<pre><code>#99 254 A1B2C3D4  Firstname_Lastname             "name@domain.com"                         Disabled 2019/10/09 - Canceled account
+<pre><code>#99 254 1811700  Firstname_Lastname             "name@domain.com"                         Disabled 2019/10/09 - Canceled account
 </code></pre>
 <p>Using <code>screen -r minicom</code>, switch to enable mode.</p>
 <pre><code>e [enable_password]
