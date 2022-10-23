@@ -325,7 +325,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>ssh into caddy box </li>
 <li><code>vim /etc/caddy/Caddyfile</code></li>
 <li>
-<p>add new host entry:</p>
+<p>add new host entry (and see "Variations on Caddyfile entries" below):</p>
 <pre><code>test.synshop.net {
    tls //etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
    reverse_proxy 10.0.40.201
@@ -344,7 +344,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>add new DNS entry for <code>10.0.40.29</code> to resolve to  <code>test.synshop.net</code>. Note that <code>.29</code> is the IP of caddy, not the IP of the service your proxying.</li>
 </ol>
 <h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
-<p>Step 3 above can have other options to support self signed certs and IPv6 hosts.</p>
+<p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!).</p>
 <h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link"></a></h4>
 <pre><code class="language-yaml">test.synshop.net {
    tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/priv
