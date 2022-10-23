@@ -319,6 +319,7 @@ Though you could go through above steps again if they're lost.</p>
 <p>Back on the certbot box, hit return to continue the validation process. Certs should 
 be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
+<h3 id="configure-caddy">Configure Caddy<a class="headerlink" href="#configure-caddy" title="Permanent link"></a></h3>
 <p>Assuming you had a new service at <code>10.0.40.201</code> called <code>test.synshop.net</code>, you would:</p>
 <ol>
 <li>ssh into caddy box </li>
@@ -334,6 +335,13 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>
 <p>restart caddy:  <code>systemctl restart caddy</code></p>
 </li>
+</ol>
+<h3 id="configure-pi-hole">Configure Pi-Hole<a class="headerlink" href="#configure-pi-hole" title="Permanent link"></a></h3>
+<p>Set up new DNS entry:</p>
+<ol>
+<li>log into <a href="https://10.0.40.66/admin/">pihole</a></li>
+<li>go to   <a href="https://10.0.40.66/admin/dns_records.php">custom DNS</a></li>
+<li>add new DNS entry for <code>10.0.40.29</code> to resolve to  <code>test.synshop.net</code>. Note that <code>.29</code> is the IP of caddy, not the IP of the service your proxying.</li>
 </ol>
 <h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
 <p>Step 3 above can have other options to support self signed certs and IPv6 hosts.</p>
@@ -356,13 +364,7 @@ key.pem
         tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
         reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80 
 }
-</code></pre>
-<p>Set up new DNS entry:</p>
-<ol>
-<li>log into <a href="https://10.0.40.66/admin/">pihole</a></li>
-<li>go to   <a href="https://10.0.40.66/admin/dns_records.php">custom DNS</a></li>
-<li>add new DNS entry for <code>10.0.40.29</code> to resolve to  <code>test.synshop.net</code>. Note that <code>.29</code> is the IP of caddy, not the IP of the service your proxying.</li>
-</ol></div>
+</code></pre></div>
             </div>
         </div>
 
