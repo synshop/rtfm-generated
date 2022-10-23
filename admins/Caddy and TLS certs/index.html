@@ -335,7 +335,9 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <p>restart caddy:  <code>systemctl restart caddy</code></p>
 </li>
 </ol>
-<p>Note: if you need to point to a system that has a self signed cert, you need to both ignore the cert error, and add more info to the config, like this:</p>
+<h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
+<p>Step 3 above can have other options to support self signed certs and IPv6 hosts.</p>
+<h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link"></a></h4>
 <pre><code class="language-yaml">test.synshop.net {
    tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/priv
 key.pem
@@ -346,6 +348,13 @@ key.pem
             tls_insecure_skip_verify
          }
       }
+}
+</code></pre>
+<h4 id="ipv6-entry">IPv6 entry<a class="headerlink" href="#ipv6-entry" title="Permanent link"></a></h4>
+<p>Note the use of brackets around the IP <code>[]</code> and port at the end <code>:80</code>. </p>
+<pre><code class="language-yaml">test.synshop.net {
+        tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
+        reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80 
 }
 </code></pre>
 <p>Set up new DNS entry:</p>
