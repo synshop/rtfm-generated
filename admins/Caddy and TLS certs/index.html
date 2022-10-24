@@ -259,6 +259,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#set-default-cert-in-caddy" class="nav-link">Set default cert in Caddy</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#adding-service" class="nav-link">Adding service</a>
               <ul class="nav flex-column">
               </ul>
@@ -318,6 +322,14 @@ ln -s /usr/bin/python3 /usr/bin/python
 Though you could go through above steps again if they're lost.</p>
 <p>Back on the certbot box, hit return to continue the validation process. Certs should 
 be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
+<h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link"></a></h2>
+<p>In <code>/etc/caddy/Caddyfile</code> declare the top most host as shown below.  All subsequent hosts will inherit this cert:</p>
+<pre><code class="language-json"># this host just declared to define default cert all other hosts inherit
+default-cert.synshop.net {
+   tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
+   reverse_proxy 127.0.0.1
+}
+</code></pre>
 <h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
 <h3 id="configure-caddy">Configure Caddy<a class="headerlink" href="#configure-caddy" title="Permanent link"></a></h3>
 <p>Assuming you had a new service at <code>10.0.40.201</code> called <code>test.synshop.net</code>, you would:</p>
@@ -325,9 +337,8 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>ssh into caddy box </li>
 <li><code>vim /etc/caddy/Caddyfile</code></li>
 <li>
-<p>add new host entry (and see "Variations on Caddyfile entries" below):</p>
+<p>add new host entry (and see "Variations on Caddyfile entries" below). Because we declared a default host above, we can just add 3 lines which include the <code>host</code> and <code>IP</code>.  It implicitly uses port <code>80</code> for IPv4 hosts:</p>
 <pre><code>test.synshop.net {
-   tls //etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
    reverse_proxy 10.0.40.201
 }
 </code></pre>
@@ -344,11 +355,10 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>add new DNS entry for <code>10.0.40.29</code> to resolve to  <code>test.synshop.net</code>. Note that <code>.29</code> is the IP of caddy, not the IP of the service your proxying.</li>
 </ol>
 <h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
-<p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!).</p>
+<p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!). </p>
 <h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link"></a></h4>
+<p>We go from 3 lines to 9. The main difference is that we're telling it which <code>IP</code> with <code>https://</code> and to ignore self signed certs with <code>tls_insecure_skip_verify</code>:</p>
 <pre><code class="language-yaml">test.synshop.net {
-   tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/priv
-key.pem
    reverse_proxy {
       to https://10.0.40.201
       transport http {
@@ -361,7 +371,6 @@ key.pem
 <h4 id="ipv6-entry">IPv6 entry<a class="headerlink" href="#ipv6-entry" title="Permanent link"></a></h4>
 <p>Note the use of brackets around the IP <code>[]</code> and port at the end <code>:80</code>. </p>
 <pre><code class="language-yaml">test.synshop.net {
-        tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
         reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80 
 }
 </code></pre></div>
