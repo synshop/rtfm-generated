@@ -324,7 +324,7 @@ Though you could go through above steps again if they're lost.</p>
 be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link"></a></h2>
 <p>In <code>/etc/caddy/Caddyfile</code> declare the top most host as shown below.  All subsequent hosts will inherit this cert:</p>
-<pre><code class="language-json"># this host just declared to define default cert all other hosts inherit
+<pre><code class="language-bash"># this host just declared to define default cert all other hosts inherit
 default-cert.synshop.net {
    tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
    reverse_proxy 127.0.0.1
