@@ -247,15 +247,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#install-caddy" class="nav-link">Install Caddy</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#install-certbot" class="nav-link">Install certbot</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#first-time-cert-generation-w-dns-update" class="nav-link">First time cert generation w/ DNS update</a>
+            <li class="nav-item" data-level="2"><a href="#install" class="nav-link">Install</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -280,8 +272,10 @@
 You must be on the shop LAN or on the shop VPN to access it. Working with <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E"><code>certbot</code></a>,
 we can get wildcard certs for all services.</p>
 <p>Caddy runs as a container on the <a href="/admins/c220/">c220</a> on container named <code>caddy</code> with IP <code>10.0.40.29</code></p>
-<h2 id="install-caddy">Install Caddy<a class="headerlink" href="#install-caddy" title="Permanent link"></a></h2>
-<p>Assuming Ubuntu 22, following their install docs:</p>
+<p>Finally <a href="https://pi-hole.net/">Pi-Hole</a> provides DNS to match FQDN &lt;-&gt; TLS CN. Pi-Hole has IP <code>10.0.40.66</code> </p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link"></a></h2>
+<h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link"></a></h3>
+<p>Assuming Ubuntu 22, following <a href="https://caddyserver.com/docs/install#debian-ubuntu-raspbian">their install docs</a>:</p>
 <pre><code class="language-bash">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
@@ -291,20 +285,21 @@ sudo apt install caddy
 systemctl enable caddy
 systemctl start caddy
 </code></pre>
-<h2 id="install-certbot">Install certbot<a class="headerlink" href="#install-certbot" title="Permanent link"></a></h2>
+<h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link"></a></h3>
+<p>From their <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a>:</p>
 <pre><code class="language-bash">sudo snap install core; sudo snap refresh core
 </code></pre>
 <p>Verify that <code>list-timers</code> will run the renew:</p>
 <pre><code class="language-bash">systemctl list-timers|grep certbot
 </code></pre>
-<p>Get the python script and make it executable:</p>
+<p>Get <a href="https://github.com/joohoi/acme-dns-certbot-joohoi">the python script</a> and make it executable. This uses the acme-dns.io DNS service with some CNAME trickery:</p>
 <pre><code class="language-bash">mkdir -p /etc/letsencrypt/
 curl -o /etc/letsencrypt/acme-dns-auth.py https://raw.githubusercontent.com/joohoi/acme-dns-certbot-joohoi/master/acme-dns-auth.py
 chmod +x /etc/letsencrypt/acme-dns-auth.py
 apt install python3
 ln -s /usr/bin/python3 /usr/bin/python
 </code></pre>
-<h2 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h2>
+<h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
 <p>You only have to do this ONCE!</p>
 <pre><code class="language-bash">sudo certbot certonly --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --preferred-challenges dns --debug-challenges -d \*.synshop.net -d synshop.net
 </code></pre>
