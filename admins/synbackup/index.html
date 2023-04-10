@@ -323,20 +323,20 @@ lxc copy --refresh --verbose c220:pihole-40 pihole-40
 </code></pre>
 <p>This can be run as often as you want, and ad-hoc on new containers.</p>
 <h2 id="borg">Borg<a class="headerlink" href="#borg" title="Permanent link"></a></h2>
-<p>The backup reposotory is under the <code>borg</code> user and is at <code>/home/borg/backups</code>.  The password in is in the password safe.  There is the same password for the <code>borg</code> user and the <code>backups</code> borg archive.</p>
+<p>The backup reposotory is under the <code>borg</code> user and is at <code>/home/borg/backups</code>.  The password in is in the password safe.  It is the same password for the <code>borg</code> user and the <code>backups</code> borg archive.</p>
 <h3 id="adding-a-new-machine-to-be-backed-up">Adding a new machine to be backed up<a class="headerlink" href="#adding-a-new-machine-to-be-backed-up" title="Permanent link"></a></h3>
 <h4 id="on-the-remote-machine">On the remote machine<a class="headerlink" href="#on-the-remote-machine" title="Permanent link"></a></h4>
 <ol>
-<li>install borg.  For Debian/Ubuntu: <code>apt install borgbackup</code></li>
+<li>Install borg.  For Debian/Ubuntu: <code>apt install borgbackup</code></li>
 <li>Create an ssh key with out a password: <code>ssh-keygen -t ed25119</code></li>
-<li>create a cronjob (<code>crontab -e</code>) with two entries. Be sure to replace the password and directories to backup with real values:
-   <code>0   4  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg create -v --stats borg@10.0.40.33:/home/borg/backups::{hostname}-{now:%Y-%m-%d}  /directory1/to/backup /directory2/to/backup
+<li>Create a cronjob (<code>crontab -e</code>) with two entries. Be sure to replace the password (<code>PASSWORD_FROM_KEEPASS</code>) and directories to backup (<code>/directory1/to/backup</code>) with real values:
+   <code>0   4  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg create -v --stats borg@10.0.40.33:/home/borg/backups::{hostname}-{now:\%Y-\%m-\%d}  /directory1/to/backup /directory2/to/backup
    0   5  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg prune -v --list borg@10.0.40.33:/home/borg/backups --prefix '{hostname}' --keep-daily=7 --keep-weekly=4 --keep-monthly=6</code></li>
 </ol>
 <h4 id="on-the-synbackup">On the synbackup<a class="headerlink" href="#on-the-synbackup" title="Permanent link"></a></h4>
 <ol>
-<li>copy the public SSH key from step #2 above</li>
-<li>add it to <code>/home/borg/.ssh/authorized_keys</code>, but locked down like this.  Be sure to replace the key in this value:
+<li>Copy the public SSH key from step #2 above</li>
+<li>Add it to <code>/home/borg/.ssh/authorized_keys</code>, but locked down like this.  Be sure to replace the key in this value:
   <code>command="borg serve --append-only --restrict-to-path /home/borg/",restrict ssh-ed25519 AAAAC-SSH-KEY-HERE-EiJ root@caddy</code></li>
 </ol></div>
             </div>
