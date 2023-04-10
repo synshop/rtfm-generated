@@ -319,7 +319,10 @@ lxc copy --refresh --verbose c220:sargonas sargonas
 lxc copy --refresh --verbose c220:unifi unifi
 lxc copy --refresh --verbose c220:pihole-40 pihole-40
 </code></pre>
-<p>This can be run as often as you want, and ad-hoc on new containers.</p>
+<p>This is run once a week in a cronjub under <code>mrjones</code> user:</p>
+<pre><code># m h  dom mon dow   command
+5   7  *   *   Sun   /home/mrjones/backup.lxd.containers.sh
+</code></pre>
 <h2 id="borg">Borg<a class="headerlink" href="#borg" title="Permanent link"></a></h2>
 <p>The backup reposotory is under the <code>borg</code> user and is at <code>/home/borg/backups</code>.  The password in is in the password safe.  It is the same password for the <code>borg</code> user and the <code>backups</code> borg archive.</p>
 <h3 id="adding-a-new-machine-to-be-backed-up">Adding a new machine to be backed up<a class="headerlink" href="#adding-a-new-machine-to-be-backed-up" title="Permanent link"></a></h3>
@@ -328,7 +331,8 @@ lxc copy --refresh --verbose c220:pihole-40 pihole-40
 <li>Install borg.  For Debian/Ubuntu: <code>apt install borgbackup</code></li>
 <li>Create an ssh key with out a password: <code>ssh-keygen -t ed25119</code></li>
 <li>Create a cronjob (<code>crontab -e</code>) with two entries. Be sure to replace the password (<code>PASSWORD_FROM_KEEPASS</code>) and directories to backup (<code>/directory1/to/backup</code>) with real values:
-   <code>0   4  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg create -v --stats borg@10.0.40.33:/home/borg/backups::{hostname}-{now:\%Y-\%m-\%d}  /directory1/to/backup /directory2/to/backup
+   <code># m h  dom mon dow   command
+   0   4  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg create -v --stats borg@10.0.40.33:/home/borg/backups::{hostname}-{now:\%Y-\%m-\%d}  /directory1/to/backup /directory2/to/backup
    0   5  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg prune -v --list borg@10.0.40.33:/home/borg/backups --prefix '{hostname}' --keep-daily=7 --keep-weekly=4 --keep-monthly=6</code></li>
 </ol>
 <h4 id="on-the-synbackup">On the synbackup<a class="headerlink" href="#on-the-synbackup" title="Permanent link"></a></h4>
