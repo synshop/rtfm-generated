@@ -301,11 +301,13 @@
 </ul>
 <h2 id="lxd">LXD<a class="headerlink" href="#lxd" title="Permanent link"></a></h2>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link"></a></h3>
-<p>Install LXD, run <code>lxd init</code> and accepting all defaults, except:
-* create a 100GB ZFS soft disk instead default smaller size
-* match the ZFS pool name to be <code>lxd-data</code>.  You can check this with <code>zpool list</code> on either machine
-* match the bridge name to be <code>br0</code>
-* add a new interface <code>lxcbr1</code> to the lxd which matches  the private LAN on c220 used to route <code>caddy</code> traffic between containers: <code>lxc network create lxcbr1</code></p>
+<p>Install LXD, run <code>lxd init</code> and accepting all defaults, except:</p>
+<ul>
+<li>create a 100GB ZFS soft disk instead default smaller size</li>
+<li>match the ZFS pool name to be <code>lxd-data</code>.  You can check this with <code>zpool list</code> on either machine</li>
+<li>match the bridge name to be <code>br0</code></li>
+<li>add a new interface <code>lxcbr1</code> to the lxd which matches  the private LAN on c220 used to route <code>caddy</code> traffic between containers: <code>lxc network create lxcbr1</code></li>
+</ul>
 <h3 id="backup-of-c220">Backup of c220<a class="headerlink" href="#backup-of-c220" title="Permanent link"></a></h3>
 <p>on the synbackup box, run this command for each container you want to backup. Here we backup the all the known containers currently:</p>
 <pre><code>lxc copy --refresh --verbose c220:shopIdentifyer shopIdentifyer
