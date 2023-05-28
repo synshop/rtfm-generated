@@ -263,6 +263,10 @@
             
             <li class="nav-item" data-level="1"><a href="#synbackup" class="nav-link">synbackup</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#os-install" class="nav-link">OS install</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#ssh" class="nav-link">SSH</a>
               <ul class="nav flex-column">
               </ul>
@@ -289,6 +293,36 @@
 <li>Run <a href="https://borgbackup.readthedocs.io">borg</a> which can be used over SSH to backup systems to (DNS, DHCP, web servers etc)</li>
 </ul>
 <p>It's located on top of the c220 in the rack and has IP <code>10.0.40.33</code></p>
+<h2 id="os-install">OS install<a class="headerlink" href="#os-install" title="Permanent link"></a></h2>
+<ol>
+<li>Install Ubuntu 22.04 server</li>
+<li>static IP of 10.0.40.33</li>
+<li>After install, switch to <code>br0</code> as network connection.  This will allow LXD contianers to get an IP on the LAN.  In this example primary NIC is <code>enp3s0</code>, but this may change with each install:</li>
+</ol>
+<p>```
+   # This is the network config written by 'subiquity'
+   network:
+     ethernets:
+       enp3s0:
+         dhcp4: false 
+         dhcp6: false </p>
+<pre><code> bridges:
+   br0:
+     interfaces: [enp3s0]
+     routes:
+     - to: default
+       via: 10.0.40.1
+       metric: 100
+       on-link: true
+     addresses:
+     - 10.0.40.33/24
+     nameservers:
+       addresses:
+       - 9.9.9.9
+       search: []
+ version: 2
+</code></pre>
+<p>```</p>
 <h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link"></a></h2>
 <p>Primary access is done via SSH. The users are:</p>
 <ul>
