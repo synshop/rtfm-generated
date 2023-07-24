@@ -320,19 +320,22 @@ apt install python3
 ln -s /usr/bin/python3 /usr/bin/python
 </code></pre>
 <h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
-<p>You only have to do this ONCE!</p>
+<p><strong>You only have to do this ONCE!</strong></p>
+<p>On the Caddy box, initiate a request for <code>*.synshop.net</code> and <code>synshop.net</code> domains, with a manual DNS validation:</p>
 <pre><code class="language-bash">sudo certbot certonly --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --preferred-challenges dns --debug-challenges -d \*.synshop.net -d synshop.net
 </code></pre>
 <p>You'll then be prompted to create a DNS entry, something like:</p>
 <pre><code>_acme-challenge.synshop.net.    CNAME   87e00274-4d33-43fa-acc9-10839cee980a.auth.acme-dns.io.
 </code></pre>
-<p>Create this by:
-1. SSH to <code>new-lagos.synshop.org</code>
-1. <code>sudo su -</code>
-1. <code>vim /etc/bind/master/synshop.net</code>
-1. edit serial number at top to be today's date
-1. add new line for above DNS entry
-1. restart DNS with <code>rndc reload</code></p>
+<p>Create this by:</p>
+<ol>
+<li>SSH to <code>new-lagos.synshop.org</code></li>
+<li><code>sudo su -</code></li>
+<li><code>vim /etc/bind/master/synshop.net</code></li>
+<li>edit serial number at top to be today's date</li>
+<li>add new line for above DNS entry</li>
+<li>restart DNS with <code>rndc reload</code></li>
+</ol>
 <p>Credentials are now stored in JSON in <code>/etc/letsencrypt/acmedns.json</code>. These are backed up in keepass just in case. 
 Though you could go through above steps again if they're lost.</p>
 <p>Back on the certbot box, hit return to continue the validation process. Certs should 
@@ -357,7 +360,7 @@ default-cert.synshop.net {
 <li><code>vim /etc/caddy/Caddyfile</code></li>
 <li>
 <p>add new host entry (and see "Variations on Caddyfile entries" below). Because we declared a default host above, we can just add 3 lines which include the <code>host</code> and <code>IP</code>.  It implicitly uses port <code>80</code> for IPv4 hosts:</p>
-<pre><code>test.synshop.net {
+<pre><code>foobar.synshop.net {
    reverse_proxy 10.0.40.201
 }
 </code></pre>
@@ -366,12 +369,15 @@ default-cert.synshop.net {
 <p>restart caddy:  <code>systemctl restart caddy</code></p>
 </li>
 </ol>
-<h3 id="configure-pi-hole">Configure Pi-Hole<a class="headerlink" href="#configure-pi-hole" title="Permanent link"></a></h3>
+<h3 id="configure-dns-entry-on-new-lagossynshoporg">Configure DNS Entry on <code>new-lagos.synshop.org</code><a class="headerlink" href="#configure-dns-entry-on-new-lagossynshoporg" title="Permanent link"></a></h3>
 <p>Set up new DNS entry:</p>
 <ol>
-<li>log into <a href="https://10.0.40.66/admin/">pihole</a></li>
-<li>go to   <a href="https://10.0.40.66/admin/dns_records.php">custom DNS</a></li>
-<li>add new DNS entry for <code>10.0.40.29</code> to resolve to  <code>test.synshop.net</code>. Note that <code>.29</code> is the IP of caddy, not the IP of the service your proxying.</li>
+<li>SSH into <code>new-lagos.synshop.org</code> and <code>sudo su -</code> to become root</li>
+<li><code>vim /etc/bind/master/synshop.net</code></li>
+<li>Find the collection of <code>CNAME</code>s for <code>caddy.synshop.net.</code> and add a new entry for your new service.  So if your new service was called <code>foobar</code> the entry would be:
+   <code>foobar                  IN      CNAME   caddy.synshop.net.</code></li>
+<li>edit serial number at top to be today's date</li>
+<li>restart DNS with <code>rndc reload</code></li>
 </ol>
 <h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
 <p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!). </p>
