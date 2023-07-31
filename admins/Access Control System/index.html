@@ -237,7 +237,7 @@
 <p>An access control system for SYN Shop that handles RFID access to the shop front and rear doors.  It uses the following:</p>
 <ul>
 <li><a href="https://www.accxproducts.com/wiki/index.php?title=Open_Access_3.0">Open Access 3.0</a> - Runs on an Arduino that works autonomously of any network connection or raspberry pi, only needs power. Has battery backup. </li>
-<li><a href="https://github.com/synshop/log-alerter">log-alerter</a> - Runs on Raspberry Pi connected to Arduino over serial.  Monitors serial output via <code>minicom</code>  into <code>access_log.txt</code> and then writes to <code>user_access_log.txt</code>. Sends HTTP <code>POST</code>s to ShopIdentifyer of swip activity (approved or denied swipes with timestamp).</li>
+<li><a href="https://github.com/synshop/log-alerter">log-alerter</a> - Runs on Raspberry Pi connected to Arduino over serial.  Monitors serial output via <code>minicom</code>  into <code>access_log.txt</code> and then writes to <code>user_access_log.txt</code>. Sends HTTP <code>POST</code>s to ShopIdentifyer of swipe activity (approved or denied swipes with timestamp).</li>
 <li><a href="https://github.com/synshop/ShopIdentifyer">ShopIdentifyer</a> - Runs on a VM on the server at the shop.  Has integrations with Stripe to detect membership status based off Fob &lt;-&gt; Stripe ID lookups.</li>
 </ul>
 <div class="mermaid">flowchart TD
