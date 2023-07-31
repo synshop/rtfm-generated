@@ -278,8 +278,7 @@ keep it running.</p>
 <h3 id="raspberry-pi">Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Permanent link"></a></h3>
 <ol>
 <li>SSH into badger (name of Pi) at <code>10.0.40.10</code> and <code>su - access</code>. You need to use your personal account, not the <code>access</code> account to SSH.</li>
-<li>running  <code>tail /home/access/logs_and_users/user_access_log.txt</code> on badger</li>
-<li>Swipe the unprovisioned badge at a reader</li>
+<li>Run  <code>tail /home/access/logs_and_users/user_access_log.txt</code> on badger and wipe the unprovisioned badge at a reader</li>
 <li>
 <p>Get the Hex and Decimal ID by looking for <code>DENIED rando badge</code> in your <code>tail</code> command. The hex is <code>BAC351</code> and the decimal is <code>127077</code> in this line:</p>
 <p><code>"8:45:42","7/28/23","DENIED rando badge","BAC351","127077","0","na","","2"</code></p>
