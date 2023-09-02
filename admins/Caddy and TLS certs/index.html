@@ -361,7 +361,7 @@ default-cert.synshop.net {
 </code></pre>
 </li>
 <li>
-<p>restart caddy:  <code>systemctl restart caddy</code></p>
+<p>restart caddy: <code>systemctl restart caddy</code></p>
 </li>
 </ol>
 <h3 id="configure-dns-entry-on-new-lagossynshoporg">Configure DNS Entry on <code>new-lagos.synshop.org</code><a class="headerlink" href="#configure-dns-entry-on-new-lagossynshoporg" title="Permanent link"></a></h3>
@@ -370,9 +370,9 @@ default-cert.synshop.net {
 <li>SSH into <code>new-lagos.synshop.org</code> and <code>sudo su -</code> to become root</li>
 <li><code>vim /etc/bind/master/synshop.net</code></li>
 <li>Find the collection of <code>CNAME</code>s for <code>caddy.synshop.net.</code> and add a new entry for your new service.  So if your new service was called <code>foobar</code> the entry would be:
-   <code>foobar                  IN      CNAME   caddy.synshop.net.</code></li>
-<li>edit serial number at top to be today's date</li>
-<li>restart DNS with <code>rndc reload</code></li>
+<code>foobar   IN CNAME caddy.synshop.net.</code></li>
+<li>Modify the serial number (SOA) at top to be today's date + a unique 2 digit integer (it looks something like <code>2023090116; serial, todays date + serial #</code> )</li>
+<li>Restart DNS with <code>rndc reload</code>.</li>
 </ol>
 <h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
 <p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!). </p>
