@@ -283,14 +283,14 @@
 <p><img alt="Screenshot of membership page with account, donation and locker prices" src="../images/membership.png" /></p>
 <h2 id="one-time-setup">One time setup<a class="headerlink" href="#one-time-setup" title="Permanent link"></a></h2>
 <ol>
-<li>create DNS entries to server. "server" in this case on lagos-new</li>
+<li>create DNS entries to server. "server" in this case on lagos-new so they both have a CNAME for <code>lagos-new.synshop.org.</code></li>
 <li>
 <p>on server, install pre-reqs:</p>
 <pre><code>apt install python3 python3.10-venv certbot debian-keyring debian-archive-keyring apt-transport-https
 </code></pre>
 </li>
 <li>
-<p>install <code>caddy</code> key and repo:</p>
+<p>install <code>caddy</code> key, repo and binary:</p>
 <pre><code>curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update
@@ -300,32 +300,43 @@ systemctl enable caddy
 </code></pre>
 </li>
 <li>
-<p>create new <code>membership</code> user on server</p>
+<p>edit <code>/etc/caddy/Caddyfile</code> and put in this contents at the bottom:</p>
+<pre><code>membership.synshop.org {
+   reverse_proxy localhost:3000
+}
+membership-dev.synshop.org {
+   reverse_proxy localhost:4000
+}
+</code></pre>
 </li>
-<li>create new ed25519 ssh key WITHOUT a password for <code>membership</code> on server</li>
-<li>add the public SSH key to the <a href="https://github.com/synshop/membership.synshop.org/settings/keys/new">Deploy Keys</a> for Membership GitHub Repo. Ensure it is read only when adding it.</li>
 <li>
-<p>while logged in as <code>membership</code> in <code>/home/membership</code>, clone the repo twice:</p>
+<p>restart caddy: <code>systemctl restart caddy</code>. These two URLs should now work but have not content: <a href="https://membership.synshop.org/">membership</a> and <a href="https://membership-dev.synshop.org/">membership-dev</a></p>
+</li>
+<li>create new <code>membership</code> user on server</li>
+<li>create new ed25519 ssh key WITHOUT a password for <code>membership</code> on server</li>
+<li>add the newly created public SSH key to the <a href="https://github.com/synshop/membership.synshop.org/settings/keys/new">Deploy Keys</a> for Membership GitHub Repo. Ensure it is read only when adding it.</li>
+<li>
+<p>while logged in as <code>membership</code> in <code>/home/membership</code>, clone the repo twice. You shouldn't be prmpted for authentication because of the deploy key step above:</p>
 <pre><code>git git@github.com:synshop/membership.synshop.org.git membership.synshop.org
 git git@github.com:synshop/membership.synshop.org.git membership-dev.synshop.org
 </code></pre>
 </li>
 <li>
 <p>create a virtualenv for each install:</p>
-<pre><code>cd /home/membership/membership.synshop.org
-python3 -m venv venv;. venv/bin/activate
-cd /home/membership/membership-dev.synshop.org
-python3 -m venv venv;. venv/bin/activate
+<pre><code> cd /home/membership/membership.synshop.org
+ python3 -m venv venv;. venv/bin/activate
+ cd /home/membership/membership-dev.synshop.org
+ python3 -m venv venv;. venv/bin/activate
 </code></pre>
 </li>
 <li>
-<p>ensure each repo is on the correct branch\</p>
-<pre><code>cd /home/membership/membership.synshop.org
-git fetch
-git checkout membership.synshop.net
-cd /home/membership/membership-dev.synshop.org
-git fetch
-git checkout membership-dev.synshop.org
+<p>ensure each repo is on the correct branch:</p>
+<pre><code> cd /home/membership/membership.synshop.org
+ git fetch
+ git checkout membership.synshop.net
+ cd /home/membership/membership-dev.synshop.org
+ git fetch
+ git checkout membership-dev.synshop.org
 </code></pre>
 </li>
 <li>
