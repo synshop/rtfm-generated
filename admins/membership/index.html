@@ -360,31 +360,13 @@ cp /home/membership/membership-dev.synshop.org/config.py.default /home/membershi
 </code></pre>
 </li>
 <li>
-<p>Edit the 2 newly created <code>config.py</code> files to have correct values. See note below about Encrypted values.</p>
+<p>Edit the 2 newly created <code>config.py</code> files to have correct values. Be sure to read the service file in the next step on how to Encrypted values.</p>
 </li>
 <li>Copy over two instances <code>service/membership.service</code> and <code>service/membership-dev.service</code> both to <code>/etc/systemd/system</code></li>
 <li>Edit the the two files in <code>/etc/systemd/system</code>  to have the right value for <code>ENCRYPTION_KEY</code>.  </li>
 <li>Reload systemd and start and enable the services: <code>systemctl start membership;systemctl start membership-dev;systemctl enable membership;systemctl enable membership-dev</code></li>
 <li>Reboot server to make sure two services come up</li>
 </ol>
-<h3 id="encrypted-values">Encrypted values<a class="headerlink" href="#encrypted-values" title="Permanent link"></a></h3>
-<p>Please note that all of the properties starting with <code>ENCRYPTED_</code> are encrypted.  When the application starts up, it will prompt you for a single decryption password.  This is the same password that you will use to encrypt the properties using the cli tool <code>./crypto/encrypt</code> and <code>./crypto/decrypt</code>.</p>
-<p>In order for the decryption to work, you need to use the same password to encrypt all of the 6 values. Here's an example of encrypting the string <code>foo</code> with the password of also <code>foo</code>:</p>
-<pre><code>python3 ./crypto/encrypt
-Please enter the encryption key:
-Please enter the plaintext you wish to encrypt:
-Encrypted Value: aSy9t6N2sxEDN+WzPyXKVA==
-</code></pre>
-<p>So, if you wanted <code>foo</code> to be the value for the <code>ENCRYPTED_DATABASE_PASSWORD</code> you would define it like this in <code>config.py</code>:</p>
-<pre><code>ENCRYPTED_DATABASE_PASSWORD = 'aSy9t6N2sxEDN+WzPyXKVA=='
-</code></pre>
-<p>If you need to decrypt, it's the same process, but in reverse:</p>
-<pre><code>python3 ./crypto/decrypt
-Please enter the decryption key: 
-Please enter the ciphertext you wish to decrypt: 
-Plaintext Value: foo
-</code></pre>
-<p>Again, you need to use the same password for each of the 6 encrypted strings in your config file.</p>
 <h2 id="pushing-new-content-live">Pushing new content live<a class="headerlink" href="#pushing-new-content-live" title="Permanent link"></a></h2>
 <ol>
 <li>SSH to new-lagos</li>
