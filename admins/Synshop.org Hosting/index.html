@@ -268,11 +268,6 @@
             </li>
               </ul>
             </li>
-            
-            <li class="nav-item" data-level="1"><a href="#todo-put-in-production-discord-webhook-address-instead-plip-placeholder" class="nav-link">todo - put in production discord webhook address instead plip placeholder</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
@@ -346,37 +341,35 @@ dev.synshop.org {
    bundle config set --local path 'vendor/bundle'
    bundle exec jekyll build -d /srv/synshop.org</code></li>
 <li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/build-site.sh</code></li>
-<li>
-<p>as <code>synshop-org</code> user, make another file called <code>/home/synshop-org/check-for-updates-and-push.sh</code> with this contents:
-    ```
-    # Checks for local version (current) and then remote version on GH (latest)
-    # and if they're not the same, run update script
-    #
-    # uses lasttversion:  https://github.com/dvershinin/lastversion
-    # see: https://blog.plip.com/2023/09/17/dead-simple-continuous-deployment/</p>
+<li>as <code>synshop-org</code> user, make another file called <code>/home/synshop-org/check-for-updates-and-push.sh</code> with this contents:
+   ```
+   # Checks for local version (current) and then remote version on GH (latest)
+   # and if they're not the same, run update script
+   #
+   # uses lasttversion:  https://github.com/dvershinin/lastversion
+   # see: https://blog.plip.com/2023/09/17/dead-simple-continuous-deployment/</li>
+</ol>
 <p>current=$(cd /home/synshop-org/synshop.org;/usr/bin/git describe --tags)
-latest=$(/usr/local/bin/lastversion https://github.com/synshop/synshop.org)</p>
+   latest=$(/usr/local/bin/lastversion https://github.com/synshop/synshop.org)</p>
 <p>update(){
-        cd /home/synshop-org/synshop.org
-        git fetch
-        git -c advice.detachedHead=false checkout "$latest"
-        /home/synshop-org/build-site.sh
-}</p>
-<h1 id="todo-put-in-production-discord-webhook-address-instead-plip-placeholder">todo - put in production discord webhook address instead plip placeholder<a class="headerlink" href="#todo-put-in-production-discord-webhook-address-instead-plip-placeholder" title="Permanent link"></a></h1>
-<p>announce(){
-        /usr/bin/curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"Website has been updated from "$current" to "$latest". Check it out at https://synshop.org .  See changes at https://github.com/synshop/synshop.org/releases/tag/"$latest"\"}" https://plip.com/synshop
-}</p>
+            cd /home/synshop-org/synshop.org
+            git fetch
+            git -c advice.detachedHead=false checkout "$latest"
+            /home/synshop-org/build-site.sh
+   }</p>
+<p># todo - put in production discord webhook address instead plip placeholder
+   announce(){
+           /usr/bin/curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"Website has been updated from "$current" to "$latest". Check it out at https://synshop.org .  See changes at https://github.com/synshop/synshop.org/releases/tag/"$latest"\"}" https://plip.com/synshop
+   }</p>
 <p>if [ ! "$current" = "$latest" ];then
-        $(update)
-        # $(announce)
-        echo "New version found, upgraded from $current to $latest"
-else
-        echo "No new version found, staying on $current."
-fi
-<code>``
-6. as</code>synshop-org<code>user, make the file executable:</code>chmod +x /home/synshop-org/check-for-updates-and-push.sh<code>7. as</code>synshop-org<code>user, Add a cron job for every 5 minutes to run</code>check-for-updates-and-push.sh`</p>
-</li>
-</ol></div>
+           $(update)
+           # $(announce)
+           echo "New version found, upgraded from $current to $latest"
+   else
+           echo "No new version found, staying on $current."
+   fi
+   <code>``
+6. as</code>synshop-org<code>user, make the file executable:</code>chmod +x /home/synshop-org/check-for-updates-and-push.sh<code>7. as</code>synshop-org<code>user, Add a cron job for every 5 minutes to run</code>check-for-updates-and-push.sh`</p></div>
             </div>
         </div>
 
