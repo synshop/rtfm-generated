@@ -325,51 +325,64 @@ wiki.synshop.org {
 dev.synshop.org {
         redir https://synshop.org
 }
-   <code>``
-5. make sure Caddy is started and enabled with</code>systemctl start caddy<code>and</code>systemctl start caddy`</p>
+   ```</p>
+</li>
+<li>
+<p>make sure Caddy is started and enabled with <code>systemctl start caddy</code> and <code>systemctl start caddy</code></p>
 </li>
 </ol>
-<h3 id="continuious-deplyment-scripts">Continuious deplyment scripts<a class="headerlink" href="#continuious-deplyment-scripts" title="Permanent link"></a></h3>
+<h3 id="continuous-deployment-scripts">Continuous deployment scripts<a class="headerlink" href="#continuous-deployment-scripts" title="Permanent link"></a></h3>
 <ol>
 <li>as <code>root</code>, install <a href="https://jekyllrb.com/">Jekyll</a></li>
-<li>as <code>synshop-org</code> user, ensure that you can build the site with this command:
-   <code>cd /home/synshop-org/synshop.org
-   bundle config set --local path 'vendor/bundle'
-   bundle exec jekyll build -d /srv/synshop.org</code></li>
-<li>as <code>synshop-org</code> user, create a file called <code>/home/synshop-org/build-site.sh</code> with this contents:
-   <code>cd /home/synshop-org/synshop.org
-   bundle config set --local path 'vendor/bundle'
-   bundle exec jekyll build -d /srv/synshop.org</code></li>
-<li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/build-site.sh</code></li>
-<li>as <code>synshop-org</code> user, make another file called <code>/home/synshop-org/check-for-updates-and-push.sh</code> with this contents:
-   ```
-   # Checks for local version (current) and then remote version on GH (latest)
-   # and if they're not the same, run update script
-   #
-   # uses lasttversion:  https://github.com/dvershinin/lastversion
-   # see: https://blog.plip.com/2023/09/17/dead-simple-continuous-deployment/</li>
+<li>as <code>synshop-org</code> user, ensure that you can build the site with this command:</li>
 </ol>
-<p>current=$(cd /home/synshop-org/synshop.org;/usr/bin/git describe --tags)
-   latest=$(/usr/local/bin/lastversion https://github.com/synshop/synshop.org)</p>
-<p>update(){
-            cd /home/synshop-org/synshop.org
-            git fetch
-            git -c advice.detachedHead=false checkout "$latest"
-            /home/synshop-org/build-site.sh
-   }</p>
-<p># todo - put in production discord webhook address instead plip placeholder
-   announce(){
-           /usr/bin/curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"Website has been updated from "$current" to "$latest". Check it out at https://synshop.org .  See changes at https://github.com/synshop/synshop.org/releases/tag/"$latest"\"}" https://plip.com/synshop
-   }</p>
-<p>if [ ! "$current" = "$latest" ];then
-           $(update)
-           # $(announce)
-           echo "New version found, upgraded from $current to $latest"
-   else
-           echo "No new version found, staying on $current."
-   fi
-   <code>``
-6. as</code>synshop-org<code>user, make the file executable:</code>chmod +x /home/synshop-org/check-for-updates-and-push.sh<code>7. as</code>synshop-org<code>user, Add a cron job for every 5 minutes to run</code>check-for-updates-and-push.sh`</p></div>
+<pre><code>cd /home/synshop-org/synshop.org
+bundle config set --local path 'vendor/bundle'
+bundle exec jekyll build -d /srv/synshop.org
+</code></pre>
+<ol>
+<li>as <code>synshop-org</code> user, create a file called <code>/home/synshop-org/build-site.sh</code> with this contents:</li>
+</ol>
+<pre><code>cd /home/synshop-org/synshop.org
+bundle config set --local path 'vendor/bundle'
+bundle exec jekyll build -d /srv/synshop.org
+</code></pre>
+<ol>
+<li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/build-site.sh</code></li>
+<li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/check-for-updates-and-push.sh</code></li>
+<li>as <code>synshop-org</code> user, Add a cron job for every 5 minutes to run <code>check-for-updates-and-push.sh</code></li>
+<li>as <code>synshop-org</code> user, make another file called <code>/home/synshop-org/check-for-updates-and-push.sh</code> with this contents:</li>
+</ol>
+<pre><code class="language-bash"># Checks for local version (current) and then remote version on GH (latest)
+
+# and if they're not the same, run update script
+#
+# uses lasttversion:  https://github.com/dvershinin/lastversion
+# see: https://blog.plip.com/2023/09/17/dead-simple-continuous-deployment/
+
+current=$(cd /home/synshop-org/synshop.org;/usr/bin/git describe --tags)
+latest=$(/usr/local/bin/lastversion https://github.com/synshop/synshop.org)
+
+update(){
+        cd /home/synshop-org/synshop.org
+        git fetch
+        git -c advice.detachedHead=false checkout &quot;$latest&quot;
+        /home/synshop-org/build-site.sh
+}
+
+# todo - put in production discord webhook address instead plip placeholder
+announce(){
+        /usr/bin/curl -i -H &quot;Accept: application/json&quot; -H &quot;Content-Type:application/json&quot; -X POST --data &quot;{\&quot;content\&quot;: \&quot;Website has been updated from &quot;$current&quot; to &quot;$latest&quot;. Check it out at https://synshop.org .  See changes at https://github.com/synshop/synshop.org/releases/tag/&quot;$latest&quot;\&quot;}&quot; https://plip.com/synshop
+}
+
+if [ ! &quot;$current&quot; = &quot;$latest&quot; ];then
+        $(update)
+        # $(announce)
+        echo &quot;New version found, upgraded from $current to $latest&quot;
+else
+        echo &quot;No new version found, staying on $current.&quot;
+fi
+</code></pre></div>
             </div>
         </div>
 
