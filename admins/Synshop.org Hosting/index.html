@@ -275,9 +275,9 @@
 
 <h1 id="synshoporg-hosting">Synshop.org Hosting<a class="headerlink" href="#synshoporg-hosting" title="Permanent link"></a></h1>
 <h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
-<p>The main <a href="https://synshop.org">shop website</a> is hosted on new lagos (<code>new-lagos.synshop.org</code>) via <a href="https://certbot.eff.org/">Certbot</a>. A script 
-pulls from the  <a href="https://github.com/synshop/synshop.org">main repo on github</a> and then uses <a href="https://jekyllrb.com/">Jekyll</a> to build the site into the directy 
-where <a href="https://caddyserver.com/">Caddy</a> serves the static files from.  There is a script that runs every 5 minutes to check for a new version on Github.</p>
+<p>The main <a href="https://synshop.org">shop website</a> is hosted on new lagos (<code>new-lagos.synshop.org</code>) with the web server <a href="https://caddyserver.com/">Caddy</a>. A script 
+pulls from the <a href="https://github.com/synshop/synshop.org">main repo on github</a> and then uses <a href="https://jekyllrb.com/">Jekyll</a> to build the site into the directy 
+where Caddy serves the static files from.  There is a script that runs every 5 minutes to check for a new version on Github.</p>
 <h2 id="updating-the-website">Updating the website<a class="headerlink" href="#updating-the-website" title="Permanent link"></a></h2>
 <ol>
 <li>Edit the  <a href="https://github.com/synshop/synshop.org">main repo on github</a> with some content changes.  Merge these to <code>main</code></li>
