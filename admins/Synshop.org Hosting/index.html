@@ -262,10 +262,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#setup-on-lagos-new" class="nav-link">Setup on Lagos New</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -275,114 +271,26 @@
 
 <h1 id="synshoporg-hosting">Synshop.org Hosting<a class="headerlink" href="#synshoporg-hosting" title="Permanent link"></a></h1>
 <h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
-<p>The main <a href="https://synshop.org">shop website</a> is hosted on new lagos (<code>new-lagos.synshop.org</code>) with the web server <a href="https://caddyserver.com/">Caddy</a>. A script 
+<p>The main <a href="https://synshop.org">shop website</a> is hosted on <a href="https://www.cloudflare.com/plans/free/">Cloudflare</a> . GitHub Actions 
 pulls from the <a href="https://github.com/synshop/synshop.org">main repo on github</a> and then uses <a href="https://jekyllrb.com/">Jekyll</a> to build the site into the directy 
-where Caddy serves the static files from.  There is a script that runs every 5 minutes to check for a new version on Github.</p>
+where Caddy serves the static files from Cloudflare.  T</p>
 <h2 id="updating-the-website">Updating the website<a class="headerlink" href="#updating-the-website" title="Permanent link"></a></h2>
 <ol>
-<li>Edit the  <a href="https://github.com/synshop/synshop.org">main repo on github</a> with some content changes.  Merge these to <code>main</code></li>
-<li>Go to <a href="https://github.com/synshop/synshop.org/releases/new">the "New Release" page</a>.</li>
-<li>In the "Choose a tag" button, enter the next logical version. If you're on <code>1.1.0</code>, use <code>1.2.0</code>. Click "Create new tag: 1.2.0" </li>
-<li>For "Release title" enter the same value (eg <code>1.2.0</code>)</li>
-<li>Optionally, in the "Describe this issue" cite the issue numbers or PRs in this release</li>
-<li>click "Publish Release"</li>
-</ol>
-<p>With in 5 minutes your content will be live based on continuious deplyment scripts below.</p>
-<h2 id="setup-on-lagos-new">Setup on Lagos New<a class="headerlink" href="#setup-on-lagos-new" title="Permanent link"></a></h2>
-<p>This is only a one time task that's already been done, but just in case it needs to be done again:</p>
-<h3 id="web-files-and-server">Web files and server<a class="headerlink" href="#web-files-and-server" title="Permanent link"></a></h3>
-<ol>
-<li>create a <code>synshop-org</code> user</li>
-<li>as <code>synshop-org</code> user, <code>git clone</code> the  <a href="https://github.com/synshop/synshop.org">main repo on github</a> into <code>/home/synshop-org/synshop.org</code></li>
-<li>as <code>root</code>, create <code>/srv/synshop.org</code></li>
-<li>as <code>root</code>,  copy <code>/home/synshop-org/synshop.org/_site/*</code> to  <code>/srv/synshop.org/.</code> and make it all 
-owned by <code>synshop-org</code> user: <code>chown synshop-org:synshop-org -R /srv/synshop.org/</code></li>
-<li>as <code>root</code>, install  <a href="https://caddyserver.com/">Caddy</a></li>
 <li>
-<p>as <code>root</code>, Create a file called <code>/etc/caddy/Caddyfile</code> with this contents:
-   ```
-    synshop.org {</p>
-<pre><code>    root * /srv/synshop.org
-    file_server
-
-    handle_errors {
-            @404 {
-                    expression {http.error.status_code} == 404
-            }
-            handle @404 {
-                    rewrite * /404.html
-                    file_server
-            }
-    }
-</code></pre>
-<p>}
-www.synshop.org {
-        redir https://synshop.org{uri}
-}
-wiki.synshop.org {
-        redir https://rtfm.synshop.org
-}
-dev.synshop.org {
-        redir https://synshop.org
-}
-   ```</p>
+<p>Create a Pull Request of the <a href="https://github.com/synshop/synshop.org">main repo on github</a> with some content changes.  These will be published to their own ephemeral site <a href="https://github.com/synshop/synshop.org/pull/32#issuecomment-1741900656">like this</a>:</p>
+<blockquote>
+<p>Deploying with  Cloudflare Pages  Cloudflare Pages</p>
+<p>Latest commit:    4492789</p>
+<p>Status:    ✅  Deploy successful!</p>
+<p>Preview URL:  https://6ca0cb6a.synshop-org.pages.dev</p>
+<p>Branch Preview URL:   https://29-favicon-logo-refactor.synshop-org.pages.dev</p>
+</blockquote>
 </li>
 <li>
-<p>make sure Caddy is started and enabled with <code>systemctl start caddy</code> and <code>systemctl start caddy</code></p>
+<p>Get the Pull Request Approved</p>
 </li>
-</ol>
-<h3 id="continuous-deployment-scripts">Continuous deployment scripts<a class="headerlink" href="#continuous-deployment-scripts" title="Permanent link"></a></h3>
-<ol>
-<li>as <code>root</code>, install <a href="https://jekyllrb.com/">Jekyll</a></li>
-<li>as <code>synshop-org</code> user, ensure that you can build the site with this command:</li>
-</ol>
-<pre><code>cd /home/synshop-org/synshop.org
-bundle config set --local path 'vendor/bundle'
-bundle exec jekyll build -d /srv/synshop.org
-</code></pre>
-<ol>
-<li>as <code>synshop-org</code> user, create a file called <code>/home/synshop-org/build-site.sh</code> with this contents:</li>
-</ol>
-<pre><code>cd /home/synshop-org/synshop.org
-bundle config set --local path 'vendor/bundle'
-bundle exec jekyll build -d /srv/synshop.org
-</code></pre>
-<ol>
-<li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/build-site.sh</code></li>
-<li>as <code>synshop-org</code> user, make the file executable: <code>chmod +x /home/synshop-org/check-for-updates-and-push.sh</code></li>
-<li>as <code>synshop-org</code> user, Add a cron job for every 5 minutes to run <code>check-for-updates-and-push.sh</code></li>
-<li>as <code>synshop-org</code> user, make another file called <code>/home/synshop-org/check-for-updates-and-push.sh</code> with this contents:</li>
-</ol>
-<pre><code class="language-bash"># Checks for local version (current) and then remote version on GH (latest)
-
-# and if they're not the same, run update script
-#
-# uses lasttversion:  https://github.com/dvershinin/lastversion
-# see: https://blog.plip.com/2023/09/17/dead-simple-continuous-deployment/
-
-current=$(cd /home/synshop-org/synshop.org;/usr/bin/git describe --tags)
-latest=$(/usr/local/bin/lastversion https://github.com/synshop/synshop.org)
-
-update(){
-        cd /home/synshop-org/synshop.org
-        git fetch
-        git -c advice.detachedHead=false checkout &quot;$latest&quot;
-        /home/synshop-org/build-site.sh
-}
-
-# todo - put in production discord webhook address instead plip placeholder
-announce(){
-        /usr/bin/curl -i -H &quot;Accept: application/json&quot; -H &quot;Content-Type:application/json&quot; -X POST --data &quot;{\&quot;content\&quot;: \&quot;Website has been updated from &quot;$current&quot; to &quot;$latest&quot;. Check it out at https://synshop.org .  See changes at https://github.com/synshop/synshop.org/releases/tag/&quot;$latest&quot;\&quot;}&quot; https://plip.com/synshop
-}
-
-if [ ! &quot;$current&quot; = &quot;$latest&quot; ];then
-        $(update)
-        # $(announce)
-        echo &quot;New version found, upgraded from $current to $latest&quot;
-else
-        echo &quot;No new version found, staying on $current.&quot;
-fi
-</code></pre></div>
+<li>When the Pull Request is merged to <code>main</code>, GitHub Actions will publish it to Cloudflare and be live on synshop.org</li>
+</ol></div>
             </div>
         </div>
 
