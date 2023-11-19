@@ -298,9 +298,10 @@
 <h2 id="how-to-regenerate-the-token-to-push-the-site-live">How to regenerate the token to push the site live<a class="headerlink" href="#how-to-regenerate-the-token-to-push-the-site-live" title="Permanent link"></a></h2>
 <p>The robot account (<code>monitoring-synshop-bot</code>) needs to regenerate the personal access token every 90 days. We set it to expire in 90 days so we remember how to regenerate it - if we set it for a year we'll never remember.  These are the steps:</p>
 <ol>
-<li>get a copy of the password safe</li>
+<li>get a copy of the SYN Shop Systems password safe</li>
 <li>using the credentials in that safe for <code>monitoring-synshop-bot</code>, log into https://github.com</li>
-<li>Create a <a href="https://github.com/settings/tokens/new">new access token</a>.  It should have full "repo" perms.  Set it to expire in 90 days. <strong>Be sure to copy the token - it will only be shown once!!</strong></li>
+<li>Go to the accounts <a href="https://github.com/settings/tokens/new">token page</a>.  And click the name of token that start with "rtfm".</li>
+<li>Then click the button "Regenerate token" Set it to expire in 90 days. <strong>Be sure to copy the token - it will only be shown once!!</strong></li>
 <li>Log out of that account, and log into an account that is in <a href="https://github.com/orgs/synshop/people">the SYN Shop org</a></li>
 <li>Find the <code>DEPOLY_TO_RTFM_SITE</code> on the <a href="https://github.com/organizations/synshop/settings/secrets/actions">Actions secrets page</a> and  click the pencel to edit the value</li>
 <li>Where it says "Secret values are encrypted and cannot be displayed, but you can <strong>enter a new value</strong>" - click the link to enter a new value.</li>
