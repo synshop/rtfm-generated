@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>TrueNAS - RTFM</title>
+        <title>Proxmox - RTFM</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -75,15 +75,15 @@
 </li>
                                     
 <li>
+    <a href="./" class="dropdown-item active">Proxmox</a>
+</li>
+                                    
+<li>
     <a href="../rtfm/" class="dropdown-item">rtfm</a>
 </li>
                                     
 <li>
     <a href="../synbackup/" class="dropdown-item">synbackup</a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">TrueNAS</a>
 </li>
                                     
 <li>
@@ -262,17 +262,17 @@
 
                     <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a rel="prev" href="../synbackup/" class="nav-link">
+                                <a rel="prev" href="../pi-hole-stubby/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../unifi/" class="nav-link">
+                                <a rel="next" href="../rtfm/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/synshop/rtfm/edit/master/docs/admins/truenas.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/synshop/rtfm/edit/master/docs/admins/proxmox.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -292,17 +292,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#truenas" class="nav-link">TrueNAS</a>
+            <li class="nav-item" data-level="1"><a href="#proxmox" class="nav-link">Proxmox</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#general" class="nav-link">General</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#administration" class="nav-link">Administration</a>
+            <li class="nav-item" data-level="2"><a href="#overview" class="nav-link">Overview</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#hardware" class="nav-link">Hardware</a>
+            <li class="nav-item" data-level="2"><a href="#install-hardware" class="nav-link">Install &amp; Hardware</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#downloading-a-new-iso" class="nav-link">Downloading a new ISO</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#creating-a-new-vm" class="nav-link">Creating a new VM</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#nas-drives" class="nav-link">NAS Drives</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -313,51 +321,137 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="truenas">TrueNAS<a class="headerlink" href="#truenas" title="Permanent link"></a></h1>
-<h2 id="general">General<a class="headerlink" href="#general" title="Permanent link"></a></h2>
-<hr />
-<p>We have a NAS unit running <a href="https://www.truenas.com/">TrueNAS</a> at <a href="http://vault.synshop.net">vault.synshop.net</a> which is only accessible on the shop LAN and not accessible on the internet. Any member who requires some storage space for project related storage can request an account to be created for them.</p>
+<h1 id="proxmox">Proxmox<a class="headerlink" href="#proxmox" title="Permanent link"></a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
+<p>A desktop tower with <a href="https://www.proxmox.com/en/">Proxmox</a> installed on it was deployed to: </p>
 <ul>
-<li>There is also a folder called "stash" that is a public, general temporary space that is mounted as a shared storage by all shop computers to quickly and easily move files between devices.</li>
-<li>The Vault pool has a folder called "members" under which each user with an active account on the NAS has a personal folder.</li>
-<li>The stash folder is at the same level.</li>
-<li>Additional folders can be created as needed.</li>
-<li>There are two user groups: Members and Admins. Folders can be given Members, Admin, or selected individual permissions as needed. More groups can be created if required but is not advised.</li>
+<li>Be a future home for all LXD containers on the c220 so the c220 can eventually be retired</li>
+<li>Host future projects that need a VM at the shop</li>
+<li>Host 4 x 12TB drives to serve media to the shop LAN</li>
 </ul>
-<h2 id="administration">Administration<a class="headerlink" href="#administration" title="Permanent link"></a></h2>
-<hr />
-<p>To add a new user to the system, you need to log into the <a href="http://vault.synshop.net">web interface</a> (or alternatively http://10.0.40.30) as the <code>root</code> user. Credentials for <code>root</code> in the administrative keepass in Google Drive under <code>TrueNAS</code>. (<em>Your individual user creds WILL NOT work!</em>)
-To add a user:</p>
+<p>All Proxmox admin is done through the web GUI at <a href="https://proxmox.synshop.net">https://proxmox.synshop.net</a>, which is reverse proxied through the Caddy server to have a valid TLS cert.  The baremetal IP is <code>10.0.40.16</code>, but of course the proxmox.synshop.net domain resolves to Caddy at <code>.29</code>.</p>
+<p>To log into the server, be on the VPN or at the shop, go the <a href="https://proxmox.synshop.net">URL</a> and use the <code>proxmox</code> credentials from the shop password database.</p>
+<h2 id="install-hardware">Install &amp; Hardware<a class="headerlink" href="#install-hardware" title="Permanent link"></a></h2>
+<p>Proxmox was installed with these 7 drives:</p>
+<ul>
+<li>256GB Apple branded 2.5" SATA SSD: boot drive for prox mox (<code>/dev/sdc</code>) . Shows as <code>local-lvm</code> or <code>pve</code> in Proxmox</li>
+<li>256GB NVMe SSD: data volume for all active VMS (<code>/dev/nvme0n1</code>). Shows as <code>local</code> or <code>vmdata</code> in Proxmox.</li>
+<li>3TB SATA: Backup drive for all Proxmox data, VMs etc. (<code>/dev/sde</code>). Shows as <code>backups</code> in Proxmox.</li>
+<li>4 x 12TB SATA: TBD use for NAS/Media sharing (<code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/sdd</code> and <code>/dev/sdf</code> ). </li>
+</ul>
+<p>Here's the output of <code>lsblk</code>:</p>
+<pre><code class="language-shell">root@proxmox:~# lsblk
+NAME                        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda                           8:0    0  10.9T  0 disk /mnt/nas/ZTN19LH8
+sdb                           8:16   0  10.9T  0 disk /mnt/nas/ZTN1AT71
+sdc                           8:32   0 233.8G  0 disk 
+├─sdc1                        8:33   0  1007K  0 part 
+├─sdc2                        8:34   0     1G  0 part /boot/efi
+└─sdc3                        8:35   0 232.8G  0 part 
+  ├─pve-swap                252:0    0     8G  0 lvm  [SWAP]
+  ├─pve-root                252:1    0  68.2G  0 lvm  /
+  ├─pve-data_tmeta          252:2    0   1.4G  0 lvm  
+  │ └─pve-data-tpool        252:6    0 137.8G  0 lvm  
+  │   ├─pve-data            252:7    0 137.8G  1 lvm  
+  │   └─pve-vz              252:8    0   230G  0 lvm  /mnt/nvme
+  └─pve-data_tdata          252:3    0 137.8G  0 lvm  
+    └─pve-data-tpool        252:6    0 137.8G  0 lvm  
+      ├─pve-data            252:7    0 137.8G  1 lvm  
+      └─pve-vz              252:8    0   230G  0 lvm  /mnt/nvme
+sdd                           8:48   0  10.9T  0 disk /mnt/nas/ZTN1CWZL
+sde                           8:64   1   2.7T  0 disk 
+└─sde1                        8:65   1   2.7T  0 part /mnt/pve/backups
+sdf                           8:80   1  10.9T  0 disk /mnt/nas/ZRT122RV
+nvme0n1                     259:0    0 232.9G  0 disk 
+└─nvme0n1p1                 259:1    0 232.9G  0 part 
+  ├─vmdata-vm--100--disk--0 252:4    0    32G  0 lvm  
+  └─vmdata-vm--101--disk--0 252:5    0    30G  0 lvm  
+</code></pre>
+<p>Within Proxmox, you can see the drives this way:</p>
+<p><img alt="Screenshot of drives in the proxmox mox disks page" src="../images/proxmox.drives.png" /></p>
+<h2 id="downloading-a-new-iso">Downloading a new ISO<a class="headerlink" href="#downloading-a-new-iso" title="Permanent link"></a></h2>
+<p>To add a new  ISO so that you can create a VM with it later:</p>
 <ol>
-<li>Go to Accounts&gt;User in the left hand menu</li>
-<li>Click "Add User"</li>
-<li>Fill in the actual members name, and their chosen username (default to their Discord/known-as identity when possible)</li>
-<li>The email address is optional, but preferred. Use the member's normal contact email for future compatibility.</li>
-<li>Set a password for the member, or let them set one themselves. Note that they can only change it by SSHing into the NAS.</li>
-<li>Leave the userID to the programatically assigned one.</li>
-<li>Uncheck "new primary group" and set their group to the existing "members" group.</li>
-<li>select /mnt/vault/members from the menu as their default home directory location. (the system will auto create a folder for them with their username)</li>
-<li>Submit!</li>
+<li>Navigate to <code>local</code> storage on left</li>
+<li>Click <code>ISO Images</code> in middle</li>
+<li>click <code>Upload</code> button at top</li>
+<li>Enter ISO URL and click <code>Download</code></li>
 </ol>
-<h2 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Permanent link"></a></h2>
-<hr />
-<p>The unit is a Rackable Systems with 1x2TB and 3x12TB SATA drives, with a SAS cable to a 16 drive unit with a mix of 2tb and 3tb drives.</p>
-<ul>
-<li>Drive 0 (far left) in the control unit is the OS drive at 2TB</li>
-<li>Drives 1-3 in the control unit are 12TB drives in a RAIDz1 pool called "Plex" for media storage managed by Aakin</li>
-<li>Drive 4 is unused (due to a clerical error thanks so a bay tracking/sn logging mixup)</li>
-<li>Drives 5-7 are 2TB drives in a RAIDz1 pool called "Jail" for the plugin system</li>
-<li>Drives 8-19 are 3Tb drives in a RAIDz3 pool called "Vault", the main NAS storage.</li>
-</ul>
-<p>Actual drive tracking is done via description notes in the Storage panel of TrueNAS. Each drive's "description" identifies what bay it is located in, as the daX numbering does not match the bays, even sequentially.</p>
-<p>There are two network devices. LAN 1 is static assigned to 10.0.40.30. TrueNAS takes a hardline philosphical stance on never having 2 NICs on the same subnet, and has designed many elements of the OS to prevent this, so LAN 2 is not used at this time until we have a LAG capable switch to hardware LAG them (which <em>is</em> supported).</p>
-<p>Future to do:</p>
-<ul>
-<li>Setup second nic on the local network on an appropriately different subnet or LAG</li>
-<li>Bind both nics into one for higher throughput and reliability</li>
-<li>Eventually replace user management with centralized system for the whole shop</li>
-<li>Replace the Vault array 3tb drives with larger capacity (and newer!) ones and resilver+expand the pool.</li>
-</ul></div>
+<p><img alt="Screenshot of adding a new ISO with 4 arrows denoting order of steps" src="../images/new.iso.png" /></p>
+<h2 id="creating-a-new-vm">Creating a new VM<a class="headerlink" href="#creating-a-new-vm" title="Permanent link"></a></h2>
+<ol>
+<li>On the left, Click "Datacenter" and then "Proxmox"</li>
+<li>In the upper right click "Create VM"</li>
+<li>On the <code>General</code> screen leave <code>Node</code> and <code>VM ID</code> with the default value.  Enter a descriptive, but short name in <code>Name</code>.</li>
+<li>Check the <code>Advanced</code> check box near the bottom and check <code>Start at boot</code> box to ensure the VM is booted when ever the system reboots.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>OS</code> screen, if you're installing from an ISO,  for <code>Storage</code> choose <code>local</code> and choose the ISO in the <code>ISO image</code> drop down.</li>
+<li>Leave all other fields with default values and click <code>Next</code></li>
+<li>On the <code>System</code> screen, leave all fields with default values and click <code>Next</code></li>
+<li>On the <code>Disks</code> screen, choose <code>vmdata</code> for <code>Storage</code> which uses the "256GB NVMe SSD" device for very fast data.</li>
+<li>If you need more or less storage than <code>32</code>, update the <code>Disk Size (GiB)</code> as needed.</li>
+<li>Leave all other fields with default values and click <code>Next</code></li>
+<li>On the <code>CPU</code> screen, choose <code>2</code> for <code>cores</code> and leave all the rest default and click <code>Next</code></li>
+<li>On the <code>Memory</code> screen, add more or less RAM than <code>2GB</code> as needed. Leave all the rest default and click <code>Next</code></li>
+<li>On the <code>Network</code> screen, leave all fields with default values and click <code>Next</code> (be sure to set a static IP in the VM after it boots)</li>
+<li>On the <code>Confirm</code> screen, review all data and click <code>Finish</code> </li>
+<li>Click on the right side of the screen where your new VM shows up as <code>NUMBER (Name)</code> eg <code>102 (truenas)</code></li>
+<li>Click <code>Console</code> and choose <code>Start now</code> </li>
+</ol>
+<h2 id="nas-drives">NAS Drives<a class="headerlink" href="#nas-drives" title="Permanent link"></a></h2>
+<p>These 4 x 12TB SATA drives have been provisioned a few different ways, none of which have worked out.  </p>
+<h3 id="truenas">TrueNAS<a class="headerlink" href="#truenas" title="Permanent link"></a></h3>
+<p>Originally it was thought that having some redundancy was helpful, so a 32TGB ZFS Raidz1 was created by passing them through raw to TrueNAS.  Something like:</p>
+<ol>
+<li>Create a TrueNAS install in a new VM, but don't provision any storage.  Resulting VM ID was <code>102</code>. </li>
+<li>
+<p>As <code>root</code> on the Proxmox machine (via web Shell), find the raw device IDs:</p>
+<p><pre>root@proxmox:~# ls -al /dev/disk/by-id | egrep 'ZTN1CWZL|ZTN1AT71|ZTN19LH8|ZRT122RV'
+lrwxrwxrwx 1 root root   9 Feb  4 15:18 ata-ST12000VN0008-2PH103_ZTN19LH8 -&gt; ../../sda
+lrwxrwxrwx 1 root root   9 Feb  4 15:08 ata-ST12000VN0008-2PH103_ZTN1AT71 -&gt; ../../sdb
+lrwxrwxrwx 1 root root   9 Feb  4 15:16 ata-ST12000VN0008-2PH103_ZTN1CWZL -&gt; ../../sdd
+lrwxrwxrwx 1 root root   9 Feb  4 15:10 ata-ST12000VN0008-2YS101_ZRT122RV -&gt; ../../sdf</pre></p>
+</li>
+<li>
+<p>Still in the <code>root</code> shell, pass the raw devices into the TrueNAS VM which has ID <code>102</code>:</p>
+<p><pre>qm set 102 -scsi1 /dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN19LH8
+qm set 102 -scsi2 /dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN1AT71
+qm set 102 -scsi3 /dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN1CWZL
+qm set 102 -scsi4 /dev/disk/by-id/ata-ST12000VN0008-2YS101_ZRT122RV</pre></p>
+</li>
+<li>
+<p>Reboot the TrueNAS VM to make sure it can see the new disks added to the VM.  </p>
+</li>
+<li>Use the TrueNAS web GUI to add the 4 drives to a ZFS Raidz1 volume</li>
+</ol>
+<h3 id="mergerfs">MergerFS<a class="headerlink" href="#mergerfs" title="Permanent link"></a></h3>
+<p>Realizing that we wanted full 48TB with no redundancy, we thought that <a href="https://github.com/trapexit/mergerfs">MergerFS</a> would work better. The TrueNAS VM was deleted and then the following was done:</p>
+<ol>
+<li>Format the 4 drives as <code>ext4</code> (do this once per drive ID): <code>mkfs.ext4 /dev/disk/by-id/ata-ST12000VN0008-2YS101_ZRT122RV</code></li>
+<li>Create mount directories: <code>mkdir /mnt/nas;mkidr /mnt/nas/ZRT122RV;mkdir /mnt/nas/ZTN1CWZL;/mnt/nas/ZTN1AT71;/mnt/nas/ZTN19LH8</code></li>
+<li>
+<p>Add an <code>/etc/fstab</code> entry that mounted all 4 in <code>/mnt/nas</code> and then user <code>mergfs</code> to mount all 4 in one line to <code>/mnt/nas-all</code>:</p>
+<p><pre>
+/dev/disk/by-id/ata-ST12000VN0008-2YS101_ZRT122RV  /mnt/nas/ZRT122RV    ext4    defaults     0   0
+/dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN19LH8  /mnt/nas/ZTN19LH8    ext4    defaults     0   0
+/dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN1AT71  /mnt/nas/ZTN1AT71    ext4    defaults     0   0
+/dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN1CWZL  /mnt/nas/ZTN1CWZL    ext4    defaults     0   0</p>
+<p>/mnt/nas/* /mnt/nas-all fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,category.create=mfs,dropcacheonclose=true,minfreespace=250G,fsname=mergerfs 0 0</pre></p>
+</li>
+<li>
+<p>checking <code>df -h</code>, we can see this is working as expected:</p>
+<p><pre>
+root@proxmox:~# df -h|egrep 'Size|nas'
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sdf               11T   36K   11T   1% /mnt/nas/ZRT122RV
+/dev/sda               11T   36K   11T   1% /mnt/nas/ZTN19LH8
+/dev/sdb               11T   36K   11T   1% /mnt/nas/ZTN1AT71
+/dev/sdd               11T   40K   11T   1% /mnt/nas/ZTN1CWZL
+mergerfs               44T  148K   42T   1% /mnt/nas-all</pre>
+5. This was then added to Proxmox as a <code>Directory</code>, but this looks to not be the best path forward. Proxmox then tried to format all 48TB as another drive or something?  Likely we want to undue all this and pass the raw devices into a new NAS based VM that can provision MergerFS volume in there and then share that out to the LAN.</p>
+</li>
+</ol>
+<p>Next steps TBD!</p></div>
             </div>
         </div>
 
