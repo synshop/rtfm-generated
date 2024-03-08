@@ -319,9 +319,9 @@
 
 <h1 id="docker-and-portainer">Docker (and Portainer)<a class="headerlink" href="#docker-and-portainer" title="Permanent link"></a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
-<p>There is a vm "Docker" on Proxmox. This is a centralized docker host for any docker containers needed. The ssh creds for this host are located in keepass.
-There is a docker container for Portainer running, which is a web interface used for managing all other containers. This interface can be used to deply other compose files, maintain existing ones, and has granular user permissions if we ever need to give isolated user perms.
-The webUI login is in keepass and can be reached at http://portainer.synshop.net:9000</p>
+<p>There is a vm "Docker" on Proxmox. This is a centralized docker host for any docker containers needed. The ssh creds for this host are located in keepass.</p>
+<p>There is a docker container for Portainer running, which is a web interface used for managing all other containers. This interface can be used to deply other compose files, maintain existing ones, and has granular user permissions if we ever need to give isolated user perms.</p>
+<p>The webUI login is in keepass and can be reached at http://portainer.synshop.net:9000</p>
 <h2 id="updating-portainer">Updating portainer<a class="headerlink" href="#updating-portainer" title="Permanent link"></a></h2>
 <p>Portainer can't be updated from within itself. Instead this is done via CLI on the docker host itself. Inside the home directory of the <code>ubuntu</code> user is a portainer-compose.yml file. To updated Portainer CE (Community Edition) to the lateest, run the following:</p>
 <pre><code>&gt; docker stop portainer
