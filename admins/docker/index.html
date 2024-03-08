@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>membership website - RTFM</title>
+        <title>Docker (and Portainer) - RTFM</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -59,7 +59,7 @@
 </li>
                                     
 <li>
-    <a href="../docker/" class="dropdown-item">Docker (and Portainer)</a>
+    <a href="./" class="dropdown-item active">Docker (and Portainer)</a>
 </li>
                                     
 <li>
@@ -71,7 +71,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">membership website</a>
+    <a href="../membership/" class="dropdown-item">membership website</a>
 </li>
                                     
 <li>
@@ -266,17 +266,17 @@
 
                     <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a rel="prev" href="../kiosk/" class="nav-link">
+                                <a rel="prev" href="../c220/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../pi-hole-stubby/" class="nav-link">
+                                <a rel="next" href="../flatline/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/synshop/rtfm/edit/master/docs/admins/membership.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/synshop/rtfm/edit/master/docs/admins/docker.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -296,21 +296,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#membership-website" class="nav-link">membership website</a>
+            <li class="nav-item" data-level="1"><a href="#docker-and-portainer" class="nav-link">Docker (and Portainer)</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#intro" class="nav-link">Intro</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#one-time-setup" class="nav-link">One time setup</a>
+            <li class="nav-item" data-level="2"><a href="#overview" class="nav-link">Overview</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#pushing-new-content-live" class="nav-link">Pushing new content live</a>
+            <li class="nav-item" data-level="2"><a href="#updating-portainer" class="nav-link">Updating portainer</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#development" class="nav-link">Development</a>
+            <li class="nav-item" data-level="2"><a href="#deploying-new-containers" class="nav-link">Deploying new containers</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -321,106 +317,33 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="membership-website">membership website<a class="headerlink" href="#membership-website" title="Permanent link"></a></h1>
-<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
-<p>Membership is hosted at both membership.synshop.org and membership-dev.synshop.org on new-lagos.synshop.org.  It's a python flask app and has a <a href="https://github.com/synshop/membership.synshop.org">GH Repo</a>.</p>
-<p><img alt="Screenshot of membership page with account, donation and locker prices" src="../images/membership.png" /></p>
-<h2 id="one-time-setup">One time setup<a class="headerlink" href="#one-time-setup" title="Permanent link"></a></h2>
+<h1 id="docker-and-portainer">Docker (and Portainer)<a class="headerlink" href="#docker-and-portainer" title="Permanent link"></a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
+<p>There is a vm "Docker" on Proxmox. This is a centralized docker host for any docker containers needed. The ssh creds for this host are located in keepass.
+There is a docker container for Portainer running, which is a web interface used for managing all other containers. This interface can be used to deply other compose files, maintain existing ones, and has granular user permissions if we ever need to give isolated user perms.
+The webUI login is in keepass and can be reached at http://portainer.synshop.net:9000</p>
+<h2 id="updating-portainer">Updating portainer<a class="headerlink" href="#updating-portainer" title="Permanent link"></a></h2>
+<p>Portainer can't be updated from within itself. Instead this is done via CLI on the docker host itself. Inside the home directory of the <code>ubuntu</code> user is a portainer-compose.yml file. To updated Portainer CE (Community Edition) to the lateest, run the following:</p>
+<pre><code>&gt; docker stop portainer
+&gt; docker rm portainer
+&gt; docker pull portainer/portainer-ce:latest
+&gt; sudo docker compose -f portainer-compose.yml up -d
+</code></pre>
+<p>This will remove the old container, grab the latest image, and rebuild the container using the existing compose file. Don't worry about the data, the docker volume it relies on exists "outside" the constiner and is persistent, which the compose file will re-link it to.</p>
+<p>The portainer config should be backed up to a config file export and saved to the Vault NAS periodically, especially after major changes.</p>
+<h2 id="deploying-new-containers">Deploying new containers<a class="headerlink" href="#deploying-new-containers" title="Permanent link"></a></h2>
+<p>This is not a comprehensive portainer guide. However some basics are as follows:</p>
+<ul>
+<li>Go to Stacks &gt; +Add A Stack to use the web UI to write a new compose file. Make sure you define a volume at the end of the file with a local driver to ensure persistent storage between images.</li>
+<li>On http/s ports, the following standardization is being used: 80xx for http ports, and 84xx for https ports. If using both ports on a container, it's best if they are the same XX value after 80/84.</li>
+<li>Most containers should be created as admin, with admin-viewable only left on the default on. This way if individual members are given access for their own use, they can't alter these core containers.</li>
+<li>If the NAS ever needs an NFS share exposed to a docker container, this can be done via the Volumes panel, where an NFS share can be mapped and loaded as an <code>external</code> volume on any container.</li>
+</ul>
+<h3 id="to-do">To Do:<a class="headerlink" href="#to-do" title="Permanent link"></a></h3>
 <ol>
-<li>create DNS entries to server. "server" in this case on lagos-new so <code>membership.synshop.org</code> and <code>membership-dev.synshop.org</code> both have a <code>CNAME</code> for <code>lagos-new.synshop.org.</code> See <a href="https://rtfm.synshop.org/admins/Caddy%20and%20TLS%20certs/#first-time-cert-generation-w-dns-update">Caddy page</a> which talks about making new DNS entries.</li>
-<li>
-<p>on server, install pre-reqs:</p>
-<pre><code>apt install python3 python3.10-venv certbot debian-keyring debian-archive-keyring apt-transport-https gunicorn
-</code></pre>
-</li>
-<li>
-<p>install <code>caddy</code> key, repo and binary:</p>
-<pre><code>curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-sudo apt update
-sudo apt install caddy
-systemctl start caddy
-systemctl enable caddy
-</code></pre>
-</li>
-<li>
-<p>edit <code>/etc/caddy/Caddyfile</code> and put in this contents at the bottom:</p>
-<pre><code>membership.synshop.org {
-   reverse_proxy localhost:3000
-}
-membership-dev.synshop.org {
-   reverse_proxy localhost:4000
-}
-</code></pre>
-</li>
-<li>
-<p>restart caddy: <code>systemctl restart caddy</code>. These two URLs should now work but have not content: <a href="https://membership.synshop.org/">membership</a> and <a href="https://membership-dev.synshop.org/">membership-dev</a></p>
-</li>
-<li>create new <code>membership</code> user on server</li>
-<li>create new ed25519 ssh key WITHOUT a password for <code>membership</code> on server</li>
-<li>add the newly created public SSH key to the <a href="https://github.com/synshop/membership.synshop.org/settings/keys/new">Deploy Keys</a> for Membership GitHub Repo. Ensure it is read only when adding it.</li>
-<li>
-<p>as <code>membership</code> user, clone the repo twice. You shouldn't be prompted for authentication because of the deploy key step above:</p>
-<pre><code>git git@github.com:synshop/membership.synshop.org.git /home/membership/membership.synshop.org
-git git@github.com:synshop/membership.synshop.org.git /home/membership/membership-dev.synshop.org
-</code></pre>
-</li>
-<li>
-<p>as <code>membership</code> user, create a virtualenv for each install:</p>
-<pre><code>cd /home/membership/membership.synshop.org
-python3 -m venv venv;. venv/bin/activate
-deactivate
-cd /home/membership/membership-dev.synshop.org
-python3 -m venv venv;. venv/bin/activate
-deactivate
-</code></pre>
-</li>
-<li>
-<p>as <code>membership</code> user, ensure each repo is on the correct branch:</p>
-<pre><code>cd /home/membership/membership.synshop.org
-git fetch
-git checkout membership.synshop.net
-cd /home/membership/membership-dev.synshop.org
-git fetch
-git checkout membership-dev.synshop.org
-</code></pre>
-</li>
-<li>
-<p>In both repos, ensure we've installed the python pre-reqs:</p>
-<pre><code>cd /home/membership/membership.synshop.org
-. venv/bin/activate
-pip3 install -r requirements.txt 
-cd /home/membership/membership-dev.synshop.org
-deactivate
-. venv/bin/activate
-pip3 install -r requirements.txt 
-deactivate
-</code></pre>
-</li>
-<li>
-<p>In each repo, create a new config file:</p>
-<pre><code>cp /home/membership/membership.synshop.org/config.py.default /home/membership/membership.synshop.org/config.py
-cp /home/membership/membership-dev.synshop.org/config.py.default /home/membership/membership-dev.synshop.org/config.py
-</code></pre>
-</li>
-<li>
-<p>Edit the 2 newly created <code>config.py</code> files to have correct values. Be sure to read the service file in the next step on how to Encrypted values.</p>
-</li>
-<li>Copy over two instances <code>service/membership.service</code> and <code>service/membership-dev.service</code> both to <code>/etc/systemd/system</code></li>
-<li>Edit the the two files in <code>/etc/systemd/system</code>  to have the right value for <code>ENCRYPTION_KEY</code>.  </li>
-<li>Reload systemd and start and enable the services: <code>systemctl start membership;systemctl start membership-dev;systemctl enable membership;systemctl enable membership-dev</code></li>
-<li>Reboot server to make sure two services come up</li>
-</ol>
-<h2 id="pushing-new-content-live">Pushing new content live<a class="headerlink" href="#pushing-new-content-live" title="Permanent link"></a></h2>
-<ol>
-<li>SSH to new-lagos</li>
-<li>switch user to <code>membership</code> user: <code>sudo su - memberhsip</code></li>
-<li>cd into dev or prod: <code>cd membership.synshop.org</code> or <code>cd membership-dev.synshop.org</code></li>
-<li>pull in the latest code: <code>git pull origin</code></li>
-<li>restart the server: <code>systemctl restart membership</code> or <code>systemctl restart membership-dev</code></li>
-</ol>
-<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link"></a></h2>
-<p>TBD</p></div>
+<li>Install traefik to act as a reverse proxy, so we can rely on port 80/443 with self hosted *.synshop.net tls certs for all containers.</li>
+<li></li>
+</ol></div>
             </div>
         </div>
 
