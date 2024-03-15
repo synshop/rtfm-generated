@@ -326,8 +326,8 @@
 <p><a href="https://caddyserver.com/docs/install">Caddy</a> provides a reverse proxy with TLS termination for all internal services at the shop.<br />
 You must be on the shop LAN or on the shop VPN to access it. Working with <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E"><code>certbot</code></a>,
 we can get wildcard certs for all services.</p>
-<p>Caddy runs as a container on the <a href="/admins/c220/">c220</a> on container named <code>caddy</code> with IP <code>10.0.40.29</code></p>
-<p>Finally <a href="https://pi-hole.net/">Pi-Hole</a> provides DNS to match FQDN &lt;-&gt; TLS CN. Pi-Hole has IP <code>10.0.40.66</code> </p>
+<p>Caddy runs as a container on the <a href="/admins/proxmox/">proxmox server</a> on container named <code>caddy</code> with IP <code>10.0.40.29</code></p>
+<p>Finally <code>new-lagos.synshop.org</code>  provides DNS with <code>bind</code> to match FQDN &lt;-&gt; TLS CN. See below to update DNS entries.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link"></a></h2>
 <h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link"></a></h3>
 <p>Assuming Ubuntu 22, following <a href="https://caddyserver.com/docs/install#debian-ubuntu-raspbian">their install docs</a>:</p>
@@ -341,17 +341,20 @@ systemctl enable caddy
 systemctl start caddy
 </code></pre>
 <h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link"></a></h3>
-<p>From their <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a>:</p>
-<pre><code class="language-bash">sudo snap install core; sudo snap refresh core
+<p>With the way proxmox does LXC containers,  the normal <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a> don't work.  Instead we had to use <code>pip</code> and friends to achieve the same result:</p>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install python3 python3-venv libaugeas0
+sudo python3 -m venv /opt/certbot/
+sudo /opt/certbot/bin/pip install --upgrade pip
+sudo /opt/certbot/bin/pip install certbot certbot
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 </code></pre>
-<p>Verify that <code>list-timers</code> will run the renew:</p>
-<pre><code class="language-bash">systemctl list-timers|grep certbot
+<p>Then add a cronjob to check for renawals:</p>
+<pre><code>echo &quot;0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' &amp;&amp; sudo /usr/bin/certbot renew -q&quot; | sudo tee /etc/cron.d/certbot &gt; /dev/null
 </code></pre>
 <p>Get <a href="https://github.com/joohoi/acme-dns-certbot-joohoi">the python script</a> and make it executable. This uses the acme-dns.io DNS service with some CNAME trickery:</p>
 <pre><code class="language-bash">mkdir -p /etc/letsencrypt/
 curl -o /etc/letsencrypt/acme-dns-auth.py https://raw.githubusercontent.com/joohoi/acme-dns-certbot-joohoi/master/acme-dns-auth.py
 chmod +x /etc/letsencrypt/acme-dns-auth.py
-apt install python3
 ln -s /usr/bin/python3 /usr/bin/python
 </code></pre>
 <h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
