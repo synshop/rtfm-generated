@@ -310,6 +310,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#creating-a-new-container" class="nav-link">Creating a new container</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#creating-a-new-vm" class="nav-link">Creating a new VM</a>
               <ul class="nav flex-column">
               </ul>
@@ -382,6 +386,27 @@ nvme0n1                     259:0    0 232.9G  0 disk
 <li>Enter ISO URL and click <code>Download</code></li>
 </ol>
 <p><img alt="Screenshot of adding a new ISO with 4 arrows denoting order of steps" src="../images/new.iso.png" /></p>
+<h2 id="creating-a-new-container">Creating a new container<a class="headerlink" href="#creating-a-new-container" title="Permanent link"></a></h2>
+<ol>
+<li>On the left, Click "Datacenter" and then "Proxmox"</li>
+<li>In the upper right click "Create CT"</li>
+<li>On the <code>General</code> screen fill out <code>hostname</code>, <code>password</code> and <code>confirm password</code>. Add your own <code>SSH Public key(s)</code> and then leave the rest default. <strong>Note</strong> - by default containers won't allow yout to SSH with a password, only SSHs keys</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>Template</code> screen,  for <code>Storage</code> choose <code>local</code> and choose <code>Ubuntu</code> from the  <code>Template</code> drop down.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>Disks</code> screen,  for <code>Storage</code> choose <code>vmdata</code> and choose <code>30</code>  for  <code>Disk size (GiB)</code>.  leave the rest default.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>CPU</code> screen,  for <code>Cores</code> choose <code>2</code> and  leave the rest default.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>Memory</code> screen,  for <code>Memory</code> choose <code>2048</code> and  leave the rest default.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>Network</code> screen,  for <code>IPv4/CIDR</code> choose an avail static IP.  For <code>Gateway</code> enter <code>10.0.40.1</code>  and  leave the rest default.</li>
+<li>Click <code>Next</code></li>
+<li>On the <code>DNS</code> screen,  for <code>DNS Servers</code> enter enter <code>10.0.40.66</code></li>
+<li>Click <code>Next</code></li>
+<li>On the final <code>Confirm</code> screen choose <code>Start after created</code> and click <code>Finish</code></li>
+<li>After the container is created choose it from the list on the right, click on <code>Options</code> and double click <code>Start at boot</code> to be checked</li>
+</ol>
 <h2 id="creating-a-new-vm">Creating a new VM<a class="headerlink" href="#creating-a-new-vm" title="Permanent link"></a></h2>
 <ol>
 <li>On the left, Click "Datacenter" and then "Proxmox"</li>
