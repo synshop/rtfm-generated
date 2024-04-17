@@ -385,9 +385,10 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link"></a></h2>
 <p>In <code>/etc/caddy/Caddyfile</code> declare the top most host as shown below.  All subsequent hosts will inherit this cert:</p>
 <pre><code class="language-bash"># this host just declared to define default cert all other hosts inherit
-default-cert.synshop.net {
+:443 {
    tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
-   reverse_proxy 127.0.0.1
+   root * /usr/share/caddy/
+   file_server
 }
 </code></pre>
 <h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
@@ -408,12 +409,12 @@ default-cert.synshop.net {
 </li>
 </ol>
 <h3 id="configure-dns-entry-on-new-lagossynshoporg">Configure DNS Entry on <code>new-lagos.synshop.org</code><a class="headerlink" href="#configure-dns-entry-on-new-lagossynshoporg" title="Permanent link"></a></h3>
+<p><strong>NOTE!</strong> - There is a wildcard <code>CNAME</code> entry for <code>*.synshop.net</code> to point to Caddy.  You only need to make a DNS entry if you want it to NOT point to Caddy.</p>
 <p>Set up new DNS entry:</p>
 <ol>
 <li>SSH into <code>new-lagos.synshop.org</code> and <code>sudo su -</code> to become root</li>
 <li><code>vim /etc/bind/master/synshop.net</code></li>
-<li>Find the collection of <code>CNAME</code>s for <code>caddy.synshop.net.</code> and add a new entry for your new service.  So if your new service was called <code>foobar</code> the entry would be:
-<code>foobar   IN CNAME caddy.synshop.net.</code></li>
+<li>Add a new <code>A</code> recrod entry for your new service, looking at existing ones for a template.</li>
 <li>Modify the serial number (SOA) at top to be today's date + a unique 2 digit integer (it looks something like <code>2023090116; serial, todays date + serial #</code> )</li>
 <li>Restart DNS with <code>rndc reload</code>.</li>
 </ol>
