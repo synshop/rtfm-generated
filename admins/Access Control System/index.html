@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html data-bs-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -8,9 +8,13 @@
 <link href="../../img/favicon.ico" rel="shortcut icon"/>
 <title>Access Control System - RTFM</title>
 <link href="../../css/bootstrap.min.css" rel="stylesheet"/>
-<link href="../../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../../css/fontawesome.min.css" rel="stylesheet"/>
+<link href="../../css/brands.min.css" rel="stylesheet"/>
+<link href="../../css/solid.min.css" rel="stylesheet"/>
+<link href="../../css/v4-font-face.min.css" rel="stylesheet"/>
 <link href="../../css/base.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" id="hljs-light" rel="stylesheet"/>
+<link disabled="" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" id="hljs-dark" rel="stylesheet"/>
 <link href="../../css/rtfm.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
@@ -20,21 +24,21 @@
 <div class="container">
 <a class="navbar-brand" href="../..">RTFM</a>
 <!-- Expander button -->
-<button class="navbar-toggler" data-target="#navbar-collapse" data-toggle="collapse" type="button">
+<button aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar-collapse" data-bs-toggle="collapse" type="button">
 <span class="navbar-toggler-icon"></span>
 </button>
 <!-- Expanded navigation -->
 <div class="navbar-collapse collapse" id="navbar-collapse">
 <!-- Main navigation -->
 <ul class="nav navbar-nav">
-<li class="navitem">
+<li class="nav-item">
 <a class="nav-link" href="../..">SYN Shop Docs</a>
 </li>
-<li class="dropdown active">
-<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admins <b class="caret"></b></a>
+<li class="nav-item dropdown">
+<a aria-current="page" aria-expanded="false" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button">Admins</a>
 <ul class="dropdown-menu">
 <li>
-<a class="dropdown-item active" href="./">Access Control System</a>
+<a aria-current="page" class="dropdown-item active" href="./">Access Control System</a>
 </li>
 <li>
 <a class="dropdown-item" href="../Caddy%20and%20TLS%20certs/">Caddy and TLS certs</a>
@@ -61,6 +65,9 @@
 <a class="dropdown-item" href="../membership/">membership website</a>
 </li>
 <li>
+<a class="dropdown-item" href="../networking/">Networking</a>
+</li>
+<li>
 <a class="dropdown-item" href="../pi-hole-stubby/">Pi-Hole and Stubby</a>
 </li>
 <li>
@@ -80,8 +87,8 @@
 </li>
 </ul>
 </li>
-<li class="dropdown">
-<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Users <b class="caret"></b></a>
+<li class="nav-item dropdown">
+<a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Users</a>
 <ul class="dropdown-menu">
 <li>
 <a class="dropdown-item" href="../../users/FAQ/">FAQ</a>
@@ -129,7 +136,7 @@
 <a class="dropdown-item" href="../../users/Equipment/Band%20Saw/">Grizzly G0513ANV Band Saw</a>
 </li>
 <li>
-<a class="dropdown-item" href="../../users/Equipment/Big%20Boi%20Laser%20Cutter/">"Big Boi"  Laser Cutter</a>
+<a class="dropdown-item" href="../../users/Equipment/Big%20Boi%20Laser%20Cutter/">"Big Boi" Laser Cutter</a>
 </li>
 <li>
 <a class="dropdown-item" href="../../users/Equipment/Consew%20230%20Industrial%20Sewing%20Machine/">Consew 230 Industrial Sewing Machine</a>
@@ -141,7 +148,7 @@
 <a class="dropdown-item" href="../../users/Equipment/F400-s/">Fusion 3 F400-s</a>
 </li>
 <li>
-<a class="dropdown-item" href="../../users/Equipment/First%20Child%20Laser%20Cutter/">"First Child"  Laser Cutter</a>
+<a class="dropdown-item" href="../../users/Equipment/First%20Child%20Laser%20Cutter/">"First Child" Laser Cutter</a>
 </li>
 <li>
 <a class="dropdown-item" href="../../users/Equipment/Jointer/">8" Jointer</a>
@@ -150,7 +157,7 @@
 <a class="dropdown-item" href="../../users/Equipment/Large%20Format%20Printer/">Canon iPF6400SE Large Format Printer</a>
 </li>
 <li>
-<a class="dropdown-item" href="../../users/Equipment/New%20Kid%20Laser%20Cutter/">"New Kid"  Laser Cutter</a>
+<a class="dropdown-item" href="../../users/Equipment/New%20Kid%20Laser%20Cutter/">"New Kid" Laser Cutter</a>
 </li>
 <li>
 <a class="dropdown-item" href="../../users/Equipment/Resin%20Printers/">Resin Printers</a>
@@ -206,7 +213,7 @@
 </ul>
 </li>
 </ul>
-<ul class="nav navbar-nav ml-auto">
+<ul class="nav navbar-nav ms-md-auto">
 <li class="nav-item">
 <a class="nav-link" href="../.." rel="prev">
 <i class="fa fa-arrow-left"></i> Previous
@@ -218,7 +225,7 @@
 </a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="https://github.com/synshop/rtfm/edit/master/docs/admins/Access Control System.md"><i class="fa fa-github"></i> Edit on GitHub</a>
+<a class="nav-link" href="https://github.com/synshop/rtfm/edit/master/docs/admins/Access Control System.md"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
 </li>
 </ul>
 </div>
@@ -226,33 +233,33 @@
 </div>
 <div class="container">
 <div class="row">
-<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
 <div class="navbar-header">
-<button class="navbar-toggler collapsed" data-target="#toc-collapse" data-toggle="collapse" title="Table of Contents" type="button">
+<button class="navbar-toggler collapsed" data-bs-target="#toc-collapse" data-bs-toggle="collapse" title="Table of Contents" type="button">
 <span class="fa fa-angle-down"></span>
 </button>
 </div>
-<div class="navbar-collapse collapse card bg-secondary" id="toc-collapse">
+<div class="navbar-collapse collapse card bg-body-tertiary" id="toc-collapse">
 <ul class="nav flex-column">
-<li class="nav-item" data-level="1"><a class="nav-link" href="#access-control-system">Access Control System</a>
+<li class="nav-item" data-bs-level="1"><a class="nav-link" href="#access-control-system">Access Control System</a>
 <ul class="nav flex-column">
-<li class="nav-item" data-level="2"><a class="nav-link" href="#overview">Overview</a>
-<ul class="nav flex-column">
-</ul>
-</li>
-<li class="nav-item" data-level="2"><a class="nav-link" href="#screen-and-minicom">screen and minicom</a>
+<li class="nav-item" data-bs-level="2"><a class="nav-link" href="#overview">Overview</a>
 <ul class="nav flex-column">
 </ul>
 </li>
-<li class="nav-item" data-level="2"><a class="nav-link" href="#adding-new-vetted-members">Adding New Vetted Members</a>
+<li class="nav-item" data-bs-level="2"><a class="nav-link" href="#screen-and-minicom">screen and minicom</a>
 <ul class="nav flex-column">
 </ul>
 </li>
-<li class="nav-item" data-level="2"><a class="nav-link" href="#revoking-vetted-members">Revoking Vetted Members</a>
+<li class="nav-item" data-bs-level="2"><a class="nav-link" href="#adding-new-vetted-members">Adding New Vetted Members</a>
 <ul class="nav flex-column">
 </ul>
 </li>
-<li class="nav-item" data-level="2"><a class="nav-link" href="#about-decimal-vs-hexadecimal-for-badges">About Decimal vs Hexadecimal for badges</a>
+<li class="nav-item" data-bs-level="2"><a class="nav-link" href="#revoking-vetted-members">Revoking Vetted Members</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+<li class="nav-item" data-bs-level="2"><a class="nav-link" href="#about-decimal-vs-hexadecimal-for-badges">About Decimal vs Hexadecimal for badges</a>
 <ul class="nav flex-column">
 </ul>
 </li>
@@ -399,8 +406,7 @@ Valid EM410x ID Found!
 <hr/>
 <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
 </footer>
-<script src="../../js/jquery-3.6.0.min.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/bootstrap.bundle.min.js"></script>
 <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
@@ -412,7 +418,7 @@ Valid EM410x ID Found!
 <div class="modal-content">
 <div class="modal-header">
 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-<button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
 </div>
 <div class="modal-body">
 <table class="table">
