@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Pi-Hole and Stubby - RTFM</title>
+        <title>Pi-Hole a - RTFM</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -83,7 +83,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Pi-Hole and Stubby</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Pi-Hole a</a>
 </li>
                                     
 <li>
@@ -304,12 +304,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#pi-hole-and-stubby" class="nav-link">Pi-Hole and Stubby</a>
+            <li class="nav-item" data-bs-level="1"><a href="#pi-hole-a" class="nav-link">Pi-Hole a</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#stubby" class="nav-link">Stubby</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-bs-level="2"><a href="#pi-hole" class="nav-link">Pi-Hole</a>
               <ul class="nav flex-column">
               </ul>
@@ -321,20 +317,9 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="pi-hole-and-stubby">Pi-Hole and Stubby<a class="headerlink" href="#pi-hole-and-stubby" title="Permanent link"></a></h1>
-<p>SYN Shop runs it's own instances of <a href="http://pi-hole.net/">Pi-Hole</a> and <a href="https://dnsprivacy.org/wiki/display/DP/DNS+Privacy+Daemon+-+Stubby">Stubby</a> so that our DNS is both encrypted on the wire and ad free.  They're largely set up like <a href="https://blog.plip.com/2018/04/22/stubby-pi-hole-quad9-lxd/">mrjones' blog post</a>.  Pi-Hole is a local DNS resolver that blacklist domains that serve ads. Stubby is a local DNS proxy that accepts unencupted DNS requests and relays them to an upstream resolver via DNS over TLS (DoT).  We currently use <a href="https://quad9.com/">Quad 9</a> for upstream DNS service as they don't log and IPs or queries.</p>
-<p>All VMs are hosted on the c220 running LXD.</p>
-<h2 id="stubby">Stubby<a class="headerlink" href="#stubby" title="Permanent link"></a></h2>
-<h3 id="1604">16.04<a class="headerlink" href="#1604" title="Permanent link"></a></h3>
-<p>For Ubuntu 16.04, follow mrjones' blog post link above for compiling from source. </p>
-<h3 id="1804">18.04<a class="headerlink" href="#1804" title="Permanent link"></a></h3>
-<p>For Ubuntu 18.04, just run <code>apt-get install stubby</code>.  You'll have to comment out <code>DynamicUser=true</code> in <code>/lib/systemd/system/stubby.service</code> and then run <code>systemctl daemon-reload</code> </p>
-<h3 id="shared">Shared<a class="headerlink" href="#shared" title="Permanent link"></a></h3>
-<p>Both 16.04 and 18.04 have the same config after you've installed it per the steps above.  Edit <code>/etc/stubby/stubby.yml</code> so that it's only listening on <code>127.1.1.1</code> (no IPv6) and is only relaying to Quad9.  For synshop-unfiltered network/wifi, use 9.9.9.10.  For synshop wifi, use 9.9.9.9.</p>
-<p>Be sure to have it enabled and started:</p>
-<pre><code>systemctl enable stubby
-systemctl start stubby 
-</code></pre>
+<h1 id="pi-hole-a">Pi-Hole a<a class="headerlink" href="#pi-hole-a" title="Permanent link"></a></h1>
+<p>SYN Shop runs it's own instances of <a href="http://pi-hole.net/">Pi-Hole</a>  Pi-Hole is a local DNS resolver that blacklist domains that serve ads.</p>
+<p>Pi-hole LXC is hosted on the Proxmox server.</p>
 <h2 id="pi-hole">Pi-Hole<a class="headerlink" href="#pi-hole" title="Permanent link"></a></h2>
 <p>To set up the Pi-Hole, do the generic install via <code>curl -sSL https://install.pi-hole.net | bash</code>. On the Settings -&gt; System page, flush logs and disable query logging.  On Settings -&gt; DNS page, set "Custom 1 (IPv4)" to <code>127.1.1.1</code> and <code>Listen on all interfaces, permit all origins</code>.  On Settings -&gt; Privacy, set it to <code>Paranoia mode</code>. This way no logs will be stored of any DNS lookups.</p></div>
             </div>
