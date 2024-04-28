@@ -333,16 +333,16 @@
 <li>optionally a static IP which needs to unused and be below  <code>.150</code></li>
 </ul>
 <h3 id="wifi">Wifi:<a class="headerlink" href="#wifi" title="Permanent link"></a></h3>
-<p>Shop owns 3 Unif APs, but currently only 1 is deployed which is setup up with 3 SSIDs which map to their own unique VLANs:</p>
+<p>Shop owns 3 Unif APs, but currently only 1 is deployed which is setup up with 3 SSIDs. synshop is one one <code>vlan</code> and <code>unfiltered</code> and <code>hostile</code> are another vlan:</p>
 <ul>
 <li>synshop - 10.0.40.x range</li>
 <li>synshop_unfiltered - 10.0.50.x range</li>
-<li>synshop_hostile - 10.0.60.x range</li>
+<li>synshop_hostile - 10.0.60.x range - isolated in a DMZ. Is "hostile" because you could safely put what ever VM/CTF/whatnot in here without affecting other stuff. </li>
 </ul>
 <h3 id="dhcp">DHCP:<a class="headerlink" href="#dhcp" title="Permanent link"></a></h3>
 <ul>
 <li>10.0.40.x range - Managed by PiHole, with static leases for infrastructure devices and 6hr dhcp leases for users. This network uses PiHole for DNS</li>
-<li>10.0.50/60.x range - Managed by the Router, both will bypass the DNS of PiHole using their own DNS</li>
+<li>10.0.50/60.x range - Managed by the Router, both will bypass the DNS of PiHole using 9.9.9.9 DNS</li>
 </ul>
 <h3 id="ip-info">IP info<a class="headerlink" href="#ip-info" title="Permanent link"></a></h3>
 <p>All IP addresses are tracked in a spreadsheet, and can be found int he tech-team discord channel.</p></div>
