@@ -350,11 +350,12 @@ systemctl start caddy
 </code></pre>
 <h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link"></a></h3>
 <p>With the way proxmox does LXC containers,  the normal <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a> don't work.  Instead we had to use <code>pip</code> and friends to achieve the same result:</p>
-<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install python3 python3-venv libaugeas0
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install python3 python3-venv libaugeas0 python3-pip
 sudo python3 -m venv /opt/certbot/
 sudo /opt/certbot/bin/pip install --upgrade pip
-sudo /opt/certbot/bin/pip install certbot certbot
+sudo /opt/certbot/bin/pip3 install certbot requests
 sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+sudo ln -s /usr/bin/python3 /usr/bin/python
 </code></pre>
 <p>Then add a cronjob to check for renawals:</p>
 <pre><code>echo &quot;0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' &amp;&amp; sudo /usr/bin/certbot renew -q&quot; | sudo tee /etc/cron.d/certbot &gt; /dev/null
@@ -365,6 +366,17 @@ curl -o /etc/letsencrypt/acme-dns-auth.py https://raw.githubusercontent.com/jooh
 chmod +x /etc/letsencrypt/acme-dns-auth.py
 ln -s /usr/bin/python3 /usr/bin/python
 </code></pre>
+<h4 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link"></a></h4>
+<p>Before trusting that the cronjob above will run, as root, make sure you test the <code>renew</code> command with a dry run.  This will ensure you have everything installed and workine correcty:</p>
+<pre><code class="language-bash">/usr/bin/certbot renew --dry-run
+</code></pre>
+<p>The last time we rebuilt the caddy/certbot container we hit errors that went unnoticed until the cert expired. Running the above test would have exposed them had we tested them right at install time.</p>
+<p>The errors were:</p>
+<ul>
+<li><code>/usr/bin/env: ‘python’: No such file or directory</code> - <strong>fixed</strong> by symlinking <code>/usr/bin/python3</code> -&gt;  <code>/usr/bin/python</code></li>
+<li><code>The error was: expected /etc/letsencrypt/live/synshop.net/cert.pem to be a symlink</code> - <strong>fixed</strong> by moving the files in <code>/etc/letsencrypte/live/synshop.org/*</code> and making them be symlinks to <code>/etc/letsencrypte/archived/synshop.org/</code>, then running <code>certbot update_symlinks</code></li>
+<li><code>ModuleNotFoundError: No module named 'requests'</code> - <strong>fixed</strong> by instlling  <code>requests</code> with <code>pip3</code></li>
+</ul>
 <h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
 <p><strong>You only have to do this ONCE!</strong></p>
 <p>On the Caddy box, initiate a request for <code>*.synshop.net</code> and <code>synshop.net</code> domains, with a manual DNS validation:</p>
