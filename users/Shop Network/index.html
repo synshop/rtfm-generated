@@ -857,57 +857,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#mediasynshoporg" class="md-nav__link">
-    <span class="md-ellipsis">
-      media.synshop.org
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="media.synshop.org">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    <span class="md-ellipsis">
-      About
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ftp" class="md-nav__link">
-    <span class="md-ellipsis">
-      FTP
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#http" class="md-nav__link">
-    <span class="md-ellipsis">
-      HTTP
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rsync-on-a-maclinux-client" class="md-nav__link">
-    <span class="md-ellipsis">
-      rsync (on a mac/linux client)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1684,57 +1633,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#mediasynshoporg" class="md-nav__link">
-    <span class="md-ellipsis">
-      media.synshop.org
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="media.synshop.org">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    <span class="md-ellipsis">
-      About
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ftp" class="md-nav__link">
-    <span class="md-ellipsis">
-      FTP
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#http" class="md-nav__link">
-    <span class="md-ellipsis">
-      HTTP
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rsync-on-a-maclinux-client" class="md-nav__link">
-    <span class="md-ellipsis">
-      rsync (on a mac/linux client)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1767,38 +1665,10 @@
 <p>If you don't feel like using a USB key to physically transfer the file, SYN Shop has four different SMB shares available that you can use when connected to the Shop network.</p>
 <ul>
 <li>LaserShare - Laser Cutter Control Computers (First Child, New Kid, Big Boi)</li>
-<li>PrintShare - 2D Printing Computer (DTG)</li>
+<li>PrintShare - 2D Printing Computer (DTG, Canon Printer, Sharp printer scanning)</li>
 <li>3DPrintShare - 3D Printer Control Computers (Bambu FTM, Anycubic Resin)</li>
 <li>ShopBotShare - Shopbot Control Computer (VCarve Pro Master, Shopbot Controller)</li>
 </ul>
-<h2 id="mediasynshoporg">media.synshop.org<a class="headerlink" href="#mediasynshoporg" title="Permanent link"></a></h2>
-<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link"></a></h3>
-<p>Media (media.synshop.org aka 10.0.40.19) is a server that houses files.  It is only accessible when
-you're in the shop and using our WiFi.</p>
-<p><strong>Note</strong> - The entire collection as of Aug 2019 is just over 15TB of data.  If you're attempting
-to transfer more than a few gigs, you should strongly consider using Ethernet instead of WiFi so that
-you get faster transfer speeds.
-Further, you may consider using rsync as you can start and stop jobs that may take more than a
-few hours so you can run them over a few days and if the transfer fails you don't have start from scratch.</p>
-<h3 id="ftp">FTP<a class="headerlink" href="#ftp" title="Permanent link"></a></h3>
-<p>To access the site via FTP, use anonymous FTP which might be supported by your browser via this
-link: <a href="ftp://media.synshop.org">ftp://media.synshop.org</a>. 
-(or it <a href="https://www.bleepingcomputer.com/news/google/chrome-and-firefox-developers-aim-to-remove-support-for-ftp/">may not</a>!)</p>
-<h3 id="http">HTTP<a class="headerlink" href="#http" title="Permanent link"></a></h3>
-<p>To access the site via a browser, click this link: <a href="http://media.synshop.org">http://media.synshop.org</a>.</p>
-<h3 id="rsync-on-a-maclinux-client">rsync (on a mac/linux client)<a class="headerlink" href="#rsync-on-a-maclinux-client" title="Permanent link"></a></h3>
-<p>To access the site via rsync</p>
-<ol>
-<li>First find the folder(s) you want to download via FTP or HTTP (see above).
-  For example, if you wanted to download all of the 
-presentations from HOPE 2018, you would find this URL: 
-<a href="http://media.synshop.org/pub/infocon.org/cons/2600/The%20Circle%20of%20HOPE%20(2018)/">http://media.synshop.org/pub/infocon.org/cons/2600/The%20Circle%20of%20HOPE%20(2018)/</a></li>
-<li>Grab the path from the end of the URL and preface it with a period. Replace any <code>%20</code> with <code>\</code> (escpaced space)
- and escape any "odd" characters eg. change <code>(</code> to<code>\(</code>. Using the above example 
-that'd be: <code>./pub/infocon.org/cons/2600/The\ Circle\ of\ HOPE\ \(2018\)/</code></li>
-<li>To sync all these to the current directory you're in, you'd run this command and enter the password <code>media</code> when
-prompted: <code>rsync -avz  -e ssh --progress "media@media.synshop.org:./pub/infocon.org/cons/2600/The\ Circle\ of\ HOPE\ \(2018\)/" .</code></li>
-</ol>
 
 
 
