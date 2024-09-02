@@ -1975,7 +1975,7 @@
 <h1 id="front-matter">Front Matter<a class="headerlink" href="#front-matter" title="Permanent link"></a></h1>
 <p>Pages should have a front matter placed before the first heading.
 Front matter is a snippet of yaml that is usually intended to add meta data to a <code>.md</code> document.
-it is a block variables wrapped with two <code>---</code>.</p>
+It is a block of yaml variables wrapped with two <code>---</code>.</p>
 <p>Every page should have tags listed in its front matter.
 A brief description can also be provided.</p>
 <pre><code class="language-yaml">---
@@ -1985,33 +1985,38 @@ tags:
 ---
 </code></pre>
 <p>There should be a few tags to help readers understand what kind of page it is.
-tags should be all lowercase and tags should be ordered from general to more specific.
-for example:</p>
+Tags should be all lowercase and tags should be ordered from general to more specific.
+If there is insufficient information, the top tag should be <code>STUB</code> in capital letters.
+<code>STUB</code> should be the only tag that uses capital letters.</p>
+<p>for example:</p>
 <pre><code class="language-yaml">---
-title: A Printing Type Machine
 description: This machine prints things
 tags:
+    - STUB
     - equipment
     - print and office
     - print
     - paper
 ---
+# A Print Machine
 </code></pre>
 <h1 id="equipment">Equipment<a class="headerlink" href="#equipment" title="Permanent link"></a></h1>
 <h2 id="titles-and-file-names">Titles and file names<a class="headerlink" href="#titles-and-file-names" title="Permanent link"></a></h2>
 <h3 id="filenames">Filenames<a class="headerlink" href="#filenames" title="Permanent link"></a></h3>
-<p>File names should be .md files using a common name. The name of the file is the name of the page's url link (rtfm.sysshop.org/users/Equipment/[filename]) This is different from the title of the page.</p>
+<p>File names should be .md files using a common name. 
+The name of the file is the name of the page's url link (rtfm.sysshop.org/users/Equipment/[filename]) This is different from the title of the page.</p>
 <h3 id="titles">Titles<a class="headerlink" href="#titles" title="Permanent link"></a></h3>
 <p>Level 1 headings should be reserved exclusively for naming individual pieces of equipment or The page in general.
 All headings in Contents will be level 2 headings or lower in priority.</p>
-<p>The title of a page depends on whether the page lists a single machine or multiple machines of different models.
+<p>The first level 1 heading will be recognized as a page title.
+The title of a page depends on whether the page lists a single machine or multiple machines of different models.
 If the page is only about 1 model of machine the title should have the following format:
 <code>Manufacturer Model Maximum size Common name</code></p>
 <p>If the page contains multiple machines then the 1st primary heading should be the common name of the machine. Each subsequent primary subheading should have the following format:
 <code>Manufacturer Model number Maximum size</code></p>
 <h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link"></a></h2>
-<p>For new equipment entries copy equipment_template.md and rename it to the appropriate file name.
-A template for equipment pages is provided at:</p>
+<p>For new equipment entries copy equipment_template.md and rename it to the appropriate file name.</p>
+<p>A template for equipment pages is provided at:</p>
 <h3 id="manuals">Manuals<a class="headerlink" href="#manuals" title="Permanent link"></a></h3>
 <p>Links to the equipment's full manual should be provided under this heading.</p>
 <h3 id="firmware-drivers-and-software">Firmware, Drivers, and Software<a class="headerlink" href="#firmware-drivers-and-software" title="Permanent link"></a></h3>
@@ -2052,12 +2057,12 @@ A detail set of instructions can be provided in subheadings.</p>
 <tbody>
 <tr>
 <td>task 1</td>
-<td>this is a task that needs to be done.</td>
-<td>every hour</td>
+<td>This is a task that needs to be done.</td>
+<td>hourly</td>
 </tr>
 <tr>
 <td>task 2</td>
-<td>this task also needs to be done</td>
+<td>This task also needs to be done</td>
 <td>every few years</td>
 </tr>
 <tr>
@@ -2067,7 +2072,7 @@ A detail set of instructions can be provided in subheadings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="maintenance-log">Maintenance Log<a class="headerlink" href="#maintenance-log" title="Permanent link"></a></h3>
+<h4 id="maintenance-log">Maintenance Log<a class="headerlink" href="#maintenance-log" title="Permanent link"></a></h4>
 <p>Any notable issues should be posted under this heading.</p>
 <h3 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link"></a></h3>
 <p>This provides a list of common issues and steps to fixing them.</p>
