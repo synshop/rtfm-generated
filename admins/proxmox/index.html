@@ -2313,33 +2313,33 @@
 <li>4 x 12TB SATA: TBD use for NAS/Media sharing (<code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/sdd</code> and <code>/dev/sdf</code> ). </li>
 </ul>
 <p>Here's the output of <code>lsblk</code>:</p>
-<pre><code class="language-shell">root@proxmox:~# lsblk
-NAME                        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda                           8:0    0  10.9T  0 disk /mnt/nas/ZTN19LH8
-sdb                           8:16   0  10.9T  0 disk /mnt/nas/ZTN1AT71
-sdc                           8:32   0 233.8G  0 disk 
-├─sdc1                        8:33   0  1007K  0 part 
-├─sdc2                        8:34   0     1G  0 part /boot/efi
-└─sdc3                        8:35   0 232.8G  0 part 
-  ├─pve-swap                252:0    0     8G  0 lvm  [SWAP]
-  ├─pve-root                252:1    0  68.2G  0 lvm  /
-  ├─pve-data_tmeta          252:2    0   1.4G  0 lvm  
-  │ └─pve-data-tpool        252:6    0 137.8G  0 lvm  
-  │   ├─pve-data            252:7    0 137.8G  1 lvm  
-  │   └─pve-vz              252:8    0   230G  0 lvm  /mnt/nvme
-  └─pve-data_tdata          252:3    0 137.8G  0 lvm  
-    └─pve-data-tpool        252:6    0 137.8G  0 lvm  
-      ├─pve-data            252:7    0 137.8G  1 lvm  
-      └─pve-vz              252:8    0   230G  0 lvm  /mnt/nvme
-sdd                           8:48   0  10.9T  0 disk /mnt/nas/ZTN1CWZL
-sde                           8:64   1   2.7T  0 disk 
-└─sde1                        8:65   1   2.7T  0 part /mnt/pve/backups
-sdf                           8:80   1  10.9T  0 disk /mnt/nas/ZRT122RV
-nvme0n1                     259:0    0 232.9G  0 disk 
-└─nvme0n1p1                 259:1    0 232.9G  0 part 
-  ├─vmdata-vm--100--disk--0 252:4    0    32G  0 lvm  
-  └─vmdata-vm--101--disk--0 252:5    0    30G  0 lvm  
-</code></pre>
+<div class="highlight"><pre><span></span><code>root@proxmox:~#<span class="w"> </span>lsblk
+NAME<span class="w">                        </span>MAJ:MIN<span class="w"> </span>RM<span class="w">   </span>SIZE<span class="w"> </span>RO<span class="w"> </span>TYPE<span class="w"> </span>MOUNTPOINTS
+sda<span class="w">                           </span><span class="m">8</span>:0<span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">10</span>.9T<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>/mnt/nas/ZTN19LH8
+sdb<span class="w">                           </span><span class="m">8</span>:16<span class="w">   </span><span class="m">0</span><span class="w">  </span><span class="m">10</span>.9T<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>/mnt/nas/ZTN1AT71
+sdc<span class="w">                           </span><span class="m">8</span>:32<span class="w">   </span><span class="m">0</span><span class="w"> </span><span class="m">233</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>
+├─sdc1<span class="w">                        </span><span class="m">8</span>:33<span class="w">   </span><span class="m">0</span><span class="w">  </span>1007K<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>
+├─sdc2<span class="w">                        </span><span class="m">8</span>:34<span class="w">   </span><span class="m">0</span><span class="w">     </span>1G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/boot/efi
+└─sdc3<span class="w">                        </span><span class="m">8</span>:35<span class="w">   </span><span class="m">0</span><span class="w"> </span><span class="m">232</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>
+<span class="w">  </span>├─pve-swap<span class="w">                </span><span class="m">252</span>:0<span class="w">    </span><span class="m">0</span><span class="w">     </span>8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span><span class="o">[</span>SWAP<span class="o">]</span>
+<span class="w">  </span>├─pve-root<span class="w">                </span><span class="m">252</span>:1<span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">68</span>.2G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>/
+<span class="w">  </span>├─pve-data_tmeta<span class="w">          </span><span class="m">252</span>:2<span class="w">    </span><span class="m">0</span><span class="w">   </span><span class="m">1</span>.4G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">  </span>│<span class="w"> </span>└─pve-data-tpool<span class="w">        </span><span class="m">252</span>:6<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">137</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">  </span>│<span class="w">   </span>├─pve-data<span class="w">            </span><span class="m">252</span>:7<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">137</span>.8G<span class="w">  </span><span class="m">1</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">  </span>│<span class="w">   </span>└─pve-vz<span class="w">              </span><span class="m">252</span>:8<span class="w">    </span><span class="m">0</span><span class="w">   </span>230G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>/mnt/nvme
+<span class="w">  </span>└─pve-data_tdata<span class="w">          </span><span class="m">252</span>:3<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">137</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">    </span>└─pve-data-tpool<span class="w">        </span><span class="m">252</span>:6<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">137</span>.8G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">      </span>├─pve-data<span class="w">            </span><span class="m">252</span>:7<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">137</span>.8G<span class="w">  </span><span class="m">1</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">      </span>└─pve-vz<span class="w">              </span><span class="m">252</span>:8<span class="w">    </span><span class="m">0</span><span class="w">   </span>230G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>/mnt/nvme
+sdd<span class="w">                           </span><span class="m">8</span>:48<span class="w">   </span><span class="m">0</span><span class="w">  </span><span class="m">10</span>.9T<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>/mnt/nas/ZTN1CWZL
+sde<span class="w">                           </span><span class="m">8</span>:64<span class="w">   </span><span class="m">1</span><span class="w">   </span><span class="m">2</span>.7T<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>
+└─sde1<span class="w">                        </span><span class="m">8</span>:65<span class="w">   </span><span class="m">1</span><span class="w">   </span><span class="m">2</span>.7T<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/mnt/pve/backups
+sdf<span class="w">                           </span><span class="m">8</span>:80<span class="w">   </span><span class="m">1</span><span class="w">  </span><span class="m">10</span>.9T<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>/mnt/nas/ZRT122RV
+nvme0n1<span class="w">                     </span><span class="m">259</span>:0<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">232</span>.9G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk<span class="w"> </span>
+└─nvme0n1p1<span class="w">                 </span><span class="m">259</span>:1<span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">232</span>.9G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>
+<span class="w">  </span>├─vmdata-vm--100--disk--0<span class="w"> </span><span class="m">252</span>:4<span class="w">    </span><span class="m">0</span><span class="w">    </span>32G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+<span class="w">  </span>└─vmdata-vm--101--disk--0<span class="w"> </span><span class="m">252</span>:5<span class="w">    </span><span class="m">0</span><span class="w">    </span>30G<span class="w">  </span><span class="m">0</span><span class="w"> </span>lvm<span class="w">  </span>
+</code></pre></div>
 <p>Within Proxmox, you can see the drives this way:</p>
 <p><img alt="Screenshot of drives in the proxmox mox disks page" src="../images/proxmox.drives.png" /></p>
 <h2 id="downloading-a-new-iso">Downloading a new ISO<a class="headerlink" href="#downloading-a-new-iso" title="Permanent link"></a></h2>
