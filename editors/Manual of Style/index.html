@@ -2132,14 +2132,14 @@
 an</p>
 <p>For ease of editing for future editors, please put each sentence on a separate line when writing a document.</p>
 <p>source:</p>
-<div class="highlight"><pre><span></span><code>This is a sentence.
+<pre><code>This is a sentence.
 This sentence follows that sentence.
 This sentence is also part of the same paragraph.
 
 This sentence is starts new paragraph.
 There is a blank line between this paragraph and the previous one.
 This sentence concludes the paragraph.
-</code></pre></div>
+</code></pre>
 <p>result:</p>
 <p>This is a sentence.
 This sentence follows that sentence.
@@ -2251,11 +2251,11 @@ This sentence concludes the paragraph.</p>
 <h3 id="ordered-lists">ordered lists<a class="headerlink" href="#ordered-lists" title="Permanent link"></a></h3>
 <p>ordered lists are denoted by a group of lines where each line starts out with a number and a period.
 markdown will automatically publish the correct number order even if the raw input is out of order.</p>
-<p>syntax:
-<div class="highlight"><pre><span></span><code>1. item 1
+<p>syntax:</p>
+<pre><code>1. item 1
 8. item 2
 3. item 3
-</code></pre></div></p>
+</code></pre>
 <p>result:</p>
 <ol>
 <li>item 1</li>
@@ -2263,13 +2263,13 @@ markdown will automatically publish the correct number order even if the raw inp
 <li>item 3</li>
 </ol>
 <h3 id="unordered-list">unordered list<a class="headerlink" href="#unordered-list" title="Permanent link"></a></h3>
-<p>syntax:
-<div class="highlight"><pre><span></span><code>- an item
+<p>syntax:</p>
+<pre><code>- an item
 - another item
 - an other item
 - another other item
-</code></pre></div>
-result:</p>
+</code></pre>
+<p>result:</p>
 <ul>
 <li>an item</li>
 <li>another item</li>
@@ -2285,28 +2285,28 @@ Front matter is a snippet of yaml that is usually intended to add meta data to a
 It is a block of yaml variables wrapped with two <code>---</code>.</p>
 <p>Every page should have tags listed in its front matter.
 A brief description can also be provided.</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A brief description can be provided here.</span>
-<span class="nt">tags</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span>
-<span class="nn">---</span>
-</code></pre></div>
+<pre><code class="language-yaml">---
+description: A brief description can be provided here.
+tags:
+    - tag
+---
+</code></pre>
 <p>There should be a few tags to help readers understand what kind of page it is.
 Tags should be all lowercase and tags should be ordered from general to more specific.
 If there is insufficient information, the top tag should be <code>STUB</code> in capital letters.
 <code>STUB</code> should be the only tag that uses capital letters.</p>
 <p>for example:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">This machine prints things</span>
-<span class="nt">tags</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">STUB</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">equipment</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">print and office</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">print</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">paper</span>
-<span class="nn">---</span>
-<span class="c1"># A Print Machine</span>
-</code></pre></div>
+<pre><code class="language-yaml">---
+description: This machine prints things
+tags:
+    - STUB
+    - equipment
+    - print and office
+    - print
+    - paper
+---
+# A Print Machine
+</code></pre>
 <h1 id="equipment">Equipment<a class="headerlink" href="#equipment" title="Permanent link"></a></h1>
 <h2 id="titles-and-file-names">Titles and file names<a class="headerlink" href="#titles-and-file-names" title="Permanent link"></a></h2>
 <h3 id="filenames">Filenames<a class="headerlink" href="#filenames" title="Permanent link"></a></h3>

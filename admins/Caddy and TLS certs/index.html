@@ -2430,37 +2430,37 @@ we can get wildcard certs for all services.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link"></a></h2>
 <h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link"></a></h3>
 <p>Assuming Ubuntu 22, following <a href="https://caddyserver.com/docs/install#debian-ubuntu-raspbian">their install docs</a>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>debian-keyring<span class="w"> </span>debian-archive-keyring<span class="w"> </span>apt-transport-https
-curl<span class="w"> </span>-1sLf<span class="w"> </span><span class="s1">&#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl<span class="w"> </span>-1sLf<span class="w"> </span><span class="s1">&#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/caddy-stable.list
-sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>caddy
+<pre><code class="language-bash">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy
 
-systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>caddy
-systemctl<span class="w"> </span>start<span class="w"> </span>caddy
-</code></pre></div>
+systemctl enable caddy
+systemctl start caddy
+</code></pre>
 <h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link"></a></h3>
 <p>With the way proxmox does LXC containers,  the normal <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a> don't work.  Instead we had to use <code>pip</code> and friends to achieve the same result:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-venv<span class="w"> </span>libaugeas0<span class="w"> </span>python3-pip
-sudo<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
-sudo<span class="w"> </span>/opt/certbot/bin/pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-sudo<span class="w"> </span>/opt/certbot/bin/pip3<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>requests
-sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/certbot/bin/certbot<span class="w"> </span>/usr/bin/certbot
-sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/python
-</code></pre></div>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install python3 python3-venv libaugeas0 python3-pip
+sudo python3 -m venv /opt/certbot/
+sudo /opt/certbot/bin/pip install --upgrade pip
+sudo /opt/certbot/bin/pip3 install certbot requests
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+sudo ln -s /usr/bin/python3 /usr/bin/python
+</code></pre>
 <p>Then add a cronjob to check for renawals:</p>
-<div class="highlight"><pre><span></span><code>echo &quot;0 0,12 * * * root /opt/certbot/bin/python -c &#39;import random; import time; time.sleep(random.random() * 3600)&#39; &amp;&amp; sudo /usr/bin/certbot renew -q&quot; | sudo tee /etc/cron.d/certbot &gt; /dev/null
-</code></pre></div>
+<pre><code>echo &quot;0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' &amp;&amp; sudo /usr/bin/certbot renew -q&quot; | sudo tee /etc/cron.d/certbot &gt; /dev/null
+</code></pre>
 <p>Get <a href="https://github.com/joohoi/acme-dns-certbot-joohoi">the python script</a> and make it executable. This uses the acme-dns.io DNS service with some CNAME trickery:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/letsencrypt/
-curl<span class="w"> </span>-o<span class="w"> </span>/etc/letsencrypt/acme-dns-auth.py<span class="w"> </span>https://raw.githubusercontent.com/joohoi/acme-dns-certbot-joohoi/master/acme-dns-auth.py
-chmod<span class="w"> </span>+x<span class="w"> </span>/etc/letsencrypt/acme-dns-auth.py
-ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/python
-</code></pre></div>
+<pre><code class="language-bash">mkdir -p /etc/letsencrypt/
+curl -o /etc/letsencrypt/acme-dns-auth.py https://raw.githubusercontent.com/joohoi/acme-dns-certbot-joohoi/master/acme-dns-auth.py
+chmod +x /etc/letsencrypt/acme-dns-auth.py
+ln -s /usr/bin/python3 /usr/bin/python
+</code></pre>
 <h4 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link"></a></h4>
 <p>Before trusting that the cronjob above will run, as root, make sure you test the <code>renew</code> command with a dry run.  This will ensure you have everything installed and workine correcty:</p>
-<div class="highlight"><pre><span></span><code>/usr/bin/certbot<span class="w"> </span>renew<span class="w"> </span>--dry-run
-</code></pre></div>
+<pre><code class="language-bash">/usr/bin/certbot renew --dry-run
+</code></pre>
 <p>The last time we rebuilt the caddy/certbot container we hit errors that went unnoticed until the cert expired. Running the above test would have exposed them had we tested them right at install time.</p>
 <p>The errors were:</p>
 <ul>
@@ -2471,11 +2471,11 @@ ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python3<span class=
 <h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
 <p><strong>You only have to do this ONCE!</strong></p>
 <p>On the Caddy box, initiate a request for <code>*.synshop.net</code> and <code>synshop.net</code> domains, with a manual DNS validation:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>certbot<span class="w"> </span>certonly<span class="w"> </span>--manual<span class="w"> </span>--manual-auth-hook<span class="w"> </span>/etc/letsencrypt/acme-dns-auth.py<span class="w"> </span>--preferred-challenges<span class="w"> </span>dns<span class="w"> </span>--debug-challenges<span class="w"> </span>-d<span class="w"> </span><span class="se">\*</span>.synshop.net<span class="w"> </span>-d<span class="w"> </span>synshop.net
-</code></pre></div>
+<pre><code class="language-bash">sudo certbot certonly --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --preferred-challenges dns --debug-challenges -d \*.synshop.net -d synshop.net
+</code></pre>
 <p>You'll then be prompted to create a DNS entry, something like:</p>
-<div class="highlight"><pre><span></span><code>_acme-challenge.synshop.net.    CNAME   87e00274-4d33-43fa-acc9-10839cee980a.auth.acme-dns.io.
-</code></pre></div>
+<pre><code>_acme-challenge.synshop.net.    CNAME   87e00274-4d33-43fa-acc9-10839cee980a.auth.acme-dns.io.
+</code></pre>
 <p>Create this by:</p>
 <ol>
 <li>SSH to <code>new-lagos.synshop.org</code></li>
@@ -2490,18 +2490,18 @@ Though you could go through above steps again if they're lost.</p>
 <p>Back on the certbot box, hit return to continue the validation process. Certs should 
 be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <p>To ensure the wildcard cert reloads every week, add a cronjob as the root user on the caddy box:</p>
-<div class="highlight"><pre><span></span><code># restart caddy to reload certs once a week on 8.05 every sunday
+<pre><code># restart caddy to reload certs once a week on 8.05 every sunday
 5   8  *   *   0     /usr/bin/systemctl restart caddy
-</code></pre></div>
+</code></pre>
 <h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link"></a></h2>
 <p>In <code>/etc/caddy/Caddyfile</code> declare the top most host as shown below.  All subsequent hosts will inherit this cert:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># this host just declared to define default cert all other hosts inherit</span>
-:443<span class="w"> </span><span class="o">{</span>
-<span class="w">   </span>tls<span class="w"> </span>/etc/letsencrypt/live/synshop.net/fullchain.pem<span class="w"> </span>/etc/letsencrypt/live/synshop.net/privkey.pem
-<span class="w">   </span>root<span class="w"> </span>*<span class="w"> </span>/usr/share/caddy/
-<span class="w">   </span>file_server
-<span class="o">}</span>
-</code></pre></div>
+<pre><code class="language-bash"># this host just declared to define default cert all other hosts inherit
+:443 {
+   tls /etc/letsencrypt/live/synshop.net/fullchain.pem /etc/letsencrypt/live/synshop.net/privkey.pem
+   root * /usr/share/caddy/
+   file_server
+}
+</code></pre>
 <h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
 <h3 id="configure-caddy">Configure Caddy<a class="headerlink" href="#configure-caddy" title="Permanent link"></a></h3>
 <p>Assuming you had a new service at <code>10.0.40.201</code> called <code>test.synshop.net</code>, you would:</p>
@@ -2533,22 +2533,22 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!). </p>
 <h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link"></a></h4>
 <p>We go from 3 lines to 9. The main difference is that we're telling it which <code>IP</code> with <code>https://</code> and to ignore self signed certs with <code>tls_insecure_skip_verify</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">test.synshop.net {</span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">reverse_proxy {</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">to https://10.0.40.201</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">transport http {</span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">tls</span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">tls_insecure_skip_verify</span>
-<span class="w">         </span><span class="l l-Scalar l-Scalar-Plain">}</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">}</span>
-<span class="l l-Scalar l-Scalar-Plain">}</span>
-</code></pre></div>
+<pre><code class="language-yaml">test.synshop.net {
+   reverse_proxy {
+      to https://10.0.40.201
+      transport http {
+            tls
+            tls_insecure_skip_verify
+         }
+      }
+}
+</code></pre>
 <h4 id="ipv6-entry">IPv6 entry<a class="headerlink" href="#ipv6-entry" title="Permanent link"></a></h4>
 <p>Note the use of brackets around the IP <code>[]</code> and port at the end <code>:80</code>. </p>
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">test.synshop.net {</span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80</span><span class="w"> </span>
-<span class="l l-Scalar l-Scalar-Plain">}</span>
-</code></pre></div>
+<pre><code class="language-yaml">test.synshop.net {
+        reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80 
+}
+</code></pre>
 
 
 

@@ -2387,11 +2387,11 @@
 <h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link"></a></h3>
 <p>JSON is published at <a href="http://10.0.40.120/status">http://10.0.40.120/status</a>.  There is then a root cron job which copies it from time-circuit.synshop.org to nexus.  There is then a root cron job on lagos.synshop.org that copies it to <a href="https://synshop.org/traffic-light/status.json">https://synshop.org/traffic-light/status.json</a></p>
 <p>Sample:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;destination_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1582096081</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-json">{
+    &quot;status&quot;: &quot;red&quot;,
+    &quot;destination_time&quot;: 1582096081
+}
+</code></pre>
 <h3 id="static-images">Static Images<a class="headerlink" href="#static-images" title="Permanent link"></a></h3>
 <p>There are 4 images we use on the web site:</p>
 <ul>
@@ -2406,149 +2406,149 @@
 <li><a href="https://synshop.org/traffic-light/status.php">https://synshop.org/traffic-light/status.php</a></li>
 </ul>
 <p>You'll see a live image of the traffic light.  It uses this code to generate it:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
-<span class="nv">$string</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">&quot;/status.json&quot;</span><span class="p">);</span>
-<span class="nv">$light_json</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
-<span class="nv">$valid_colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$light_json</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">in_array</span><span class="p">(</span><span class="nv">$light_json</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="nv">$valid_colors</span><span class="p">)){</span>
-    <span class="nv">$img</span> <span class="o">=</span> <span class="s1">&#39;traffic-light-&#39;</span> <span class="o">.</span> <span class="nv">$light_json</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nv">$img</span> <span class="o">=</span> <span class="s1">&#39;traffic-light-error.jpg&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">header</span><span class="p">(</span><span class="s2">&quot;Content-Type: image/jpeg&quot;</span><span class="p">);</span>
-<span class="k">echo</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">&quot;/</span><span class="si">$img</span><span class="s2">&quot;</span><span class="p">);</span>
-</code></pre></div>
+<pre><code class="language-php">&lt;?php
+$string = file_get_contents(__DIR__ . &quot;/status.json&quot;);
+$light_json = json_decode($string, true);
+$valid_colors = array('red','green','yellow');
+if(isset($light_json['status']) &amp;&amp; in_array($light_json['status'], $valid_colors)){
+    $img = 'traffic-light-' . $light_json['status'] . '.jpg';
+} else {
+    $img = 'traffic-light-error.jpg';
+}
+header(&quot;Content-Type: image/jpeg&quot;);
+echo file_get_contents(__DIR__ . &quot;/$img&quot;);
+</code></pre>
 <h3 id="header-image-on-web-site">Header image on web site<a class="headerlink" href="#header-image-on-web-site" title="Permanent link"></a></h3>
 <p>We use this HTML which is in <code>page.tpl.php</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. It just creates an empty place holder for the image and tool tip:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$site_slogan</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
-<span class="x">  &lt;div id=&quot;site-slogan&quot;&gt;</span>
-<span class="x">      &lt;div id=&quot;address-text&quot;&gt;</span>
-<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">print</span> <span class="nv">$site_slogan</span><span class="p">;</span> <span class="cp">?&gt;</span>
-<span class="x">      &lt;/div&gt;</span>
-<span class="x">      &lt;div id=&quot;traffic-light&quot;&gt;</span>
-<span class="x">            &lt;img id=&quot;traffic-light-img&quot; src=&quot;&quot; alt=&quot;&quot; title=&quot;&quot;&gt;</span>
-<span class="x">      &lt;/div&gt;</span>
-<span class="x">    &lt;/div&gt;</span>
-<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
-</code></pre></div>
+<pre><code class="language-php">&lt;?php if ($site_slogan): ?&gt;
+  &lt;div id=&quot;site-slogan&quot;&gt;
+      &lt;div id=&quot;address-text&quot;&gt;
+            &lt;?php print $site_slogan; ?&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;traffic-light&quot;&gt;
+            &lt;img id=&quot;traffic-light-img&quot; src=&quot;&quot; alt=&quot;&quot; title=&quot;&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
 <p>We use this css which is in <code>base.css</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. This floats the traffic light DIV in the right spot and makes it a fixed 24px so text doesn't move around when the light image shows up:</p>
-<div class="highlight"><pre><span></span><code><span class="p">#</span><span class="nn">traffic-light</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">70</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">#</span><span class="nn">traffic-light</span><span class="w">  </span><span class="p">{</span>
-<span class="w">  </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">right</span><span class="p">;</span>
-<span class="w">  </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">  </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">-17</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">#</span><span class="nn">address-text</span><span class="w">  </span><span class="p">{</span>
-<span class="w">  </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-css">#traffic-light img {
+  height: 70px;
+}
+#traffic-light  {
+  float: right;
+  padding-left: 10px;
+  margin-top: -17px;
+  width:24px;
+}
+#address-text  {
+  float: left;
+}
+</code></pre>
 <p>It uses this Javascript which was added to <code>koi.js</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. It downloads the JSON and checks the status and shows the correct image and updates the tool tip of the image.  It is updated when the page is first loaded and then using AJAX every 60 seconds while the page is open:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// keep status and destination time (shop close time) in global vars</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">destination_epoch_utc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<pre><code class="language-js">// keep status and destination time (shop close time) in global vars
+let traffic_light_status = '';
+let destination_epoch_utc = '';
 
-<span class="cm">/**</span>
-<span class="cm"> * helper method to get JSON, populate two vars, and update image</span>
-<span class="cm"> */</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">checkTrafficLightStatus</span><span class="p">(){</span>
-<span class="w">    </span><span class="c1">// fetch json with cache bust concated on via guidGenerator()</span>
-<span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/traffic-light/status.json?&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">guidGenerator</span><span class="p">(),</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;GET&#39;</span>
-<span class="w">    </span><span class="p">})</span>
-<span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"> </span><span class="p">})</span>
-<span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// if we have a valid color, update the image</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">){</span>
-<span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/traffic-light/traffic-light-&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;.jpg&#39;</span><span class="p">;</span>
-<span class="w">                    </span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// if we got an invalid color, show an error</span>
-<span class="w">                </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/traffic-light/traffic-light-error.jpg&#39;</span><span class="p">;</span>
-<span class="w">                </span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="c1">// coerce PST epoch string from json into UTC Date object</span>
-<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">destination_time_pst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">destination_time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s2">&quot;en-US&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">timeZone</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;America/Los_Angeles&quot;</span><span class="p">});</span>
-<span class="w">            </span><span class="nx">destination_epoch_utc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">destination_time_pst</span><span class="p">).</span><span class="nx">getTime</span><span class="p">();</span>
-<span class="w">            </span><span class="nx">updateTimeDisplay</span><span class="p">();</span>
-<span class="w">        </span><span class="p">});</span>
+/**
+ * helper method to get JSON, populate two vars, and update image
+ */
+function checkTrafficLightStatus(){
+    // fetch json with cache bust concated on via guidGenerator()
+    fetch('/traffic-light/status.json?' + guidGenerator(), {
+        method: 'GET'
+    })
+        .then(function(response) { return response.json(); })
+        .then(function(json) {
+            // if we have a valid color, update the image
+            if (json.status == 'red' || json.status == 'yellow' || json.status == 'green'){
+                if(traffic_light_status != json.status) {
+                    document.getElementById('traffic-light-img').src = '/traffic-light/traffic-light-' + json.status + '.jpg';
+                    traffic_light_status = json.status;
+                }
+            } else {
+                // if we got an invalid color, show an error
+                document.getElementById('traffic-light-img').src = '/traffic-light/traffic-light-error.jpg';
+                traffic_light_status = json.status;
+            }
+            // coerce PST epoch string from json into UTC Date object
+            let destination_time_pst = new Date(json.destination_time * 1000).toLocaleString(&quot;en-US&quot;, {timeZone: &quot;America/Los_Angeles&quot;});
+            destination_epoch_utc = new Date(destination_time_pst).getTime();
+            updateTimeDisplay();
+        });
 
-<span class="p">}</span>
+}
 
-<span class="cm">/**</span>
-<span class="cm"> * Helper Method to update tool tip on traffic light.</span>
-<span class="cm"> */</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">updateTimeDisplay</span><span class="p">(){</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">now_epoch_utc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">traffic_light_status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">destination_epoch_utc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">now_epoch_utc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">destination_epoch_utc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">now_epoch_utc</span><span class="p">;</span>
-<span class="w">            </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">alt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;The shop will close\nin &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">millisecondsToStr</span><span class="p">(</span><span class="nx">remaining</span><span class="p">);</span>
-<span class="w">            </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;The shop will close\nin &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">millisecondsToStr</span><span class="p">(</span><span class="nx">remaining</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">now_epoch_utc</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">destination_epoch_utc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">alt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;The shop is closed&#39;</span><span class="p">;</span>
-<span class="w">            </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;The shop is closed&#39;</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;traffic-light-img&#39;</span><span class="p">).</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;The shop is in an unknown state&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+/**
+ * Helper Method to update tool tip on traffic light.
+ */
+function updateTimeDisplay(){
+    let now_epoch_utc = new Date().getTime();
+    if (traffic_light_status == 'yellow' || traffic_light_status == 'green' || traffic_light_status == 'red') {
+        if (destination_epoch_utc &gt; now_epoch_utc) {
+            let remaining = destination_epoch_utc - now_epoch_utc;
+            document.getElementById('traffic-light-img').alt = &quot;The shop will close\nin &quot; + millisecondsToStr(remaining);
+            document.getElementById('traffic-light-img').title = &quot;The shop will close\nin &quot; + millisecondsToStr(remaining);
+        } else if (now_epoch_utc &gt;= destination_epoch_utc) {
+            document.getElementById('traffic-light-img').alt = 'The shop is closed';
+            document.getElementById('traffic-light-img').title = 'The shop is closed';
+        }
+    } else {
+        document.getElementById('traffic-light-img').title = 'The shop is in an unknown state';
+    }
+}
 
-<span class="c1">// initialize traffic light and set interval to call it every 1min</span>
-<span class="nx">checkTrafficLightStatus</span><span class="p">();</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-<span class="w">    </span><span class="nx">checkTrafficLightStatus</span><span class="p">();</span>
-<span class="p">},</span><span class="w"> </span><span class="mf">60000</span><span class="p">);</span>
+// initialize traffic light and set interval to call it every 1min
+checkTrafficLightStatus();
+window.setInterval(function(){
+    checkTrafficLightStatus();
+}, 60000);
 
-<span class="c1">// thanks https://stackoverflow.com/a/6860916</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">guidGenerator</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">S4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(((</span><span class="mf">1</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">())</span><span class="o">*</span><span class="mh">0x10000</span><span class="p">)</span><span class="o">|</span><span class="mf">0</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">16</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">());</span>
-<span class="p">}</span>
+// thanks https://stackoverflow.com/a/6860916
+function guidGenerator() {
+    var S4 = function() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+&quot;-&quot;+S4()+S4()+S4());
+}
 
-<span class="c1">// thanks https://stackoverflow.com/a/8212878</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">millisecondsToStr</span><span class="w"> </span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// TIP: to find current time in milliseconds, use:</span>
-<span class="w">    </span><span class="c1">// var  current_time_milliseconds = new Date().getTime();</span>
+// thanks https://stackoverflow.com/a/8212878
+function millisecondsToStr (milliseconds) {
+    // TIP: to find current time in milliseconds, use:
+    // var  current_time_milliseconds = new Date().getTime();
 
-<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">numberEnding</span><span class="w"> </span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">number</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    function numberEnding (number) {
+        return (number &gt; 1) ? 's' : '';
+    }
 
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">milliseconds</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">years</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">temp</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">31536000</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">years</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">years</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; year&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">numberEnding</span><span class="p">(</span><span class="nx">years</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">//TODO: Months! Maybe weeks?</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">temp</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mf">31536000</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">86400</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">days</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">days</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; day&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">numberEnding</span><span class="p">(</span><span class="nx">days</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">hours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">temp</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mf">86400</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">3600</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">hours</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">hours</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; hour&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">numberEnding</span><span class="p">(</span><span class="nx">hours</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">minutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">temp</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mf">3600</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">60</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">minutes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">minutes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; minute&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">numberEnding</span><span class="p">(</span><span class="nx">minutes</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">temp</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">60</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">seconds</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; second&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">numberEnding</span><span class="p">(</span><span class="nx">seconds</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;less than a second&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">//&#39;just now&#39; //or other string you like;</span>
-<span class="p">}</span>
-</code></pre></div>
+    let temp = Math.floor(milliseconds / 1000);
+    let years = Math.floor(temp / 31536000);
+    if (years) {
+        return years + ' year' + numberEnding(years);
+    }
+    //TODO: Months! Maybe weeks?
+    let days = Math.floor((temp %= 31536000) / 86400);
+    if (days) {
+        return days + ' day' + numberEnding(days);
+    }
+    let hours = Math.floor((temp %= 86400) / 3600);
+    if (hours) {
+        return hours + ' hour' + numberEnding(hours);
+    }
+    let minutes = Math.floor((temp %= 3600) / 60);
+    if (minutes) {
+        return minutes + ' minute' + numberEnding(minutes);
+    }
+    let seconds = temp % 60;
+    if (seconds) {
+        return seconds + ' second' + numberEnding(seconds);
+    }
+    return 'less than a second'; //'just now' //or other string you like;
+}
+</code></pre>
 <p>This JS file was injected by editing <code>koi.info</code> and adding this line:</p>
-<div class="highlight"><pre><span></span><code>scripts[] = koi.js
-</code></pre></div>
+<pre><code>scripts[] = koi.js
+</code></pre>
 
 
 

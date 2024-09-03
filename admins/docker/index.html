@@ -2228,13 +2228,13 @@
 <p>There is a docker container for Portainer running, which is a web interface used for managing all other containers. This interface can be used to deply other compose files, maintain existing ones, and has granular user permissions if we ever need to give isolated user perms.</p>
 <p>The webUI login is in keepass and can be reached at <a href="https://portainer.synshop.net">portainer.synshop.net</a></p>
 <h2 id="updating-portainer">Updating portainer<a class="headerlink" href="#updating-portainer" title="Permanent link"></a></h2>
-<p>Portainer can't be updated from within itself. Instead this is done via CLI on the docker host itself. Inside the home directory of the <code>ubuntu</code> user is a portainer-compose.yml file. To updated Portainer CE (Community Edition) to the lateest, run the following:
-<div class="highlight"><pre><span></span><code>&gt; docker stop portainer
+<p>Portainer can't be updated from within itself. Instead this is done via CLI on the docker host itself. Inside the home directory of the <code>ubuntu</code> user is a portainer-compose.yml file. To updated Portainer CE (Community Edition) to the lateest, run the following:</p>
+<pre><code>&gt; docker stop portainer
 &gt; docker rm portainer
 &gt; docker pull portainer/portainer-ce:latest
 &gt; sudo docker compose -f portainer-compose.yml up -d
-</code></pre></div>
-This will remove the old container, grab the latest image, and rebuild the container using the existing compose file. Don't worry about the data, the docker volume it relies on exists "outside" the constiner and is persistent, which the compose file will re-link it to.</p>
+</code></pre>
+<p>This will remove the old container, grab the latest image, and rebuild the container using the existing compose file. Don't worry about the data, the docker volume it relies on exists "outside" the constiner and is persistent, which the compose file will re-link it to.</p>
 <p>The portainer config should be backed up to a config file export and saved to the Vault NAS periodically, especially after major changes.</p>
 <h2 id="deploying-new-containers">Deploying new containers<a class="headerlink" href="#deploying-new-containers" title="Permanent link"></a></h2>
 <p>This is not a comprehensive portainer guide. However some basics are as follows:</p>
