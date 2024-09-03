@@ -2503,15 +2503,15 @@
   
 
 
-<h1 id="synbackup">synbackup<a class="headerlink" href="#synbackup" title="Permanent link">&para;</a></h1>
-<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
+<h1 id="synbackup">synbackup<a class="headerlink" href="#synbackup" title="Permanent link"></a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
 <p>This is one of the old shop mini PCs that had Ubuntu 22.04 installed on and serves two primary purposes:</p>
 <ul>
 <li>Run a backup instance of LXD which we can sync containers from c220 to </li>
 <li>Run <a href="https://borgbackup.readthedocs.io">borg</a> which can be used over SSH to backup systems to (DNS, DHCP, web servers etc)</li>
 </ul>
 <p>It's located on top of the c220 in the rack and has IP <code>10.0.40.33</code></p>
-<h2 id="os-install">OS install<a class="headerlink" href="#os-install" title="Permanent link">&para;</a></h2>
+<h2 id="os-install">OS install<a class="headerlink" href="#os-install" title="Permanent link"></a></h2>
 <ol>
 <li>Install Ubuntu 22.04 server</li>
 <li>static IP of 10.0.40.33</li>
@@ -2540,7 +2540,7 @@ network:
         search: []
   version: 2  
 </code></pre></div>
-<h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h2>
+<h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link"></a></h2>
 <p>Primary access is done via SSH. The users are:</p>
 <ul>
 <li>aakin  </li>
@@ -2550,8 +2550,8 @@ network:
 <li>munroebot  </li>
 <li>sargonas</li>
 </ul>
-<h2 id="lxd">LXD<a class="headerlink" href="#lxd" title="Permanent link">&para;</a></h2>
-<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
+<h2 id="lxd">LXD<a class="headerlink" href="#lxd" title="Permanent link"></a></h2>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link"></a></h3>
 <p>Install LXD, run <code>lxd init</code> and accepting all defaults, except:</p>
 <ul>
 <li>create a 100GB ZFS soft disk instead default smaller size</li>
@@ -2559,7 +2559,7 @@ network:
 <li>match the bridge name to be <code>br0</code></li>
 <li>add a new interface <code>lxcbr1</code> to the lxd which matches  the private LAN on c220 used to route <code>caddy</code> traffic between containers: <code>lxc network create lxcbr1</code></li>
 </ul>
-<h3 id="backup-of-c220">Backup of c220<a class="headerlink" href="#backup-of-c220" title="Permanent link">&para;</a></h3>
+<h3 id="backup-of-c220">Backup of c220<a class="headerlink" href="#backup-of-c220" title="Permanent link"></a></h3>
 <p>on the synbackup box, run this command for each container you want to backup. Here we backup the all the known containers currently:</p>
 <div class="highlight"><pre><span></span><code>lxc copy --refresh --verbose c220:shopIdentifyer shopIdentifyer
 lxc copy --refresh --verbose c220:caddy caddy
@@ -2576,10 +2576,10 @@ lxc copy --refresh --verbose c220:pihole-40 pihole-40
 <div class="highlight"><pre><span></span><code># m h  dom mon dow   command
 5   7  *   *   Sun   /home/mrjones/backup.lxd.containers.sh
 </code></pre></div>
-<h2 id="borg">Borg<a class="headerlink" href="#borg" title="Permanent link">&para;</a></h2>
+<h2 id="borg">Borg<a class="headerlink" href="#borg" title="Permanent link"></a></h2>
 <p>The backup reposotory is under the <code>borg</code> user and is at <code>/home/borg/backups</code>.  The password in is in the password safe.  It is the same password for the <code>borg</code> user and the <code>backups</code> borg archive.</p>
-<h3 id="adding-a-new-machine-to-be-backed-up">Adding a new machine to be backed up<a class="headerlink" href="#adding-a-new-machine-to-be-backed-up" title="Permanent link">&para;</a></h3>
-<h4 id="on-the-remote-machine">On the remote machine<a class="headerlink" href="#on-the-remote-machine" title="Permanent link">&para;</a></h4>
+<h3 id="adding-a-new-machine-to-be-backed-up">Adding a new machine to be backed up<a class="headerlink" href="#adding-a-new-machine-to-be-backed-up" title="Permanent link"></a></h3>
+<h4 id="on-the-remote-machine">On the remote machine<a class="headerlink" href="#on-the-remote-machine" title="Permanent link"></a></h4>
 <ol>
 <li>Install borg.  For Debian/Ubuntu: <code>apt install borgbackup</code></li>
 <li>Create an ssh key with out a password: <code>ssh-keygen -t ed25119</code></li>
@@ -2589,7 +2589,7 @@ lxc copy --refresh --verbose c220:pihole-40 pihole-40
 0   5  *   *   *     BORG_PASSPHRASE=PASSWORD_FROM_KEEPASS /usr/bin/borg prune -v --list borg@10.0.40.33:/home/borg/backups --prefix &#39;{hostname}&#39; --keep-daily=7 --keep-weekly=4 --keep-monthly=6
 </code></pre></div></li>
 </ol>
-<h4 id="on-the-synbackup">On the synbackup<a class="headerlink" href="#on-the-synbackup" title="Permanent link">&para;</a></h4>
+<h4 id="on-the-synbackup">On the synbackup<a class="headerlink" href="#on-the-synbackup" title="Permanent link"></a></h4>
 <ol>
 <li>Copy the public SSH key from step #2 above</li>
 <li>Add it to <code>/home/borg/.ssh/authorized_keys</code>, but locked down like this.  Be sure to replace the key in this value:

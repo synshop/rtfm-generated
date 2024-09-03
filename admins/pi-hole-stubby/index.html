@@ -2305,10 +2305,10 @@
   
 
 
-<h1 id="pi-hole-dns">Pi-Hole DNS<a class="headerlink" href="#pi-hole-dns" title="Permanent link">&para;</a></h1>
+<h1 id="pi-hole-dns">Pi-Hole DNS<a class="headerlink" href="#pi-hole-dns" title="Permanent link"></a></h1>
 <p>SYN Shop runs it's own instances of <a href="http://pi-hole.net/">Pi-Hole</a>  Pi-Hole is a local DNS resolver that blacklist domains that serve ads.</p>
 <p>Pi-hole LXC is hosted on the Proxmox server.</p>
-<h2 id="pi-hole">Pi-Hole<a class="headerlink" href="#pi-hole" title="Permanent link">&para;</a></h2>
+<h2 id="pi-hole">Pi-Hole<a class="headerlink" href="#pi-hole" title="Permanent link"></a></h2>
 <p>To set up the Pi-Hole, do the generic install via <code>curl -sSL https://install.pi-hole.net | bash</code>. On the Settings -&gt; System page, flush logs and disable query logging.  On Settings -&gt; DNS page, set "Custom 1 (IPv4)" to <code>127.1.1.1</code> and <code>Listen on all interfaces, permit all origins</code>.  On Settings -&gt; Privacy, set it to <code>Paranoia mode</code>. This way no logs will be stored of any DNS lookups.</p>
 
 

@@ -2503,8 +2503,8 @@
   
 
 
-<h1 id="access-control-system">Access Control System<a class="headerlink" href="#access-control-system" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h1 id="access-control-system">Access Control System<a class="headerlink" href="#access-control-system" title="Permanent link"></a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
 <p>An access control system for SYN Shop that handles RFID access to the shop front and rear doors.  It uses the following:</p>
 <ul>
 <li><a href="https://www.accxproducts.com/wiki/index.php?title=Open_Access_3.0">Open Access 3.0</a> - Runs on an Arduino that works autonomously of any network connection or raspberry pi, only needs power. Has battery backup. </li>
@@ -2521,7 +2521,7 @@
     F[&quot;Emails monitoring@synshop.org&quot;]
 </code></pre></div>
 <p>For info on how to build the hardware, see <a href="https://docs.google.com/spreadsheet/ccc?key=0As-Fbiasxp7CdC1ZWXZZVzRoRzdycnZjV19ZVW5WMFE#gid=2">Access Control System bill of materials</a></p>
-<h2 id="screen-and-minicom"><code>screen</code> and <code>minicom</code><a class="headerlink" href="#screen-and-minicom" title="Permanent link">&para;</a></h2>
+<h2 id="screen-and-minicom"><code>screen</code> and <code>minicom</code><a class="headerlink" href="#screen-and-minicom" title="Permanent link"></a></h2>
 <p>The Raspberry Pi runs <code>screen</code> with the <code>access</code> account to talk over the serial port (usb &lt;-&gt; serial) with <code>minicom</code>. Let's break that down:</p>
 <ul>
 <li><code>screen</code> - an app that <a href="https://en.wikipedia.org/wiki/GNU_Screen">allows you to connect</a> to a long lived terminal. </li>
@@ -2533,7 +2533,7 @@ to the existing screen session with <code>screen -r minicom</code>.</p>
 <p><strong>NOTE:</strong> - When you're done with <code>screen</code> type <code>ctrl + a</code> then <code>d</code>.  This will detach from the session, but
 keep it running.</p>
 <p>If you're concerned you messed something up, just run <code>sudo reboot</code> to reboot the whole Pi, and it should all be fixed.</p>
-<h3 id="help-text-from-open-access-30">Help Text from Open Access 3.0<a class="headerlink" href="#help-text-from-open-access-30" title="Permanent link">&para;</a></h3>
+<h3 id="help-text-from-open-access-30">Help Text from Open Access 3.0<a class="headerlink" href="#help-text-from-open-access-30" title="Permanent link"></a></h3>
 <p>These are all the options you can use when you're in a <code>minicom</code> session connected to the Open Access system on the Arduino:</p>
 <pre><code>Valid commands are:
 (d)ate, (s)show user, (m)odify user &lt;num&gt;  &lt;usermask&gt; &lt;tagnumber&gt;
@@ -2545,8 +2545,8 @@ keep it running.</p>
 (e)nable &lt;password&gt; - enable or disable priveleged mode
 (h)ardware test - Test the hardware
 </code></pre>
-<h2 id="adding-new-vetted-members">Adding New Vetted Members<a class="headerlink" href="#adding-new-vetted-members" title="Permanent link">&para;</a></h2>
-<h3 id="raspberry-pi">Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Permanent link">&para;</a></h3>
+<h2 id="adding-new-vetted-members">Adding New Vetted Members<a class="headerlink" href="#adding-new-vetted-members" title="Permanent link"></a></h2>
+<h3 id="raspberry-pi">Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Permanent link"></a></h3>
 <ol>
 <li>SSH into badger (name of Pi) at <code>10.0.40.10</code> and <code>su - access</code>. You need to use your personal account, not the <code>access</code> account to SSH.</li>
 <li>Run  <code>tail /home/access/logs_and_users/user_access_log.txt</code> on badger and wipe the unprovisioned badge at a reader</li>
@@ -2573,10 +2573,10 @@ keep it running.</p>
 8. Test that the badge works.</p>
 </li>
 </ol>
-<h3 id="shopidentifyer">ShopIdentifyer<a class="headerlink" href="#shopidentifyer" title="Permanent link">&para;</a></h3>
+<h3 id="shopidentifyer">ShopIdentifyer<a class="headerlink" href="#shopidentifyer" title="Permanent link"></a></h3>
 <p>Steps TBD</p>
-<h2 id="revoking-vetted-members">Revoking Vetted Members<a class="headerlink" href="#revoking-vetted-members" title="Permanent link">&para;</a></h2>
-<h3 id="raspberry-pi_1">Raspberry Pi<a class="headerlink" href="#raspberry-pi_1" title="Permanent link">&para;</a></h3>
+<h2 id="revoking-vetted-members">Revoking Vetted Members<a class="headerlink" href="#revoking-vetted-members" title="Permanent link"></a></h2>
+<h3 id="raspberry-pi_1">Raspberry Pi<a class="headerlink" href="#raspberry-pi_1" title="Permanent link"></a></h3>
 <ol>
 <li>SSH into badger (name of Pi) at <code>10.0.40.10</code> and <code>su - access</code>. You need to use your personal account, not the <code>access</code> account to SSH. </li>
 <li>Run <code>screen -r minicom</code></li>
@@ -2589,9 +2589,9 @@ keep it running.</p>
 4. When you're done with <code>screen</code> type <code>ctrl + a</code> then <code>d</code> to detach from screen.</p>
 </li>
 </ol>
-<h3 id="shopidentifyer_1">ShopIdentifyer<a class="headerlink" href="#shopidentifyer_1" title="Permanent link">&para;</a></h3>
+<h3 id="shopidentifyer_1">ShopIdentifyer<a class="headerlink" href="#shopidentifyer_1" title="Permanent link"></a></h3>
 <p>Steps TBD</p>
-<h2 id="about-decimal-vs-hexadecimal-for-badges">About Decimal vs Hexadecimal for badges<a class="headerlink" href="#about-decimal-vs-hexadecimal-for-badges" title="Permanent link">&para;</a></h2>
+<h2 id="about-decimal-vs-hexadecimal-for-badges">About Decimal vs Hexadecimal for badges<a class="headerlink" href="#about-decimal-vs-hexadecimal-for-badges" title="Permanent link"></a></h2>
 <p>The badge reader doesn't give us the full RFID, it rather reads the last 31 bits and a parity bit</p>
 <div class="highlight"><pre><span></span><code>proxmark3&gt; lf search
 NOTE: some demods output possible binary

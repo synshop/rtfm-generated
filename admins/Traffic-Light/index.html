@@ -2509,14 +2509,14 @@
   
 
 
-<h1 id="traffic-light-admin-guide">Traffic Light Admin Guide<a class="headerlink" href="#traffic-light-admin-guide" title="Permanent link">&para;</a></h1>
+<h1 id="traffic-light-admin-guide">Traffic Light Admin Guide<a class="headerlink" href="#traffic-light-admin-guide" title="Permanent link"></a></h1>
 <p>For general end user info, see <a href="/users/Projects/Traffic-Light/">users guide</a>.  See the <a href="https://github.com/krux702/time-circuit">time-circuit repository on Github</a>. </p>
 <p>Otherwise, for nitty gritty technical info, read on!</p>
-<h2 id="acquiring">Acquiring<a class="headerlink" href="#acquiring" title="Permanent link">&para;</a></h2>
+<h2 id="acquiring">Acquiring<a class="headerlink" href="#acquiring" title="Permanent link"></a></h2>
 <p>Where did we get this? How do we get another if ours explodes? Exercise left to reader.</p>
-<h2 id="lights">Lights<a class="headerlink" href="#lights" title="Permanent link">&para;</a></h2>
+<h2 id="lights">Lights<a class="headerlink" href="#lights" title="Permanent link"></a></h2>
 <p>Lights are Lights are A19 LED 14w (100w equivalent).  You can swing the front of the fixture open to replace them when they go out.</p>
-<h2 id="controller-box">Controller Box<a class="headerlink" href="#controller-box" title="Permanent link">&para;</a></h2>
+<h2 id="controller-box">Controller Box<a class="headerlink" href="#controller-box" title="Permanent link"></a></h2>
 <p>Krux to fill in info here, but</p>
 <ul>
 <li>ESP32</li>
@@ -2524,16 +2524,16 @@
 <li>Buttons</li>
 <li>Relay</li>
 </ul>
-<h3 id="case">Case<a class="headerlink" href="#case" title="Permanent link">&para;</a></h3>
+<h3 id="case">Case<a class="headerlink" href="#case" title="Permanent link"></a></h3>
 <p>Krux to fill in info here, but 3d printed yay</p>
-<h3 id="bom">BOM<a class="headerlink" href="#bom" title="Permanent link">&para;</a></h3>
+<h3 id="bom">BOM<a class="headerlink" href="#bom" title="Permanent link"></a></h3>
 <p>Krux to fill in info here</p>
-<h3 id="software">Software<a class="headerlink" href="#software" title="Permanent link">&para;</a></h3>
+<h3 id="software">Software<a class="headerlink" href="#software" title="Permanent link"></a></h3>
 <p>Krux to fill in, but ESP32 software listening on 10.0.40.120 with DNS of time-circuit.synshop.org, has web interface, serves up JSON, talks to screen and power relays.</p>
-<h2 id="public-web-site">Public Web site<a class="headerlink" href="#public-web-site" title="Permanent link">&para;</a></h2>
+<h2 id="public-web-site">Public Web site<a class="headerlink" href="#public-web-site" title="Permanent link"></a></h2>
 <p>The site currently shows an image with a tool tip showing the live light status and a tool tip showing how long the shop will be open:</p>
 <p><img alt="Web Site Header" src="../images/site.header.with.traffic.light.png" />  </p>
-<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
+<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link"></a></h3>
 <p>JSON is published at <a href="http://10.0.40.120/status">http://10.0.40.120/status</a>.  There is then a root cron job which copies it from time-circuit.synshop.org to nexus.  There is then a root cron job on lagos.synshop.org that copies it to <a href="https://synshop.org/traffic-light/status.json">https://synshop.org/traffic-light/status.json</a></p>
 <p>Sample:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -2541,7 +2541,7 @@
 <span class="w">    </span><span class="nt">&quot;destination_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1582096081</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="static-images">Static Images<a class="headerlink" href="#static-images" title="Permanent link">&para;</a></h3>
+<h3 id="static-images">Static Images<a class="headerlink" href="#static-images" title="Permanent link"></a></h3>
 <p>There are 4 images we use on the web site:</p>
 <ul>
 <li><a href="https://synshop.org/traffic-light/traffic-light-green.jpg">https://synshop.org/traffic-light/traffic-light-green.jpg</a></li>
@@ -2549,7 +2549,7 @@
 <li><a href="https://synshop.org/traffic-light/traffic-light-yellow.jpg">https://synshop.org/traffic-light/traffic-light-yellow.jpg</a></li>
 <li><a href="https://synshop.org/traffic-light/traffic-light-error.jpg">https://synshop.org/traffic-light/traffic-light-error.jpg</a></li>
 </ul>
-<h3 id="dynamic-images">Dynamic Images<a class="headerlink" href="#dynamic-images" title="Permanent link">&para;</a></h3>
+<h3 id="dynamic-images">Dynamic Images<a class="headerlink" href="#dynamic-images" title="Permanent link"></a></h3>
 <p>If you go to:</p>
 <ul>
 <li><a href="https://synshop.org/traffic-light/status.php">https://synshop.org/traffic-light/status.php</a></li>
@@ -2567,7 +2567,7 @@
 <span class="nb">header</span><span class="p">(</span><span class="s2">&quot;Content-Type: image/jpeg&quot;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="no">__DIR__</span> <span class="o">.</span> <span class="s2">&quot;/</span><span class="si">$img</span><span class="s2">&quot;</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="header-image-on-web-site">Header image on web site<a class="headerlink" href="#header-image-on-web-site" title="Permanent link">&para;</a></h3>
+<h3 id="header-image-on-web-site">Header image on web site<a class="headerlink" href="#header-image-on-web-site" title="Permanent link"></a></h3>
 <p>We use this HTML which is in <code>page.tpl.php</code> in our theme in <code>/srv/http/synshop/sites/all/themes/koi/</code>. It just creates an empty place holder for the image and tool tip:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$site_slogan</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
 <span class="x">  &lt;div id=&quot;site-slogan&quot;&gt;</span>

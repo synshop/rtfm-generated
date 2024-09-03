@@ -2569,15 +2569,15 @@
   
 
 
-<h1 id="caddy-and-tls-certs">Caddy and TLS certs<a class="headerlink" href="#caddy-and-tls-certs" title="Permanent link">&para;</a></h1>
-<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
+<h1 id="caddy-and-tls-certs">Caddy and TLS certs<a class="headerlink" href="#caddy-and-tls-certs" title="Permanent link"></a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
 <p><a href="https://caddyserver.com/docs/install">Caddy</a> provides a reverse proxy with TLS termination for all internal services at the shop.<br />
 You must be on the shop LAN or on the shop VPN to access it. Working with <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E"><code>certbot</code></a>,
 we can get wildcard certs for all services.</p>
 <p>Caddy runs as a container on the <a href="/admins/proxmox/">proxmox server</a> on container named <code>caddy</code> with IP <code>10.0.40.29</code></p>
 <p>Finally <code>new-lagos.synshop.org</code>  provides DNS with <code>bind</code> to match FQDN &lt;-&gt; TLS CN. See below to update DNS entries.</p>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link">&para;</a></h3>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link"></a></h2>
+<h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link"></a></h3>
 <p>Assuming Ubuntu 22, following <a href="https://caddyserver.com/docs/install#debian-ubuntu-raspbian">their install docs</a>:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>debian-keyring<span class="w"> </span>debian-archive-keyring<span class="w"> </span>apt-transport-https
 curl<span class="w"> </span>-1sLf<span class="w"> </span><span class="s1">&#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -2588,7 +2588,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>caddy
 systemctl<span class="w"> </span>start<span class="w"> </span>caddy
 </code></pre></div>
-<h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link">&para;</a></h3>
+<h3 id="certbot">certbot<a class="headerlink" href="#certbot" title="Permanent link"></a></h3>
 <p>With the way proxmox does LXC containers,  the normal <a href="https://certbot.eff.org/instructions?ws=other&amp;os=ubuntufocal&amp;commit=%3E">install docs</a> don't work.  Instead we had to use <code>pip</code> and friends to achieve the same result:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-venv<span class="w"> </span>libaugeas0<span class="w"> </span>python3-pip
 sudo<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/opt/certbot/
@@ -2606,7 +2606,7 @@ curl<span class="w"> </span>-o<span class="w"> </span>/etc/letsencrypt/acme-dns-
 chmod<span class="w"> </span>+x<span class="w"> </span>/etc/letsencrypt/acme-dns-auth.py
 ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/python
 </code></pre></div>
-<h4 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h4>
+<h4 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link"></a></h4>
 <p>Before trusting that the cronjob above will run, as root, make sure you test the <code>renew</code> command with a dry run.  This will ensure you have everything installed and workine correcty:</p>
 <div class="highlight"><pre><span></span><code>/usr/bin/certbot<span class="w"> </span>renew<span class="w"> </span>--dry-run
 </code></pre></div>
@@ -2617,7 +2617,7 @@ ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/python3<span class=
 <li><code>The error was: expected /etc/letsencrypt/live/synshop.net/cert.pem to be a symlink</code> - <strong>fixed</strong> by moving the files in <code>/etc/letsencrypte/live/synshop.org/*</code> and making them be symlinks to <code>/etc/letsencrypte/archived/synshop.org/</code>, then running <code>certbot update_symlinks</code></li>
 <li><code>ModuleNotFoundError: No module named 'requests'</code> - <strong>fixed</strong> by instlling  <code>requests</code> with <code>pip3</code></li>
 </ul>
-<h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link">&para;</a></h3>
+<h3 id="first-time-cert-generation-w-dns-update">First time cert generation w/ DNS update<a class="headerlink" href="#first-time-cert-generation-w-dns-update" title="Permanent link"></a></h3>
 <p><strong>You only have to do this ONCE!</strong></p>
 <p>On the Caddy box, initiate a request for <code>*.synshop.net</code> and <code>synshop.net</code> domains, with a manual DNS validation:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>certbot<span class="w"> </span>certonly<span class="w"> </span>--manual<span class="w"> </span>--manual-auth-hook<span class="w"> </span>/etc/letsencrypt/acme-dns-auth.py<span class="w"> </span>--preferred-challenges<span class="w"> </span>dns<span class="w"> </span>--debug-challenges<span class="w"> </span>-d<span class="w"> </span><span class="se">\*</span>.synshop.net<span class="w"> </span>-d<span class="w"> </span>synshop.net
@@ -2642,7 +2642,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <div class="highlight"><pre><span></span><code># restart caddy to reload certs once a week on 8.05 every sunday
 5   8  *   *   0     /usr/bin/systemctl restart caddy
 </code></pre></div>
-<h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link">&para;</a></h2>
+<h2 id="set-default-cert-in-caddy">Set default cert in Caddy<a class="headerlink" href="#set-default-cert-in-caddy" title="Permanent link"></a></h2>
 <p>In <code>/etc/caddy/Caddyfile</code> declare the top most host as shown below.  All subsequent hosts will inherit this cert:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># this host just declared to define default cert all other hosts inherit</span>
 :443<span class="w"> </span><span class="o">{</span>
@@ -2651,8 +2651,8 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <span class="w">   </span>file_server
 <span class="o">}</span>
 </code></pre></div>
-<h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link">&para;</a></h2>
-<h3 id="configure-caddy">Configure Caddy<a class="headerlink" href="#configure-caddy" title="Permanent link">&para;</a></h3>
+<h2 id="adding-service">Adding service<a class="headerlink" href="#adding-service" title="Permanent link"></a></h2>
+<h3 id="configure-caddy">Configure Caddy<a class="headerlink" href="#configure-caddy" title="Permanent link"></a></h3>
 <p>Assuming you had a new service at <code>10.0.40.201</code> called <code>test.synshop.net</code>, you would:</p>
 <ol>
 <li>ssh into caddy box </li>
@@ -2668,7 +2668,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <p>restart caddy: <code>systemctl restart caddy</code></p>
 </li>
 </ol>
-<h3 id="configure-dns-entry-on-new-lagossynshoporg">Configure DNS Entry on <code>new-lagos.synshop.org</code><a class="headerlink" href="#configure-dns-entry-on-new-lagossynshoporg" title="Permanent link">&para;</a></h3>
+<h3 id="configure-dns-entry-on-new-lagossynshoporg">Configure DNS Entry on <code>new-lagos.synshop.org</code><a class="headerlink" href="#configure-dns-entry-on-new-lagossynshoporg" title="Permanent link"></a></h3>
 <p><strong>NOTE!</strong> - There is a wildcard <code>CNAME</code> entry for <code>*.synshop.net</code> to point to Caddy.  You only need to make a DNS entry if you want it to NOT point to Caddy.</p>
 <p>Set up new DNS entry:</p>
 <ol>
@@ -2678,9 +2678,9 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <li>Modify the serial number (SOA) at top to be today's date + a unique 2 digit integer (it looks something like <code>2023090116; serial, todays date + serial #</code> )</li>
 <li>Restart DNS with <code>rndc reload</code>.</li>
 </ol>
-<h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link">&para;</a></h3>
+<h3 id="variations-on-caddyfile-entries">Variations on Caddyfile entries<a class="headerlink" href="#variations-on-caddyfile-entries" title="Permanent link"></a></h3>
 <p>Step 3 above in "Configure Caddy" can have other options to support self signed certs and IPv6 hosts (or both!). </p>
-<h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link">&para;</a></h4>
+<h4 id="self-signed-cert">Self signed cert<a class="headerlink" href="#self-signed-cert" title="Permanent link"></a></h4>
 <p>We go from 3 lines to 9. The main difference is that we're telling it which <code>IP</code> with <code>https://</code> and to ignore self signed certs with <code>tls_insecure_skip_verify</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">test.synshop.net {</span>
 <span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">reverse_proxy {</span>
@@ -2692,7 +2692,7 @@ be created in <code>/etc/letsencrypt/live/synshop.net/</code></p>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">}</span>
 <span class="l l-Scalar l-Scalar-Plain">}</span>
 </code></pre></div>
-<h4 id="ipv6-entry">IPv6 entry<a class="headerlink" href="#ipv6-entry" title="Permanent link">&para;</a></h4>
+<h4 id="ipv6-entry">IPv6 entry<a class="headerlink" href="#ipv6-entry" title="Permanent link"></a></h4>
 <p>Note the use of brackets around the IP <code>[]</code> and port at the end <code>:80</code>. </p>
 <div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">test.synshop.net {</span>
 <span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">reverse_proxy [fd42:7c97:9426:8f29:216:3eff:fe0a:71c9]:80</span><span class="w"> </span>

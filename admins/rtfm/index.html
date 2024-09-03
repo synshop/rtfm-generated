@@ -2341,9 +2341,9 @@
   
 
 
-<h1 id="rtfm">rtfm<a class="headerlink" href="#rtfm" title="Permanent link">&para;</a></h1>
+<h1 id="rtfm">rtfm<a class="headerlink" href="#rtfm" title="Permanent link"></a></h1>
 <p>rtfm site is built with <a href="https://www.mkdocs.org/">MkDocs</a>.  </p>
-<h2 id="content-changes">Content changes<a class="headerlink" href="#content-changes" title="Permanent link">&para;</a></h2>
+<h2 id="content-changes">Content changes<a class="headerlink" href="#content-changes" title="Permanent link"></a></h2>
 <ul>
 <li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/synshop/rtfm">rtfm</a> repo to your user on github</li>
 <li>Go to your copy of the repo (eg https://github/USERNAME/rtfm) and clone it</li>
@@ -2354,7 +2354,7 @@
 <li>create a <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">pull request</a> for your branch against master on the main <a href="https://github.com/synshop/rtfm">rtfm</a> repo</li>
 </ul>
 <p>A SYN Shop member will review and merge your request if it all looks good!</p>
-<h2 id="how-content-is-pushed-live">How content is pushed live<a class="headerlink" href="#how-content-is-pushed-live" title="Permanent link">&para;</a></h2>
+<h2 id="how-content-is-pushed-live">How content is pushed live<a class="headerlink" href="#how-content-is-pushed-live" title="Permanent link"></a></h2>
 <p>There are two repos to house content.  One repo, <a href="https://github.com/synshop/rtfm">rtfm</a> houses the raw, unprocessed markdown files. Another repo <a href="https://github.com/synshop/rtfm-generated">rtfm-generated</a> hosts the processed files that mkdocs generates.  Every time a commit is merged to the <code>master</code> branch in <code>rtfm</code> the following happens:</p>
 <ol>
 <li>A <a href="https://github.com/features/actions">GitHub Action</a> is fired based off of <a href="https://github.com/synshop/rtfm/blob/master/.github/workflows/ci.yml">the ci.yml file</a>. All actions are executed in VMs called runners.  GitHub gives a certain amount of runner hours for free to non-profits.</li>
@@ -2363,7 +2363,7 @@
 <li>The <a href="https://pages.github.com/">GitHub Pages</a> for <code>rtfm-generated</code> are configured so that the contents of the repo are served up under <code>rtfm.synshop.org</code></li>
 <li><code>rtfm.synshop.org</code> is a CNAME for <code>synshop.github.io</code> which is set at an org level to show the contents of <code>rtfm-generated</code></li>
 </ol>
-<h2 id="how-to-regenerate-the-token-to-push-the-site-live">How to regenerate the token to push the site live<a class="headerlink" href="#how-to-regenerate-the-token-to-push-the-site-live" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-regenerate-the-token-to-push-the-site-live">How to regenerate the token to push the site live<a class="headerlink" href="#how-to-regenerate-the-token-to-push-the-site-live" title="Permanent link"></a></h2>
 <p>The robot account (<code>monitoring-synshop-bot</code>) needs to regenerate the personal access token every 90 days. We set it to expire in 90 days so we remember how to regenerate it - if we set it for a year we'll never remember.  These are the steps:</p>
 <ol>
 <li>get a copy of the SYN Shop Systems password safe</li>
