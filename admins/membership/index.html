@@ -2408,11 +2408,11 @@
   
 
 
-<h1 id="membership-website">membership website<a class="headerlink" href="#membership-website" title="Permanent link"></a></h1>
-<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link"></a></h2>
+<h1 id="membership-website">membership website<a class="headerlink" href="#membership-website" title="Permanent link">&para;</a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
 <p>Membership is hosted at both membership.synshop.org and membership-dev.synshop.org on new-lagos.synshop.org.  It's a python flask app and has a <a href="https://github.com/synshop/membership.synshop.org">GH Repo</a>.</p>
 <p><img alt="Screenshot of membership page with account, donation and locker prices" src="../images/membership.png" /></p>
-<h2 id="one-time-setup">One time setup<a class="headerlink" href="#one-time-setup" title="Permanent link"></a></h2>
+<h2 id="one-time-setup">One time setup<a class="headerlink" href="#one-time-setup" title="Permanent link">&para;</a></h2>
 <ol>
 <li>create DNS entries to server. "server" in this case on lagos-new so <code>membership.synshop.org</code> and <code>membership-dev.synshop.org</code> both have a <code>CNAME</code> for <code>lagos-new.synshop.org.</code> See <a href="https://rtfm.synshop.org/admins/Caddy%20and%20TLS%20certs/#first-time-cert-generation-w-dns-update">Caddy page</a> which talks about making new DNS entries.</li>
 <li>
@@ -2498,7 +2498,7 @@ cp /home/membership/membership-dev.synshop.org/config.py.default /home/membershi
 <li>Reload systemd and start and enable the services: <code>systemctl start membership;systemctl start membership-dev;systemctl enable membership;systemctl enable membership-dev</code></li>
 <li>Reboot server to make sure two services come up</li>
 </ol>
-<h2 id="pushing-new-content-live">Pushing new content live<a class="headerlink" href="#pushing-new-content-live" title="Permanent link"></a></h2>
+<h2 id="pushing-new-content-live">Pushing new content live<a class="headerlink" href="#pushing-new-content-live" title="Permanent link">&para;</a></h2>
 <ol>
 <li>SSH to new-lagos</li>
 <li>switch user to <code>membership</code> user: <code>sudo su - memberhsip</code></li>
@@ -2506,7 +2506,7 @@ cp /home/membership/membership-dev.synshop.org/config.py.default /home/membershi
 <li>pull in the latest code: <code>git pull origin</code></li>
 <li>restart the server: <code>systemctl restart membership</code> or <code>systemctl restart membership-dev</code></li>
 </ol>
-<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link"></a></h2>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
 <p>TBD</p>
 
 

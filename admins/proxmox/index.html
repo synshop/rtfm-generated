@@ -2492,8 +2492,8 @@
   
 
 
-<h1 id="proxmox">Proxmox<a class="headerlink" href="#proxmox" title="Permanent link"></a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link"></a></h2>
+<h1 id="proxmox">Proxmox<a class="headerlink" href="#proxmox" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>A desktop tower with <a href="https://www.proxmox.com/en/">Proxmox</a> installed on it was deployed to: </p>
 <ul>
 <li>Be a future home for all LXD containers on the c220 so the c220 can eventually be retired</li>
@@ -2502,7 +2502,7 @@
 </ul>
 <p>All Proxmox admin is done through the web GUI at <a href="https://proxmox.synshop.net">https://proxmox.synshop.net</a>, which is reverse proxied through the Caddy server to have a valid TLS cert.  The baremetal IP is <code>10.0.40.16</code>, but of course the proxmox.synshop.net domain resolves to Caddy at <code>.29</code>.</p>
 <p>To log into the server, be on the VPN or at the shop, go the <a href="https://proxmox.synshop.net">URL</a> and use the <code>proxmox</code> credentials from the shop password database.</p>
-<h2 id="install-hardware">Install &amp; Hardware<a class="headerlink" href="#install-hardware" title="Permanent link"></a></h2>
+<h2 id="install-hardware">Install &amp; Hardware<a class="headerlink" href="#install-hardware" title="Permanent link">&para;</a></h2>
 <p>Proxmox was installed with these 7 drives:</p>
 <ul>
 <li>256GB Apple branded 2.5" SATA SSD: boot drive for prox mox (<code>/dev/sdc</code>) . Shows as <code>local-lvm</code> or <code>pve</code> in Proxmox</li>
@@ -2540,7 +2540,7 @@ nvme0n1<span class="w">                     </span><span class="m">259</span>:0<
 </code></pre></div>
 <p>Within Proxmox, you can see the drives this way:</p>
 <p><img alt="Screenshot of drives in the proxmox mox disks page" src="../images/proxmox.drives.png" /></p>
-<h2 id="downloading-a-new-iso">Downloading a new ISO<a class="headerlink" href="#downloading-a-new-iso" title="Permanent link"></a></h2>
+<h2 id="downloading-a-new-iso">Downloading a new ISO<a class="headerlink" href="#downloading-a-new-iso" title="Permanent link">&para;</a></h2>
 <p>To add a new  ISO so that you can create a VM with it later:</p>
 <ol>
 <li>Navigate to <code>local</code> storage on left</li>
@@ -2549,7 +2549,7 @@ nvme0n1<span class="w">                     </span><span class="m">259</span>:0<
 <li>Enter ISO URL and click <code>Download</code></li>
 </ol>
 <p><img alt="Screenshot of adding a new ISO with 4 arrows denoting order of steps" src="../images/new.iso.png" /></p>
-<h2 id="creating-a-new-container">Creating a new container<a class="headerlink" href="#creating-a-new-container" title="Permanent link"></a></h2>
+<h2 id="creating-a-new-container">Creating a new container<a class="headerlink" href="#creating-a-new-container" title="Permanent link">&para;</a></h2>
 <ol>
 <li>On the left, Click "Datacenter" and then "Proxmox"</li>
 <li>In the upper right click "Create CT"</li>
@@ -2571,7 +2571,7 @@ nvme0n1<span class="w">                     </span><span class="m">259</span>:0<
 <li>After the container is created choose it from the list on the right, click on <code>Options</code> and double click <code>Start at boot</code> to be checked</li>
 <li>Go to "Datacenter" on the left navigation, click "Backup" in the main pannel, double click the one listed backup job - add your new container to be backed up nightly</li>
 </ol>
-<h2 id="creating-a-new-vm">Creating a new VM<a class="headerlink" href="#creating-a-new-vm" title="Permanent link"></a></h2>
+<h2 id="creating-a-new-vm">Creating a new VM<a class="headerlink" href="#creating-a-new-vm" title="Permanent link">&para;</a></h2>
 <ol>
 <li>On the left, Click "Datacenter" and then "Proxmox"</li>
 <li>In the upper right click "Create VM"</li>
@@ -2592,9 +2592,9 @@ nvme0n1<span class="w">                     </span><span class="m">259</span>:0<
 <li>Click <code>Console</code> and choose <code>Start now</code></li>
 <li>Go to "Datacenter" on the left navigation, click "Backup" in the main pannel, double click the one listed backup job - add your new VM to be backed up nightly</li>
 </ol>
-<h2 id="nas-drives">NAS Drives<a class="headerlink" href="#nas-drives" title="Permanent link"></a></h2>
+<h2 id="nas-drives">NAS Drives<a class="headerlink" href="#nas-drives" title="Permanent link">&para;</a></h2>
 <p>These 4 x 12TB SATA drives have been provisioned a few different ways, none of which have worked out.  </p>
-<h3 id="truenas">TrueNAS<a class="headerlink" href="#truenas" title="Permanent link"></a></h3>
+<h3 id="truenas">TrueNAS<a class="headerlink" href="#truenas" title="Permanent link">&para;</a></h3>
 <p>Originally it was thought that having some redundancy was helpful, so a 32TGB ZFS Raidz1 was created by passing them through raw to TrueNAS.  Something like:</p>
 <ol>
 <li>Create a TrueNAS install in a new VM, but don't provision any storage.  Resulting VM ID was <code>102</code>. </li>
@@ -2618,7 +2618,7 @@ qm set 102 -scsi4 /dev/disk/by-id/ata-ST12000VN0008-2YS101_ZRT122RV</pre></p>
 </li>
 <li>Use the TrueNAS web GUI to add the 4 drives to a ZFS Raidz1 volume</li>
 </ol>
-<h3 id="mergerfs">MergerFS<a class="headerlink" href="#mergerfs" title="Permanent link"></a></h3>
+<h3 id="mergerfs">MergerFS<a class="headerlink" href="#mergerfs" title="Permanent link">&para;</a></h3>
 <p>Realizing that we wanted full 48TB with no redundancy, we thought that <a href="https://github.com/trapexit/mergerfs">MergerFS</a> would work better. The TrueNAS VM was deleted and then the following was done:</p>
 <ol>
 <li>Format the 4 drives as <code>ext4</code> (do this once per drive ID): <code>mkfs.ext4 /dev/disk/by-id/ata-ST12000VN0008-2YS101_ZRT122RV</code></li>

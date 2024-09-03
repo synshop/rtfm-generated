@@ -2410,7 +2410,7 @@
   
 
 
-<h1 id="555-contest-gravity-detecting-color-swirling-pingpong-balls">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls<a class="headerlink" href="#555-contest-gravity-detecting-color-swirling-pingpong-balls" title="Permanent link"></a></h1>
+<h1 id="555-contest-gravity-detecting-color-swirling-pingpong-balls">555 Contest - Gravity Detecting, Color Swirling Pingpong Balls<a class="headerlink" href="#555-contest-gravity-detecting-color-swirling-pingpong-balls" title="Permanent link">&para;</a></h1>
 <p>After hearing about the 555 Timer Contest(external link) being run by Chris Gammell(external link) and Jeri Ellsworth(external link) krux and I decided that we must enter it.</p>
 <p>A few weeks prior a mutual friend had an idea for an art project that involved lit pingpong balls cycling through a fountain. We decided to take a part of this idea and run with it: lit pingpong balls. What are these good for you ask? They make great cat toys, they entertain small children, and I really want to build about 50 of them and dump them into the Bellagio Fountains here in Vegas.</p>
 <p>Our end result was a circuit that uses 3 independent 555 timer circuits to drive a pair of RGB LEDs. A 3-axis accelerometer hooked to the control pins of each 555 vary the intensity of each color as the orientation of the device changes. The whole device is powered by a 3v coin cell battery and if the appropriate packages are used the whole thing will fit inside a pingpong ball.</p>
@@ -2421,7 +2421,7 @@
 
 <p>Just to show you it is all self contained.</p>
 <p>The schematic and board layouts are available in both pdf and eagle formats at the end of this post if you want to try to build your own.</p>
-<h2 id="parts-list">Parts List<a class="headerlink" href="#parts-list" title="Permanent link"></a></h2>
+<h2 id="parts-list">Parts List<a class="headerlink" href="#parts-list" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2530,7 +2530,7 @@
 <p>There are 3 identical 555 timer circuits, one for each axis of the accelerometer, wired up as astable oscillators. The outputs from the accelerometer axis are hooked directly into the control voltage.</p>
 <p>As the accelerometer is moved the output voltage varies between ~.5 and ~2.5 volts representing -1 to +1g on each axis. This causes the duty cycle of the 555 timers to vary between ~40% and ~95%. Since the 555 is being used as a sink for the LEDs, higher duty cycle = dimmer led.</p>
 <p>Everything is run off 2 3v coin cell batteries wired in parallel. 5v power cannot be applied to this circuit without blowing the accelerometer.</p>
-<h2 id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link"></a></h2>
+<h2 id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link">&para;</a></h2>
 <p>Like most hackers we generally prototype on a solderless breadboard. This presented a bit of a problem for this build as we did not have any of the major components in a breadboard-compatible DIP version.</p>
 <p>Krux quickly whipped up breakout boards for the surface mount 555 and 556, but the tiny accelerometer gave us a bit more trouble. Not wanting to etch a breakout board, we flipped it over and krux soldered leads directly onto the pads, creating a dead bug breakout.</p>
 <p><img alt="" src="../images/dl2%26display.jpeg" />
@@ -2542,7 +2542,7 @@ breadboard compatible package.</p>
 <p>The smaller breadboard holds just the accelerometer so we could test it without having to move the whole circuit around. Although the small board is an microcontroller dev board, only the solderless breadboard piece is being used. This advancement only came after an hour of frustration caused by wires and other parts flying off the main board as we tried to test.</p>
 <p><img alt="" src="../images/dl12%26display.jpeg" /></p>
 <p>And here is a still of it in action.</p>
-<h2 id="board">Board<a class="headerlink" href="#board" title="Permanent link"></a></h2>
+<h2 id="board">Board<a class="headerlink" href="#board" title="Permanent link">&para;</a></h2>
 <p>Once the prototype was working we went about designing a board that would fit inside a pingpong ball. We knew this would be a daunting task as it would need to be a double sided board with components on both sides in order to fit inside.</p>
 <p>We were concerned that we would not be able to etch the board ourselves, specifically the tiny, closely spaced pads needed by the tiny accelerometer.</p>
 <p>We ended up printing transparencies and using the photoresist etch method to etch one side of the board, drill alignment holes, and then expose and etch the other side. Krux said it was --the
@@ -2554,7 +2554,7 @@ best board he had ever made-- a pretty good board despite the microscopic flaw i
 <p>The board mounted inside the pingpong ball. It finally works in the 11th hour, less than 24 hrs before the contest ends. Special thanks to PG who stayed up way past her bedtime to cheer us on and had the idea of putting tape onto the batteries where they overlapped the vias. She was also the control rod to prevent us from collapsing in a fit of rage and cursing.</p>
 <p>We had a variety of issues building the actual board. Since the board is hand etched we had to wire the vias. This created issues as our battery holders were right over the top of a few of them. Liberally applied tape kept everything from shorting out. We also had a tiny gap in one of the traces which was causing one of the 555 timers to not get the correct amount of power. This took a lot of time to track down. Both of these can be avoided if we have the boards made for us by a PCB manufacturer.</p>
 <p>Though this build had a lot of tricky stuff, most of it was related to cramming it into a tiny space. This is a really fun circuit to play with and can be easily built on a breadboard using dip components and a breakout board for the accelerometer.</p>
-<h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link"></a></h2>
+<h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../images/555%20ping%20pong%20balls%20-%20alt.sch">Schematic (Eagle)</a>  | Full schematic for use with eagle</li>
 <li><a href="../images/555pingpongballs-sch.pdf">Schematic (PDF)</a>  | Same schematic, but in pdf form</li>
