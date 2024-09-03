@@ -2232,18 +2232,18 @@ This sentence concludes the paragraph.</p>
 </tr>
 <tr>
 <td>subscript</td>
-<td><code>sub~script</code></td>
-<td>sub~script</td>
+<td><code>sub~script~</code></td>
+<td>sub<sub>script</sub></td>
 </tr>
 <tr>
 <td>superscript</td>
-<td><code>super^script</code></td>
-<td>super^script</td>
+<td><code>super^script^</code></td>
+<td>super<sup>script</sup></td>
 </tr>
 <tr>
 <td>keyboard</td>
-<td><code>++keyboard++</code></td>
-<td>++keyboard++</td>
+<td><code>++enter++</code></td>
+<td><span class="keys"><kbd class="key-enter">Enter</kbd></span></td>
 </tr>
 </tbody>
 </table>
@@ -2256,10 +2256,12 @@ markdown will automatically publish the correct number order even if the raw inp
 8. item 2
 3. item 3
 </code></pre></div></p>
-<p>result:
-1. item 1
-8. item 2
-3. item 3</p>
+<p>result:</p>
+<ol>
+<li>item 1</li>
+<li>item 2</li>
+<li>item 3</li>
+</ol>
 <h3 id="unordered-list">unordered list<a class="headerlink" href="#unordered-list" title="Permanent link">&para;</a></h3>
 <p>syntax:
 <div class="highlight"><pre><span></span><code>- an item
@@ -2267,11 +2269,13 @@ markdown will automatically publish the correct number order even if the raw inp
 - an other item
 - another other item
 </code></pre></div>
-result:
-- an item
-- another item
-- an other item
-- another other item</p>
+result:</p>
+<ul>
+<li>an item</li>
+<li>another item</li>
+<li>an other item</li>
+<li>another other item</li>
+</ul>
 <h2 id="mkdocs-material-extensions">mkdocs-material Extensions<a class="headerlink" href="#mkdocs-material-extensions" title="Permanent link">&para;</a></h2>
 <h3 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permanent link">&para;</a></h3>
 <h3 id="grids">Grids<a class="headerlink" href="#grids" title="Permanent link">&para;</a></h3>
