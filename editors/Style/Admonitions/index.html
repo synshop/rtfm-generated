@@ -2639,16 +2639,14 @@
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <p>Admonitions are created with <code>!!! &lt;admonition type&gt; "optional title"</code>.
 Any inlcuded lines in an admonition must begin with 4 leading spaces.</p>
-<p>``` markdown title="Admonition"</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is a note admonition.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">note admonition with title</p>
-<p>This is a note admonition.</p>
-</div>
-<p>```</p>
+<pre><code class="language-markdown">!!! note
+
+    This is a note admonition.
+
+!!! note &quot;note admonition with title&quot;
+
+    This is a note admonition.
+</code></pre>
 <div class="result">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
